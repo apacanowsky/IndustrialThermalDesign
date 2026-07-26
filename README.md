@@ -1,5 +1,7 @@
 # Industrial Thermal Design
 
+Powerblanket Engineering — Industrial Thermal Design Resources
+
 This will eventually be the parent site for industrialthermaldesign.com.
 
 Right now it contains one live resource:
