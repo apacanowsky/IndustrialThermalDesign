@@ -1,0 +1,37 @@
+﻿# Sample Line Guide — robots.txt
+# Everything is allowed by default. AI/LLM answer-engine crawlers are explicitly
+# listed as allowed on purpose — this site is written to be a useful, citable
+# engineering reference, not just search-indexed.
+
+User-agent: *
+Allow: /
+
+# AI answer-engine / assistant crawlers (explicitly allowed)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://www.industrialthermaldesign.com/heatedsamplelines/sitemap.xml

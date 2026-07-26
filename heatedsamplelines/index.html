@@ -1,0 +1,889 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Line Guide | Powerblanket Engineering</title>
+<meta name="description" content="Part of Industrial Thermal Design Resources. Written by Powerblanket's Engineering and Applications Team: how to understand, specify, and troubleshoot heated sample and transport lines, and scope a preliminary specification for quotation.">
+
+<!-- Canonical / crawling -->
+<!-- TODO: replace with the real production URL once the site is deployed -->
+<link rel="canonical" href="https://www.industrialthermaldesign.com/heatedsamplelines/">
+
+<!-- Social sharing (Open Graph / Twitter Card) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Industrial Thermal Design Resources">
+<meta property="og:title" content="Sample Line Guide | Powerblanket Engineering">
+<meta property="og:description" content="Written by Powerblanket's Engineering and Applications Team: how to understand, specify, and troubleshoot heated sample and transport lines, and scope a preliminary specification for quotation.">
+<meta property="og:image" content="https://www.industrialthermaldesign.com/heatedsamplelines/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://www.industrialthermaldesign.com/heatedsamplelines/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sample Line Guide | Powerblanket Engineering">
+<meta name="twitter:description" content="Written by Powerblanket's Engineering and Applications Team: how to understand, specify, and troubleshoot heated sample and transport lines, and scope a preliminary specification for quotation.">
+<meta name="twitter:image" content="https://www.industrialthermaldesign.com/heatedsamplelines/assets/og-image.jpg">
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#166534">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<!-- Structured data: Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Powerblanket",
+  "url": "https://www.industrialthermaldesign.com/heatedsamplelines/",
+  "logo": "https://www.industrialthermaldesign.com/heatedsamplelines/assets/pb-sample-line-guide-logo.png",
+  "telephone": "+1-801-506-0198",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "3130 South 1030 West, Suite 1",
+    "addressLocality": "Salt Lake City",
+    "addressRegion": "UT",
+    "postalCode": "84119",
+    "addressCountry": "US"
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Thermon"
+  },
+  "sameAs": ["https://www.powerblanket.com"]
+}
+</script>
+
+<!-- Structured data: FAQPage (must mirror the visible FAQ section content) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What temperature can a heated sample or transport line maintain?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most Powerblanket heated lines maintain sample temperature up to 400°F (200°C) with a tape heater (HSL1000-style construction), or up to 356°F (180°C) with a self-regulating or power-limiting cable (HSL2000-style construction). Exact ceiling depends on the tube, insulation, and jacket chosen." }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between HSL1000 and HSL2000?",
+      "acceptedAnswer": { "@type": "Answer", "text": "HSL2000 uses a self-regulating or power-limiting heat-trace cable, built via Powerblanket's small-batch manufacturing process in quantities as low as one and lengths from 2 to 140 ft. HSL1000 uses Powerblanket's own resistive tape heater technology, giving higher flexibility and a higher continuous-temperature ceiling than a self-regulating cable." }
+    },
+    {
+      "@type": "Question",
+      "name": "What tube material is best for CEMS, RATA, or mercury monitoring?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For trace-level or adsorption-sensitive sampling, inert-coated stainless steel (such as SilcoNert-coated 316 SS) is the standard choice — it resists adsorbing or reacting with trace-level compounds, which protects analytical accuracy. PFA and PTFE are also common where their chemical resistance and smooth bore fit the application." }
+    },
+    {
+      "@type": "Question",
+      "name": "How long can a heated sample line be?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Powerblanket builds heated sample and transport lines in quantities as low as one, in lengths from 2 ft up to 140 ft, depending on heater construction and power requirements." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the minimum bend radius for a heated line?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Typical minimum bend radius is around 4 in (100 mm), for both tape-heater and self-regulating/power-limiting cable constructions." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can heated sample lines be rated for hazardous (classified) locations?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Hazardous-location configurations are available with FM and CSA approvals (Class I/II, Divisions 1 and 2, and Zone 1/2 ratings depending on construction). Exact certification depends on the specific configuration and is confirmed during engineering review." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much power does a heated sample line need?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Typical watt densities run 5–20 W/ft, depending on tube size, insulation, and required temperature rise above ambient, following standard cylindrical-conduction heat-transfer principles." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Powerblanket the same company as Thermon?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Thermon acquired Powerblanket in 2022. Powerblanket is a Thermon company, and every heated line is still designed and manufactured at Powerblanket's facility in Salt Lake City, Utah." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- Analytics: Google Analytics 4 -->
+<!-- TODO: replace G-XXXXXXXXXX with a real GA4 Measurement ID before launch -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<header class="site-header">
+  <div class="container header-inner header-inner-minimal">
+    <a href="#configurator" class="btn btn-primary btn-sm">Scope Your System</a>
+  </div>
+</header>
+
+<!-- ENGINEERING BANNER -->
+<section class="engineering-banner">
+  <div class="container engineering-banner-inner">
+    <div class="engineering-banner-brand">
+      <img src="assets/pb-engineering-logo.png" alt="Powerblanket | Engineering" class="engineering-banner-logo">
+      <p class="engineering-banner-tagline">Industrial Thermal Design Resources</p>
+    </div>
+    <div class="engineering-banner-contact">
+      <div class="engineering-banner-contact-row">
+        <a href="https://www.powerblanket.com" target="_blank" rel="noopener">powerblanket.com</a>
+        <a href="tel:+18015060198">801.506.0198</a>
+        <a href="tel:+18556950832">855.695.0832 (toll-free)</a>
+      </div>
+      <span>3130 South 1030 West, Suite 1, Salt Lake City, UT 84119</span>
+    </div>
+  </div>
+</section>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slideshow" aria-hidden="true">
+    <div class="hero-slide" style="background-image:url('photos/hero/hero-1.jpg');"></div>
+    <div class="hero-slide" data-bg="photos/hero/hero-2.jpg" style="background-position: center 65%;"></div>
+    <div class="hero-slide" data-bg="photos/real-hero-lowangle.jpg"></div>
+    <div class="hero-slide" data-bg="photos/real-hero-corrugated-recede.jpg"></div>
+    <div class="hero-slide" data-bg="photos/hero/hero-5.jpg"></div>
+    <div class="hero-slide" data-bg="photos/hero/hero-6.jpg"></div>
+    <div class="hero-slide" data-bg="photos/hero/hero-7.jpg"></div>
+    <div class="hero-slide" data-bg="photos/hero/hero-8.jpg"></div>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="container hero-inner">
+    <span class="credibility-line">From Powerblanket's Engineering and Applications Team</span>
+    <span class="credibility-sub">Powerblanket is a Thermon company</span>
+    <h1>Specify Heated Sample &amp; Transport Lines With Confidence</h1>
+    <p class="lead">
+      Everything our engineers know about heated sample and transport lines, in one place —
+      how they work, what goes into building one, and how to scope a preliminary specification
+      before you ever request a quote.
+    </p>
+    <div class="hero-actions">
+      <a href="#configurator" class="btn btn-primary">Scope Your System</a>
+      <a href="#why" class="btn btn-outline">Explore the Engineering</a>
+    </div>
+    <p class="hero-actions-note">Takes about 5 minutes &middot; get real engineering numbers back, free &middot; no obligation</p>
+  </div>
+</section>
+
+<!-- ORIGIN STORY -->
+<section id="origin" class="section reveal">
+  <div class="container origin-grid">
+    <div class="origin-copy">
+      <p class="kicker">Why Two Product Lines Exist</p>
+      <h2>An Unmet Need, Then Two Ways to Solve It</h2>
+      <p>For years, customers asked Powerblanket to build heated hoses and transport lines. We didn't have a good
+        answer for them. We build custom heating solutions, but a long, flexible, field-deployed heated line is a
+        different engineering problem than a heating blanket.</p>
+      <p>That changed in 2022, when Thermon acquired Powerblanket. It gave us access to a wealth of proven heat-trace
+        technology and expertise — including Thermon's Tubing Bundle Group, which has spent years perfecting long-run
+        heated sample bundles and CEMS lines by combining heat trace, tubing, insulation, and an advanced extrusion
+        process. They do great work. But that process is built for long production runs, not the short,
+        one-off custom lines our customers were asking for.</p>
+      <p>That's where Powerblanket's own manufacturing process fit. We build thousands of one-off custom heaters a
+        year, and that process translates directly to small-batch heated lines. Using the heat-trace technology
+        Thermon provided, we developed a way to build heated sample and transport lines in quantities as low as one,
+        in lengths from 2 to 140 ft. That became <strong>HSL2000</strong>.</p>
+      <p>We then adapted our own core technology — resistive heat tape, the same heating-element family behind
+        Powerblanket's blankets — into the same product category, to reach higher flexibility and higher temperature
+        capability than a self-regulating cable can offer. That became <strong>HSL1000</strong>.</p>
+      <p>Since then we've delivered hundreds of custom heated line designs across RATA testing, chemical processing,
+        chip manufacturing, automotive manufacturing, and robotics — and built real expertise in thermal modeling,
+        material selection, and advanced manufacturing along the way.</p>
+    </div>
+    <div class="origin-timeline">
+      <div class="origin-step">
+        <span class="origin-step-num">01</span>
+        <p><strong>An unmet need.</strong> Customers wanted heated hoses and transport lines. Powerblanket didn't yet
+          have the right process to build them.</p>
+      </div>
+      <div class="origin-step">
+        <span class="origin-step-num">02</span>
+        <p><strong>2022 — Thermon acquires Powerblanket.</strong> Access to proven heat-trace technology, including
+          Thermon's Tubing Bundle Group and its long-run extrusion process.</p>
+      </div>
+      <div class="origin-step">
+        <span class="origin-step-num">03</span>
+        <p><strong>HSL2000 is born.</strong> Thermon's heat-trace technology, built via Powerblanket's small-batch
+          process — quantities as low as one, lengths from 2 to 140 ft.</p>
+      </div>
+      <div class="origin-step">
+        <span class="origin-step-num">04</span>
+        <p><strong>HSL1000 follows.</strong> Powerblanket's own resistive heat tape, applied to the same category for
+          higher flexibility and higher temperature.</p>
+      </div>
+      <div class="origin-step">
+        <span class="origin-step-num">05</span>
+        <p><strong>100s of designs since.</strong> RATA testing, chemical processing, chip manufacturing, automotive
+          manufacturing, robotics — and deep expertise in thermal modeling and materials.</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <figure class="origin-photo">
+      <img loading="lazy" decoding="async" src="photos/real-thermon-boot-caliper.jpg" alt="Caliper measuring a sealed end boot embossed with the Thermon logo on a heated sample line">
+      <figcaption>A Thermon-branded end seal on a Powerblanket-built line, checked against spec — the heat-trace
+        technology and the small-batch build process, in one part.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy" class="section section-alt reveal">
+  <div class="container">
+    <h2>More Than a Manufacturer</h2>
+    <div class="philosophy-copy">
+      <p>One thing we've learned over the years is that most customers aren't really looking for a heated hose.</p>
+      <p class="philosophy-beat">They're trying to solve a problem.</p>
+      <p>Maybe it's condensation in a sample line. Maybe a chemical solidifies before reaching the process. Maybe a test instrument needs a stable temperature to produce reliable data. Maybe a material is simply too viscous to pump without heat.</p>
+      <p class="philosophy-beat">The heated line is only part of the solution.</p>
+      <p class="philosophy-beat">That's why this website exists.</p>
+      <p>Our goal is to share what we've learned about heat transfer, material selection, tubing, insulation, controls, and manufacturing so engineers can make informed decisions&mdash;even before they contact us. Whether you're comparing heating technologies, trying to determine the required watt density, selecting tubing materials, or wondering if your application is even feasible, we hope you'll find useful answers here.</p>
+      <p class="philosophy-beat">And when you don't, we'd love to help.</p>
+      <p>Every heated line we build is designed and manufactured in Salt Lake City, Utah, where our engineering and production teams work side by side. That means you can speak directly with the engineers developing your solution, receive rapid feedback on new concepts, and move from idea to prototype quickly.</p>
+      <p class="philosophy-beat">Some companies are built for high-volume production.</p>
+      <p class="philosophy-beat">We're built to solve challenging industrial heating problems.</p>
+      <p>Whether you need a single prototype, a custom assembly, or a production run, our team enjoys tackling the applications that don't fit neatly into a catalog.</p>
+    </div>
+    <figure class="philosophy-photo">
+      <img loading="lazy" decoding="async" src="photos/real-facility-banner-bench.jpg" alt="Heat-trace cable and wire leads on a workbench inside the Powerblanket facility">
+      <figcaption>Inside the Salt Lake City facility where every line is built.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section id="why" class="section reveal">
+  <div class="container split">
+    <div class="split-copy">
+      <p class="kicker">Why It Matters</p>
+      <h2>What Goes Wrong Without Heat</h2>
+      <ul class="risk-list">
+        <li><strong>Condensation &amp; dew point</strong> — an analytical sample falls out of phase before it ever reaches the analyzer.</li>
+        <li><strong>Viscosity &amp; solidification</strong> — a transported material thickens, gels, or sets up before it reaches its destination.</li>
+        <li><strong>Adsorption &amp; contamination</strong> — trace analytes, mercury included, are lost to an uncoated tube wall in transit.</li>
+        <li><strong>Freezing &amp; blockage</strong> — an unheated run outdoors stops flow entirely, sample or material alike.</li>
+      </ul>
+    </div>
+    <div class="split-copy">
+      <p class="kicker">The Fix</p>
+      <h2>Two Jobs, One Engineering Discipline</h2>
+      <p>
+        A heated <strong>sample line</strong> holds an analytical sample above its dew point from tap
+        to analyzer, so it arrives representative of the process — not whatever it became along the way.
+      </p>
+      <p>
+        A heated <strong>transport line</strong> holds a transferred material — adhesives, resins,
+        heavy oils — within its workable temperature range so it arrives ready to use, not
+        congealed in the hose.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ANATOMY -->
+<section id="anatomy" class="section section-alt reveal">
+  <div class="container">
+    <p class="kicker">Anatomy</p>
+    <h2>What's Inside a Heated Line</h2>
+    <p class="section-intro">Hover or tap a layer to see what it does.</p>
+
+    <div class="anatomy-grid">
+      <div class="cutaway-wrap">
+        <svg class="cutaway" viewBox="0 0 400 400" role="img" aria-labelledby="cutawayTitle">
+          <title id="cutawayTitle">Cross-section of a heated sample or transport line</title>
+          <g class="cutaway-layer" data-layer="jacket" tabindex="0" role="button" aria-label="Outer protective jacket" data-caption="Outer protective jacket — shields the bundle from abrasion, UV, and weather.">
+            <circle cx="200" cy="200" r="170" fill="#20241f"/>
+          </g>
+          <g class="cutaway-layer" data-layer="insulation" tabindex="0" role="button" aria-label="Insulation" data-caption="Insulation — holds generated heat in and buffers against ambient swings.">
+            <circle cx="200" cy="200" r="150" fill="#eef2ee"/>
+          </g>
+          <g class="cutaway-layer" data-layer="heater" tabindex="0" role="button" aria-label="Heating element" data-caption="Heating element — spirals the tube or hose to hold temperature end to end." fill="#e8823c">
+            <circle cx="325" cy="200" r="8"/><circle cx="308.25" cy="262.5" r="8"/>
+            <circle cx="262.5" cy="308.25" r="8"/><circle cx="200" cy="325" r="8"/>
+            <circle cx="137.5" cy="308.25" r="8"/><circle cx="91.75" cy="262.5" r="8"/>
+            <circle cx="75" cy="200" r="8"/><circle cx="91.75" cy="137.5" r="8"/>
+            <circle cx="137.5" cy="91.75" r="8"/><circle cx="200" cy="75" r="8"/>
+            <circle cx="262.5" cy="91.75" r="8"/><circle cx="308.25" cy="137.5" r="8"/>
+          </g>
+          <circle cx="200" cy="200" r="100" fill="#ffffff"/>
+          <g class="cutaway-layer" data-layer="tubes" tabindex="0" role="button" aria-label="Process, calibration, purge, return, or transfer tube" data-caption="Process/transfer tube, plus optional calibration, purge, or return lines.">
+            <circle cx="185" cy="185" r="17" fill="#16a34a" stroke="#0f5c28" stroke-width="2"/>
+            <circle cx="218" cy="185" r="14" fill="#15803d" stroke="#0f5c28" stroke-width="2"/>
+            <circle cx="185" cy="218" r="12" fill="#f4b942" stroke="#a97a1e" stroke-width="2"/>
+            <circle cx="215" cy="216" r="11" fill="#9ca3af" stroke="#6b7280" stroke-width="2"/>
+          </g>
+          <g class="cutaway-layer" data-layer="sensor" tabindex="0" role="button" aria-label="Temperature sensor" data-caption="Temperature sensor — a thermocouple or RTD riding alongside the heater, feeding the controller.">
+            <circle cx="200" cy="240" r="6" fill="#fff" stroke="#4b5563" stroke-width="3"/>
+          </g>
+        </svg>
+        <p class="diagram-caption" data-default="Hover a layer, or the list below">Hover a layer, or the list below</p>
+        <ul class="diagram-legend">
+          <li data-layer="jacket"><span class="swatch" style="background:#20241f"></span>Outer protective jacket</li>
+          <li data-layer="insulation"><span class="swatch" style="background:#eef2ee;border:1px solid #cbd5cf"></span>Insulation</li>
+          <li data-layer="heater"><span class="swatch" style="background:#e8823c"></span>Heating element</li>
+          <li data-layer="tubes"><span class="swatch" style="background:#16a34a"></span>Process / calibration / purge / return / transfer tube(s)</li>
+          <li data-layer="sensor"><span class="swatch" style="background:#fff;border:2px solid #4b5563"></span>Temperature sensor</li>
+        </ul>
+      </div>
+
+      <div class="anatomy-strip-wrap">
+        <p class="anatomy-strip-label">End-to-end, a bundle also includes:</p>
+        <div class="anatomy-strip">
+          <div class="strip-seg strip-unheated">Unheated lead</div>
+          <div class="strip-seg strip-fitting">Fitting</div>
+          <div class="strip-seg strip-heated">Heated section<span>temperature sensor inline</span></div>
+          <div class="strip-seg strip-fitting">Fitting</div>
+          <div class="strip-seg strip-unheated">Unheated lead</div>
+        </div>
+        <div class="temp-class-note">
+          <p><strong>Two heater constructions, one shared temperature ceiling:</strong></p>
+          <ul>
+            <li><strong>Tape heater</strong> (alloy heater wire on Polyimide/Silicone tape) — custom watt density, 5–20 W/ft.</li>
+            <li><strong>Self-regulating or power-limiting cable</strong> — fixed watt-density families, robust freeze protection, available rated for hazardous (classified) locations.</li>
+          </ul>
+          <p>Both typically maintain sample temperature up to <strong>400°F (200°C)</strong>, at 120/208/240/277 VAC, with a minimum bend radius around 4 in (100 mm).</p>
+        </div>
+        <p class="disclaimer">
+          Exact lengths, materials, and certifications vary by configuration — that's what the
+          engineering interview below is for.
+        </p>
+      </div>
+    </div>
+
+    <div class="construction-compare">
+      <div class="construction-card">
+        <img loading="lazy" decoding="async" src="photos/hsl1000-diagram.png" alt="HSL1000 exploded construction diagram: process tube, alloy heater wire on polyimide silicone tape, meta aramid felt insulation, power leads, temperature sensor, outer jacket, end seals, optional end connections">
+        <h3>HSL1000 — Tape Heater</h3>
+        <p>1. Process tube &middot; 2. Alloy heater wire on polyimide/silicone tape &middot; 3. Meta-aramid felt insulation &middot; 4. Power leads &middot; 5. Temperature sensor &middot; 6. Outer jacket &middot; 7. End seals &middot; 8. Optional end connections</p>
+      </div>
+      <div class="construction-card">
+        <img loading="lazy" decoding="async" src="photos/hsl2000-diagram.png" alt="HSL2000 exploded construction diagram: process tube, self-regulating or power-limiting heat cable, meta aramid felt insulation, power leads, optional temperature sensor, outer jacket, end seals, optional end connections">
+        <h3>HSL2000 — Self-Regulating / Power-Limiting Cable</h3>
+        <p>1. Process tube &middot; 2. Self-regulating or power-limiting cable &middot; 3. Meta-aramid felt insulation &middot; 4. Power leads &middot; 5. Optional temperature sensor &middot; 6. Outer jacket &middot; 7. End seals &middot; 8. Optional end connections</p>
+      </div>
+    </div>
+
+    <div class="anatomy-photo-row">
+      <figure>
+        <img loading="lazy" decoding="async" src="photos/real-tube-mid-wrap.jpg" alt="A process tube clamped mid-wrap with felt insulation applied and several colored signal wires fanning out">
+        <figcaption>A tube mid-build — felt insulation applied, signal wires fanned out for the next step.</figcaption>
+      </figure>
+      <figure>
+        <img loading="lazy" decoding="async" src="photos/real-felt-boot-overbraid.jpg" alt="Meta-aramid felt insulation, a gold heat-shrink boot, and the transition to an overbraid jacket on a finished line">
+        <figcaption>Felt insulation, a heat-shrink boot, and the transition to an overbraid jacket.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ENGINEERING GUIDE -->
+<section id="engineering" class="section section-alt reveal">
+  <div class="container">
+    <p class="kicker">The Engineering Behind It</p>
+    <h2>Choosing a Configuration: What Changes, and Why</h2>
+    <p class="section-intro">
+      Every heated line starts from the same short list of decisions: how you'll heat it, what the tube is made
+      of, how it's insulated, and what protects it on the outside. Get those four right for your process
+      conditions and the rest — dimensions, controls, terminations — falls into place during the engineering
+      interview below. Here's what actually changes from one material or construction to the next, and why we'd
+      recommend one over another.
+    </p>
+
+    <div class="engineering-block">
+      <h3>Two Ways to Heat a Line</h3>
+      <div class="heater-compare">
+        <div class="heater-card">
+          <h4>Tape Heater <span class="heater-tag">Custom watt density</span></h4>
+          <p class="heater-spec"><strong>Up to 500°F</strong> exposure &middot; <strong>400°F (204°C)</strong> continuous maintain &middot; 5–20 W/ft, built to your number</p>
+          <p>An alloy heater wire wound on a polyimide/silicone tape, custom-built to the exact watt density your
+            process needs rather than selected from a fixed step.</p>
+          <p class="heater-label heater-label-good">Benefits</p>
+          <ul>
+            <li>Watt density tuned to your exact application, not rounded to the nearest standard step</li>
+            <li>The highest continuous-temperature ceiling of the two heater families</li>
+            <li>Well suited to small-batch and one-off builds — Powerblanket's core strength</li>
+          </ul>
+          <p class="heater-label heater-label-watch">Watch-outs</p>
+          <ul>
+            <li>Being custom-built, it's engineered to order rather than pulled from stock</li>
+            <li>Bundles of two or more tubes need engineering review — the wattage math gets less certain</li>
+          </ul>
+        </div>
+        <div class="heater-card">
+          <h4>Self-Regulating / Power-Limiting Cable <span class="heater-tag">Fixed watt-density steps</span></h4>
+          <p class="heater-spec"><strong>Up to 464°F</strong> exposure &middot; <strong>356°F (180°C)</strong> continuous maintain &middot; BSX, HTSX, VSX-HT, HPT, or USX families, 3–20 W/ft steps</p>
+          <p>A heat-trace cable that self-limits its own output as it warms, selected from a proven family of fixed
+            watt-density steps.</p>
+          <p class="heater-label heater-label-good">Benefits</p>
+          <ul>
+            <li>Self-limiting behavior resists burnout at a pinch point or a bundled crossing</li>
+            <li>Straightforward, repeatable construction with a well-proven track record</li>
+            <li>Available in constructions rated for hazardous (classified) locations</li>
+          </ul>
+          <p class="heater-label heater-label-watch">Watch-outs</p>
+          <ul>
+            <li>Watt density comes from fixed steps, not tuned to your exact target</li>
+            <li>Continuous maintain ceiling runs about 45°F lower than a tape heater</li>
+          </ul>
+        </div>
+      </div>
+      <figure class="engineering-photo">
+        <img loading="lazy" decoding="async" src="photos/real-machine-unboxed.jpg" alt="The heater-tape wrapping machine used to wind alloy heater wire onto a process tube">
+        <figcaption>The wrapping machine that winds heater tape onto the tube, before the jacket goes on.</figcaption>
+      </figure>
+    </div>
+
+    <div class="engineering-block">
+      <h3>Choosing a Tube Material</h3>
+      <p>The tube carries your sample or transported media, so chemical compatibility usually decides this choice
+        before temperature or cost ever enters the conversation.</p>
+      <div class="table-scroll">
+        <table class="material-table">
+          <thead>
+            <tr><th>Material</th><th>Max Continuous Temp</th><th>Chemical Resistance</th><th>Relative Cost/ft</th><th>Best Fit / Watch-outs</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PFA</td><td>500°F (260°C)</td><td>Resists nearly all acids, bases, and solvents — among the most chemically inert plastics available</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Smooth bore resists adsorption; a common RATA/CEMS choice</td></tr>
+            <tr><td>FEP</td><td>~400°F (205°C)</td><td>Excellent broad chemical resistance, very close to PFA</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Similar to PFA at a slightly lower temperature ceiling</td></tr>
+            <tr><td>PTFE</td><td>500°F (260°C)</td><td>Outstanding chemical inertness — the benchmark other tube materials are compared against</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Same ceiling as PFA; a common substitute where PFA isn't specifically called for</td></tr>
+            <tr><td>Nylon</td><td>~200°F (93°C)</td><td>Poor resistance to strong acids and many solvents; absorbs moisture over time</td><td><span class="cost-tier" data-tier="1">$</span></td><td>Lowest-cost tube option; only for low-temperature, non-aggressive transfer</td></tr>
+            <tr><td>Polyethylene</td><td>~150°F (66°C)</td><td>Good resistance to many bases; weak against hydrocarbons and oxidizers</td><td><span class="cost-tier" data-tier="1">$</span></td><td>Lowest temperature ceiling in the lineup; general-purpose, cost-sensitive builds only</td></tr>
+            <tr><td>316 / 304 Stainless Steel <span class="table-note">(seamless or welded)</span></td><td>Set by the heater/insulation, not the tube</td><td>Excellent resistance to most process chemistries; 316's molybdenum content beats 304 on chloride/pitting resistance</td><td><span class="cost-tier" data-tier="1">$</span>–<span class="cost-tier" data-tier="2">$$</span></td><td>Seamless costs meaningfully more than welded at the same size; the default whenever plastic tubing isn't chemically compatible</td></tr>
+            <tr><td>SilcoNert&reg;-Coated 316 SS</td><td>Same as bare 316 SS</td><td>Same base metal, plus a deactivated internal surface that resists adsorbing or reacting with trace-level compounds</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>A substantial premium over bare stainless for the coating process; standard for mercury and other trace-level RATA work</td></tr>
+            <tr><td>Copper</td><td>Moderate</td><td>Reacts with many process chemistries and ammoniacal compounds — not a broad-resistance choice</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Good thermal conductivity; largely legacy or simple-transfer use today</td></tr>
+            <tr><td>Monel</td><td>High</td><td>Outstanding resistance to hydrofluoric acid and chloride / seawater environments</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Specialty alloy for specific corrosive services</td></tr>
+            <tr><td>Titanium</td><td>High</td><td>Outstanding resistance to oxidizing chlorides; very light weight</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Specialty alloy for weight-sensitive or highly oxidizing services</td></tr>
+            <tr><td>Alloy C276 <span class="table-note">(Hastelloy)</span></td><td>High</td><td>One of the broadest chemical-resistance profiles available, including wet chlorine and hot contaminated acids</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Premium alloy reserved for the most aggressive process chemistries</td></tr>
+            <tr><td>Alloy 825</td><td>High</td><td>Strong resistance to sulfuric/phosphoric acid and chloride stress-corrosion cracking</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Specialty alloy</td></tr>
+            <tr><td>Alloy 20</td><td>High</td><td>Developed specifically for sulfuric acid service</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Specialty alloy</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="engineering-photo-row">
+        <figure class="engineering-photo">
+          <img loading="lazy" decoding="async" src="photos/real-fitting-clear-tube-macro.jpg" alt="Macro shot of a stainless compression fitting joining a clear tube to a metal tube">
+          <figcaption>A compression fitting joining tube sections.</figcaption>
+        </figure>
+        <figure class="engineering-photo">
+          <img loading="lazy" decoding="async" src="photos/real-caliper-spiral-macro.jpg" alt="Digital caliper measuring the outside diameter of a spiral-taped tube during quality control">
+          <figcaption>Checking finished OD against spec during QC.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="engineering-block">
+      <h3>Insulation</h3>
+      <div class="table-scroll">
+        <table class="material-table">
+          <thead><tr><th>Type</th><th>Max Temp</th><th>Relative Cost/ft</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Meta-Aramid / Nomex Felt</td><td>650°F (343°C)</td><td><span class="cost-tier" data-tier="1">$</span></td><td>The widest headroom above the heater's own ceiling; flexible; the standard choice on most builds</td></tr>
+            <tr><td>Silicone Insulation</td><td>Comparable high-temperature range to Nomex</td><td><span class="cost-tier" data-tier="3">$$$</span></td><td>Added flexibility and better moisture resistance than felt, at a higher relative cost</td></tr>
+            <tr><td>Neoprene</td><td>250°F (121°C)</td><td><span class="cost-tier" data-tier="3">$$$</span></td><td>Lower temperature ceiling than felt, but valued for oil, ozone, and weather resistance outdoors</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="engineering-block">
+      <h3>How Much Power Does It Take?</h3>
+      <p>
+        Power density and temperature rise trade off directly through the insulation you choose. This chart
+        solves the standard cylindrical-conduction heat-transfer equation live as you change the inputs — pick an
+        insulation type, thickness, and tube size, and watch the curve update.
+      </p>
+      <div class="power-chart-controls">
+        <div class="config-field">
+          <label for="chartInsulation">Insulation type</label>
+          <select id="chartInsulation">
+            <option value="Fiberglass" selected>Fiberglass</option>
+            <option value="Mineral Wool">Mineral Wool</option>
+            <option value="Calcium Silicate">Calcium Silicate</option>
+            <option value="Cellular Glass">Cellular Glass</option>
+            <option value="Expanded Perlite">Expanded Perlite</option>
+            <option value="Foamed Elastomer">Foamed Elastomer</option>
+            <option value="Polyisocyanurate">Polyisocyanurate</option>
+            <option value="Polyurethane">Polyurethane</option>
+            <option value="Polystyrene">Polystyrene</option>
+          </select>
+        </div>
+        <div class="config-field">
+          <label for="chartThickness">Insulation thickness</label>
+          <select id="chartThickness">
+            <option value="0.25" selected>1 wrap (0.25 in)</option>
+            <option value="0.5">2 wraps (0.5 in)</option>
+          </select>
+        </div>
+        <div class="config-field">
+          <label for="chartTubeOD">Tube outside diameter</label>
+          <select id="chartTubeOD">
+            <option value="0.125">1/8"</option>
+            <option value="0.25">1/4"</option>
+            <option value="0.375" selected>3/8"</option>
+            <option value="0.5">1/2"</option>
+            <option value="0.625">5/8"</option>
+            <option value="0.75">3/4"</option>
+            <option value="1">1"</option>
+          </select>
+        </div>
+      </div>
+      <div class="power-chart-wrap">
+        <svg id="powerChartSvg" viewBox="0 0 680 380" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="powerChartTitle">
+          <title id="powerChartTitle">Required power density versus temperature rise</title>
+        </svg>
+        <div id="powerChartTooltip" class="power-chart-tooltip" hidden></div>
+      </div>
+      <p class="disclaimer">
+        Calculated from the standard cylindrical-conduction heat-transfer equation for insulated pipe (the same
+        method taught in professional heat-tracing design courses), using published thermal-conductivity values
+        for each insulation type shown. Assumes a thin outer jacket (negligible added resistance) and no extra
+        safety factor. Powerblanket's own Meta-Aramid/Nomex felt insulation performs in the same general range as
+        the fiberglass/mineral-wool class shown here — an exact published k-value for it isn't publicly available.
+        Real-world performance also depends on wind, jacket emissivity, and installation; final sizing is
+        confirmed during engineering review.
+      </p>
+    </div>
+
+    <div class="engineering-block">
+      <h3>Outer Jacket</h3>
+      <div class="table-scroll">
+        <table class="material-table">
+          <thead><tr><th>Type</th><th>Water Resistant</th><th>Relative Cost/ft</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Polyolefin Heat-Shrink</td><td>Yes</td><td><span class="cost-tier" data-tier="1">$</span></td><td>Lightweight, low-profile, lowest cost; indoor or lightly-exposed runs</td></tr>
+            <tr><td>Abrasion-Resistant Sleeving</td><td>No</td><td><span class="cost-tier" data-tier="1">$</span></td><td>Tough mechanical protection but not sealed against moisture — indoor/dry routing only</td></tr>
+            <tr><td>Corrugated Polyethylene / Polypropylene</td><td>Yes</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Flexible and weather-sealed; the common general-purpose outdoor choice</td></tr>
+            <tr><td>Thermoplastic Rubber, Wire-Reinforced</td><td>Yes</td><td><span class="cost-tier" data-tier="3">$$$</span></td><td>Adds crush/kink resistance for high-traffic or heavy mechanical environments</td></tr>
+            <tr><td>Polyamide 6 Tubing</td><td>Yes</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Premium abrasion and chemical resistance; suited to continuous-duty routing like robotics and automotive lines</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="engineering-photo-row">
+        <figure class="engineering-photo">
+          <img loading="lazy" decoding="async" src="photos/process-overbraid-macro.jpg" alt="Macro shot of a stainless overbraid jacket on two finished heated lines">
+          <figcaption>A braided overbraid jacket on two finished lines.</figcaption>
+        </figure>
+        <figure class="engineering-photo">
+          <img loading="lazy" decoding="async" src="photos/real-boot-braid-compare.jpg" alt="Side-by-side comparison of a Thermon-branded boot with braided sleeve and a dual-port connector with corrugated jacket">
+          <figcaption>Two jacket and termination combinations, side by side.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      Cost tiers ($ to $$$$) show relative cost per foot among the options we build with — not a quote. Exact
+      pricing depends on your full configuration and is provided after engineering review.
+    </p>
+  </div>
+</section>
+
+<!-- SHOP FLOOR GALLERY -->
+<section id="gallery" class="section reveal">
+  <div class="container">
+    <p class="kicker">From Our Shop Floor</p>
+    <h2>Real Builds, Real Process</h2>
+    <div class="shop-video">
+      <video id="processVideo" class="autoplay-on-scroll" controls muted loop preload="metadata" poster="photos/process-video-poster.jpg" playsinline>
+        <source src="videos/heater-wrapping-machine.mp4" type="video/mp4">
+      </video>
+      <p class="shop-video-caption">Watch: feeding a process tube through our heater-wrapping machine.</p>
+    </div>
+    <div class="shop-gallery">
+      <figure><img loading="lazy" decoding="async" src="photos/real-machine-unboxed.jpg" alt="The full heater-tape wrapping machine on the shop floor"><figcaption>The wrapping machine seen in the video above.</figcaption></figure>
+      <figure><img loading="lazy" decoding="async" src="photos/process-finished-topdown.jpg" alt="Finished heated line with braided sleeve, thermocouple, and power plug"><figcaption>Braided sleeve, thermocouple, and power plug, ready for testing.</figcaption></figure>
+      <figure><img loading="lazy" decoding="async" src="photos/process-two-lines-bench.jpg" alt="Two completed heated lines staged on a workbench"><figcaption>Two completed lines staged on the bench.</figcaption></figure>
+      <figure><img loading="lazy" decoding="async" src="photos/real-corrugated-connector-leads.jpg" alt="Corrugated jacket transitioning to a connector with power leads exiting"><figcaption>A corrugated-to-connector termination, leads exiting.</figcaption></figure>
+      <figure><img loading="lazy" decoding="async" src="photos/real-corrugated-clamp-macro.jpg" alt="Corrugated boot secured with a stainless clamp collar"><figcaption>A corrugated boot secured with a clamp collar.</figcaption></figure>
+      <figure><img loading="lazy" decoding="async" src="photos/real-shop-wide-three-lines.jpg" alt="A wide shop-floor shot of three finished heated lines with wires fanning out"><figcaption>Three finished lines, wires fanned out for inspection.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section id="applications" class="section reveal">
+  <div class="container">
+    <p class="kicker">Application Types</p>
+    <h2>Where These Lines Do the Work</h2>
+    <div class="app-grid">
+      <div class="app-card">
+        <img loading="lazy" decoding="async" src="photos/real-four-lines-bench.jpg" alt="Four finished heated sample lines laid parallel on a workbench">
+        <div class="app-card-body">
+          <h3>CEMS</h3>
+          <p>Fixed continuous emissions monitoring — long permanent runs, held above dew point end to end.</p>
+          <button class="btn btn-outline-dark configure-btn" data-app="cems">Configure This Type</button>
+        </div>
+      </div>
+      <div class="app-card">
+        <img loading="lazy" decoding="async" src="photos/real-glossy-boot-braid.jpg" alt="Glossy termination boot and braided sleeve on a portable test line">
+        <div class="app-card-body">
+          <h3>RATA / Field Testing</h3>
+          <p>Portable relative accuracy test audits — shorter runs, inert-coated tubing for trace-level accuracy.</p>
+          <button class="btn btn-outline-dark configure-btn" data-app="rata">Configure This Type</button>
+        </div>
+      </div>
+      <div class="app-card">
+        <img loading="lazy" decoding="async" src="photos/real-line-controller-readout.jpg" alt="Heated sample line wired to a temperature controller showing a live readout">
+        <div class="app-card-body">
+          <h3>Process Gas Analysis</h3>
+          <p>Ongoing process analyzer sampling — matched to your process conditions and control needs.</p>
+          <button class="btn btn-outline-dark configure-btn" data-app="process">Configure This Type</button>
+        </div>
+      </div>
+      <div class="app-card">
+        <img loading="lazy" decoding="async" src="photos/real-line-carpet-natural.jpg" alt="Complete heated transport line assembly in natural light">
+        <div class="app-card-body">
+          <h3>Heated Transport &amp; Transfer</h3>
+          <p>Adhesives, resins, and heavy oils that need to stay within a workable temperature range in transit.</p>
+          <button class="btn btn-outline-dark configure-btn" data-app="transfer">Configure This Type</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section id="case-study" class="section section-alt reveal">
+  <div class="container">
+    <p class="kicker">A Real Build</p>
+    <h2>Inside a 90 ft Multi-Tube Sample Bundle</h2>
+    <p class="section-intro">
+      One real specification pulled from Powerblanket's own engineering files, generalized here to show what a
+      finished configuration actually looks like end to end — not a template to copy, just a real example.
+    </p>
+    <div class="case-study-grid">
+      <dl class="case-study-specs">
+        <div class="review-row"><dt>Configuration</dt><dd>3 tubes — 1 heated, 2 unheated</dd></div>
+        <div class="review-row"><dt>Heated tube</dt><dd>3/8" PFA</dd></div>
+        <div class="review-row"><dt>Unheated tubes</dt><dd>2 &times; 1/4" PFA</dd></div>
+        <div class="review-row"><dt>Heater construction</dt><dd>Tape heater, ~12.8 W/ft</dd></div>
+        <div class="review-row"><dt>Total power</dt><dd>~1,780 W at 120 VAC</dd></div>
+        <div class="review-row"><dt>Temperature sensing</dt><dd>Type K thermocouple</dd></div>
+        <div class="review-row"><dt>Auxiliary conductors</dt><dd>8 signal/messenger wires bundled alongside</dd></div>
+        <div class="review-row"><dt>Insulation</dt><dd>Meta-Aramid felt</dd></div>
+        <div class="review-row"><dt>Outer jacket</dt><dd>Corrugated polyethylene</dd></div>
+        <div class="review-row"><dt>Termination</dt><dd>Sealed end boots, flying leads</dd></div>
+      </dl>
+      <p class="case-study-note">
+        This is a real, as-built Powerblanket specification, generalized to show construction patterns — exact
+        vendor parts, adhesives, and costs are never shared publicly. Every build starts from your own process
+        conditions in the engineering interview below.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" class="section section-alt reveal">
+  <div class="container">
+    <p class="kicker">Rounding It Out</p>
+    <h2>Connections, Controls &amp; Certifications</h2>
+    <div class="capability-grid capability-grid-narrow">
+      <div class="capability-group">
+        <h3>Connections &amp; Terminations</h3>
+        <ul>
+          <li>Compression fittings, ferrules, JIC, or cam &amp; groove</li>
+          <li>NEMA, Leviton, Molex, or Amphenol power plugs</li>
+          <li>Flying leads</li>
+          <li>Strain relief</li>
+          <li>Custom end configurations</li>
+        </ul>
+      </div>
+      <div class="capability-group">
+        <h3>Sensing &amp; Control</h3>
+        <ul>
+          <li>GHT2002J, ExoTouch, or PID controllers</li>
+          <li>RTD, Thermistor, Type K, or Type J sensing, permanently installed</li>
+          <li>Alarms, monitoring, and data logging where applicable</li>
+        </ul>
+      </div>
+    </div>
+    <p class="disclaimer" style="margin-top:24px;">
+      Hazardous-location configurations are available with FM and CSA approvals (Class I/II, Divisions 1 &amp; 2,
+      and Zone 1/2 ratings depending on construction) — exact certification depends on your specific configuration
+      and is confirmed during engineering review.
+    </p>
+  </div>
+</section>
+
+<!-- CONFIGURATOR: THE ENGINEERING INTERVIEW -->
+<section id="configurator" class="section section-configurator reveal">
+  <div class="container">
+    <p class="kicker kicker-on-light">The Engineering Interview</p>
+    <h2>Let's Design Your Heated Line — Together</h2>
+    <p class="section-intro">
+      Answer what you know about your process. We'll adapt the questions as we go, and choose
+      "Powerblanket to recommend" for anything you don't. In return, you'll get a preliminary
+      temperature rating, relative cost tier, and power requirements — free, before you ever
+      request a quote.
+    </p>
+    <div class="configurator-steps-preview">
+      <div class="config-preview-step">
+        <span class="config-preview-num">1</span>
+        <p><strong>Tell us the problem</strong><br>5–10 minutes, answer what you know</p>
+      </div>
+      <div class="config-preview-arrow">&rarr;</div>
+      <div class="config-preview-step">
+        <span class="config-preview-num">2</span>
+        <p><strong>Get real numbers back</strong><br>Temperature, cost tier, power — instantly</p>
+      </div>
+      <div class="config-preview-arrow">&rarr;</div>
+      <div class="config-preview-step">
+        <span class="config-preview-num">3</span>
+        <p><strong>Submit for a full quote</strong><br>No obligation, ever</p>
+      </div>
+    </div>
+
+    <div class="configurator-shell">
+      <div class="configurator-progress">
+        <div class="configurator-progress-bar"><div class="configurator-progress-fill" id="configProgressFill"></div></div>
+        <p class="configurator-progress-label" id="configProgressLabel">Step 1 of 9 — Application</p>
+      </div>
+
+      <div id="configSummaryStrip" class="config-summary-strip" hidden></div>
+
+      <div id="configStepContainer" class="configurator-step"></div>
+
+      <div class="configurator-nav">
+        <button type="button" class="btn btn-outline-dark" id="configBackBtn">Back</button>
+        <button type="button" class="btn btn-primary" id="configNextBtn">Next</button>
+      </div>
+    </div>
+
+    <p class="section-cta-inline">
+      Not sure where to begin? <a href="#contact">Talk to the engineering team</a> instead —
+      no pressure, no obligation.
+    </p>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources" class="section reveal">
+  <div class="container">
+    <p class="kicker">Engineering Resources</p>
+    <h2>Go Deeper</h2>
+    <div class="resource-list">
+      <a href="downloads/HSL1000-Product-Specifications.pdf" class="resource-link">HSL1000 Product Specifications (PDF) <span class="resource-tag">Download</span></a>
+      <a href="downloads/HSL2000-Product-Specifications.pdf" class="resource-link">HSL2000 Product Specifications (PDF) <span class="resource-tag">Download</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section section-alt reveal">
+  <div class="container">
+    <p class="kicker">Common Questions</p>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What temperature can a heated sample or transport line maintain?</summary>
+        <p>Most Powerblanket heated lines maintain sample temperature up to 400°F (200°C) with a tape heater
+          (HSL1000-style construction), or up to 356°F (180°C) with a self-regulating or power-limiting cable
+          (HSL2000-style construction). Exact ceiling depends on the tube, insulation, and jacket chosen.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What's the difference between HSL1000 and HSL2000?</summary>
+        <p>HSL2000 uses a self-regulating or power-limiting heat-trace cable — heat-trace technology Thermon
+          provided after acquiring Powerblanket in 2022, built via Powerblanket's small-batch manufacturing process
+          in quantities as low as one and lengths from 2 to 140 ft. HSL1000 uses Powerblanket's own resistive tape
+          heater technology (the same family behind Powerblanket's heating blankets), giving higher flexibility and
+          a higher continuous-temperature ceiling than a self-regulating cable.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What tube material is best for CEMS, RATA, or mercury monitoring?</summary>
+        <p>For trace-level or adsorption-sensitive sampling, inert-coated stainless steel (such as SilcoNert-coated
+          316 SS) is the standard choice — it resists adsorbing or reacting with trace-level compounds, which
+          protects analytical accuracy. PFA and PTFE are also common where their chemical resistance and smooth
+          bore fit the application.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How long can a heated sample line be?</summary>
+        <p>Powerblanket builds heated sample and transport lines in quantities as low as one, in lengths from 2 ft
+          up to 140 ft, depending on heater construction and power requirements.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is the minimum bend radius for a heated line?</summary>
+        <p>Typical minimum bend radius is around 4 in (100 mm), for both tape-heater and self-regulating/power-limiting
+          cable constructions.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can heated sample lines be rated for hazardous (classified) locations?</summary>
+        <p>Yes. Hazardous-location configurations are available with FM and CSA approvals (Class I/II, Divisions 1
+          and 2, and Zone 1/2 ratings depending on construction). Exact certification depends on the specific
+          configuration and is confirmed during engineering review.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How much power does a heated sample line need?</summary>
+        <p>Typical watt densities run 5–20 W/ft, depending on tube size, insulation, and required temperature rise
+          above ambient. The exact relationship between power density and temperature rise follows standard
+          cylindrical-conduction heat-transfer principles — see the interactive power-density chart in the
+          Engineering Guide above for a live calculation.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is Powerblanket the same company as Thermon?</summary>
+        <p>Thermon acquired Powerblanket in 2022. Powerblanket is a Thermon company, and every heated line is still
+          designed and manufactured at Powerblanket's facility in Salt Lake City, Utah.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section section-cta reveal">
+  <div class="container cta-grid">
+    <div class="cta-copy">
+      <h2>Talk to the Engineering &amp; Applications Team</h2>
+      <p>Describe your application and we'll help you figure out what configuration fits — no pressure, no obligation.</p>
+    </div>
+    <form class="lead-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="company">Company</label>
+      <input type="text" id="company" name="company">
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone">
+
+      <label for="message">What are you sampling or transferring, and how far does the line need to run?</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+
+      <input type="hidden" name="_subject" value="New lead from Sample Line Guide">
+      <input type="hidden" name="request_type" value="Talk to engineering team">
+
+      <button type="submit" class="btn btn-primary">Request a Consultation</button>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>
+      Sample Line Guide is created by Powerblanket's Engineering and Applications Team to share
+      the knowledge they use every day helping customers design, specify, and troubleshoot heated
+      sample and transport line systems. This is not an independent publication — Powerblanket
+      builds the products discussed here, and we say so plainly because we'd rather earn your
+      trust than disguise it. Powerblanket is a Thermon company.
+    </p>
+    <p>&copy; <span id="year"></span> Sample Line Guide, a Powerblanket resource.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
