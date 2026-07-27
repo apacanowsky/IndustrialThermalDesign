@@ -73,13 +73,28 @@
     },
     {
       "@type": "Question",
-      "name": "What's the difference between HSL1000 and HSL2000?",
-      "acceptedAnswer": { "@type": "Answer", "text": "HSL2000 uses a self-regulating or power-limiting heat-trace cable, built via Powerblanket's small-batch manufacturing process in quantities as low as one and lengths from 2 to 140 ft. HSL1000 uses Powerblanket's own resistive tape heater technology, giving higher flexibility and a higher continuous-temperature ceiling than a self-regulating cable." }
+      "name": "What's the difference between a heated sample line and a heated transport line?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A heated sample line holds an analytical sample above its dew point from tap to analyzer, so it arrives representative of the process. A heated transport line holds a transferred material — adhesives, resins, heavy oils — within its workable temperature range so it arrives ready to use, not congealed in the hose." }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between a tape heater and a self-regulating heat-trace cable?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A tape heater is an alloy heater wire wound on a polyimide/silicone tape, custom-built to your exact watt density, with the highest continuous-temperature ceiling of the two (400°F/204°C). A self-regulating or power-limiting cable is selected from fixed watt-density steps, self-limits its own output as it warms, and is available rated for hazardous (classified) locations." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the required watt density for a heated line calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It follows the standard cylindrical-conduction heat-transfer equation for insulated pipe — power density scales with the temperature rise needed above ambient, the tube diameter, and the insulation's thermal conductivity. Typical watt densities run 5-20 W/ft." }
     },
     {
       "@type": "Question",
       "name": "What tube material is best for CEMS, RATA, or mercury monitoring?",
       "acceptedAnswer": { "@type": "Answer", "text": "For trace-level or adsorption-sensitive sampling, inert-coated stainless steel (such as SilcoNert-coated 316 SS) is the standard choice — it resists adsorbing or reacting with trace-level compounds, which protects analytical accuracy. PFA and PTFE are also common where their chemical resistance and smooth bore fit the application." }
+    },
+    {
+      "@type": "Question",
+      "name": "What insulation is used on a heated line, and why does it matter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Meta-Aramid/Nomex felt is the standard choice, with the widest temperature headroom (up to 650°F) at the lowest relative cost. Silicone adds flexibility and moisture resistance at a higher cost; Neoprene trades temperature ceiling for oil, ozone, and weather resistance outdoors." }
     },
     {
       "@type": "Question",
@@ -98,13 +113,23 @@
     },
     {
       "@type": "Question",
-      "name": "How much power does a heated sample line need?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Typical watt densities run 5–20 W/ft, depending on tube size, insulation, and required temperature rise above ambient, following standard cylindrical-conduction heat-transfer principles." }
+      "name": "Can I get just one custom heated line, or does Powerblanket only do large production runs?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Just one. Powerblanket's manufacturing process was built for small-batch, custom work, and translates directly to heated lines in quantities as low as one." }
+    },
+    {
+      "@type": "Question",
+      "name": "What industries use heated sample and transport lines?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Custom heated line designs have been delivered across RATA testing, chemical processing, chip manufacturing, automotive manufacturing, and robotics." }
     },
     {
       "@type": "Question",
       "name": "Is Powerblanket the same company as Thermon?",
       "acceptedAnswer": { "@type": "Answer", "text": "Thermon acquired Powerblanket in 2022. Powerblanket is a Thermon company, and every heated line is still designed and manufactured at Powerblanket's facility in Salt Lake City, Utah." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I get pricing for a heated line?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Answer a few questions in the engineering interview to get a preliminary temperature rating, relative cost tier, and power requirement computed for free, before requesting a quote. A Powerblanket specialist then follows up with real pricing and lead time." }
     }
   ]
 }
@@ -151,8 +176,8 @@
   <div class="hero-slideshow" aria-hidden="true">
     <div class="hero-slide" style="background-image:url('photos/hero/hero-1.jpg');"></div>
     <div class="hero-slide" data-bg="photos/hero/hero-2.jpg" style="background-position: center 65%;"></div>
-    <div class="hero-slide" data-bg="photos/real-hero-lowangle.jpg"></div>
-    <div class="hero-slide" data-bg="photos/real-hero-corrugated-recede.jpg"></div>
+    <div class="hero-slide" data-bg="photos/hero/hero-3.jpg"></div>
+    <div class="hero-slide" data-bg="photos/hero/hero-4.jpg"></div>
     <div class="hero-slide" data-bg="photos/hero/hero-5.jpg"></div>
     <div class="hero-slide" data-bg="photos/hero/hero-6.jpg"></div>
     <div class="hero-slide" data-bg="photos/hero/hero-7.jpg"></div>
@@ -291,8 +316,103 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section id="faq" class="section section-alt reveal">
+  <div class="container">
+    <p class="kicker">Engineering Q&amp;A</p>
+    <h2>Questions Engineers Actually Ask Us</h2>
+    <p class="section-intro">
+      Real answers to the questions that come up most before anyone requests a quote. If yours isn't
+      here, the <a href="#configurator">engineering interview below</a> will get you a real answer either way.
+    </p>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What temperature can a heated sample or transport line maintain?</summary>
+        <p>Most Powerblanket heated lines maintain sample temperature up to 400°F (200°C) with a tape heater
+          (HSL1000-style construction), or up to 356°F (180°C) with a self-regulating or power-limiting cable
+          (HSL2000-style construction). Exact ceiling depends on the tube, insulation, and jacket chosen.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What's the difference between a heated sample line and a heated transport line?</summary>
+        <p>A heated <strong>sample line</strong> holds an analytical sample above its dew point from tap to
+          analyzer, so it arrives representative of the process. A heated <strong>transport line</strong> holds a
+          transferred material — adhesives, resins, heavy oils — within its workable temperature range so it
+          arrives ready to use, not congealed in the hose. Same engineering discipline, different job.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What's the difference between a tape heater and a self-regulating heat-trace cable?</summary>
+        <p>A tape heater is an alloy heater wire wound on a polyimide/silicone tape, custom-built to your exact
+          watt density — it has the highest continuous-temperature ceiling of the two (400°F/204°C) and suits
+          small-batch, one-off builds. A self-regulating or power-limiting cable is selected from fixed watt-density
+          steps, self-limits its own output as it warms (resisting burnout at a pinch point), and is available
+          rated for hazardous (classified) locations.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How is the required watt density for a heated line calculated?</summary>
+        <p>It follows the standard cylindrical-conduction heat-transfer equation for insulated pipe — power density
+          scales with the temperature rise you need above ambient, the tube diameter, and the insulation's thermal
+          conductivity. Typical watt densities run 5–20 W/ft. Try the <a href="#engineering">interactive power-density
+          chart</a> in the Engineering Guide to see the real math update live for your own numbers.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What tube material is best for CEMS, RATA, or mercury monitoring?</summary>
+        <p>For trace-level or adsorption-sensitive sampling, inert-coated stainless steel (such as SilcoNert-coated
+          316 SS) is the standard choice — it resists adsorbing or reacting with trace-level compounds, which
+          protects analytical accuracy. PFA and PTFE are also common where their chemical resistance and smooth
+          bore fit the application.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What insulation is used on a heated line, and why does it matter?</summary>
+        <p>Meta-Aramid/Nomex felt is the standard choice — it has the widest temperature headroom (up to 650°F)
+          above the heater's own ceiling at the lowest relative cost. Silicone adds flexibility and moisture
+          resistance at a higher cost; Neoprene trades temperature ceiling for oil, ozone, and weather resistance
+          outdoors. The right choice depends on your environment, not just your temperature.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How long can a heated sample line be?</summary>
+        <p>Powerblanket builds heated sample and transport lines in quantities as low as one, in lengths from 2 ft
+          up to 140 ft, depending on heater construction and power requirements.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is the minimum bend radius for a heated line?</summary>
+        <p>Typical minimum bend radius is around 4 in (100 mm), for both tape-heater and self-regulating/power-limiting
+          cable constructions.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can heated sample lines be rated for hazardous (classified) locations?</summary>
+        <p>Yes. Hazardous-location configurations are available with FM and CSA approvals (Class I/II, Divisions 1
+          and 2, and Zone 1/2 ratings depending on construction). Exact certification depends on the specific
+          configuration and is confirmed during engineering review.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I get just one custom heated line, or does Powerblanket only do large production runs?</summary>
+        <p>Just one. Powerblanket's manufacturing process was built for small-batch, custom work — the same process
+          that lets us build thousands of one-off custom heaters a year translates directly to heated lines in
+          quantities as low as one.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What industries use heated sample and transport lines?</summary>
+        <p>We've delivered custom heated line designs across RATA testing, chemical processing, chip manufacturing,
+          automotive manufacturing, and robotics — and built real expertise in thermal modeling, material selection,
+          and advanced manufacturing along the way.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is Powerblanket the same company as Thermon?</summary>
+        <p>Thermon acquired Powerblanket in 2022. Powerblanket is a Thermon company, and every heated line is still
+          designed and manufactured at Powerblanket's facility in Salt Lake City, Utah.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I get pricing for a heated line?</summary>
+        <p>Answer a few questions in the <a href="#configurator">engineering interview below</a> and we'll compute a
+          preliminary temperature rating, relative cost tier, and power requirement for you — free, before you ever
+          request a quote. From there, a Powerblanket specialist follows up with real pricing and lead time.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ANATOMY -->
-<section id="anatomy" class="section section-alt reveal">
+<section id="anatomy" class="section reveal">
   <div class="container">
     <p class="kicker">Anatomy</p>
     <h2>What's Inside a Heated Line</h2>
@@ -775,65 +895,6 @@
     <div class="resource-list">
       <a href="downloads/HSL1000-Product-Specifications.pdf" class="resource-link">HSL1000 Product Specifications (PDF) <span class="resource-tag">Download</span></a>
       <a href="downloads/HSL2000-Product-Specifications.pdf" class="resource-link">HSL2000 Product Specifications (PDF) <span class="resource-tag">Download</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq" class="section section-alt reveal">
-  <div class="container">
-    <p class="kicker">Common Questions</p>
-    <h2>Frequently Asked Questions</h2>
-    <div class="faq-list">
-      <details class="faq-item">
-        <summary>What temperature can a heated sample or transport line maintain?</summary>
-        <p>Most Powerblanket heated lines maintain sample temperature up to 400°F (200°C) with a tape heater
-          (HSL1000-style construction), or up to 356°F (180°C) with a self-regulating or power-limiting cable
-          (HSL2000-style construction). Exact ceiling depends on the tube, insulation, and jacket chosen.</p>
-      </details>
-      <details class="faq-item">
-        <summary>What's the difference between HSL1000 and HSL2000?</summary>
-        <p>HSL2000 uses a self-regulating or power-limiting heat-trace cable — heat-trace technology Thermon
-          provided after acquiring Powerblanket in 2022, built via Powerblanket's small-batch manufacturing process
-          in quantities as low as one and lengths from 2 to 140 ft. HSL1000 uses Powerblanket's own resistive tape
-          heater technology (the same family behind Powerblanket's heating blankets), giving higher flexibility and
-          a higher continuous-temperature ceiling than a self-regulating cable.</p>
-      </details>
-      <details class="faq-item">
-        <summary>What tube material is best for CEMS, RATA, or mercury monitoring?</summary>
-        <p>For trace-level or adsorption-sensitive sampling, inert-coated stainless steel (such as SilcoNert-coated
-          316 SS) is the standard choice — it resists adsorbing or reacting with trace-level compounds, which
-          protects analytical accuracy. PFA and PTFE are also common where their chemical resistance and smooth
-          bore fit the application.</p>
-      </details>
-      <details class="faq-item">
-        <summary>How long can a heated sample line be?</summary>
-        <p>Powerblanket builds heated sample and transport lines in quantities as low as one, in lengths from 2 ft
-          up to 140 ft, depending on heater construction and power requirements.</p>
-      </details>
-      <details class="faq-item">
-        <summary>What is the minimum bend radius for a heated line?</summary>
-        <p>Typical minimum bend radius is around 4 in (100 mm), for both tape-heater and self-regulating/power-limiting
-          cable constructions.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Can heated sample lines be rated for hazardous (classified) locations?</summary>
-        <p>Yes. Hazardous-location configurations are available with FM and CSA approvals (Class I/II, Divisions 1
-          and 2, and Zone 1/2 ratings depending on construction). Exact certification depends on the specific
-          configuration and is confirmed during engineering review.</p>
-      </details>
-      <details class="faq-item">
-        <summary>How much power does a heated sample line need?</summary>
-        <p>Typical watt densities run 5–20 W/ft, depending on tube size, insulation, and required temperature rise
-          above ambient. The exact relationship between power density and temperature rise follows standard
-          cylindrical-conduction heat-transfer principles — see the interactive power-density chart in the
-          Engineering Guide above for a live calculation.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Is Powerblanket the same company as Thermon?</summary>
-        <p>Thermon acquired Powerblanket in 2022. Powerblanket is a Thermon company, and every heated line is still
-          designed and manufactured at Powerblanket's facility in Salt Lake City, Utah.</p>
-      </details>
     </div>
   </div>
 </section>

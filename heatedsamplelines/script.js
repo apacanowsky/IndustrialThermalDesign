@@ -349,6 +349,159 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     { value: "none", label: "No plug / raw leads", maxAmps: Infinity },
   ];
 
+  // ---------- Recommendation engine ----------
+  //
+  // Turns the functional requirements the customer already gave us (temperature,
+  // chemical compatibility, hazardous area, flexibility, tolerance, exposure) into
+  // a recommended technical spec, using the same real data and heat-transfer math
+  // as the rest of the site (material comparison tables, the power-density chart,
+  // the tolerance -> controller mapping already used in Sensing & Controls).
+
+  // Representative k-value for Powerblanket's Meta-Aramid/Nomex felt (BTU-in/hr-ft2-F) —
+  // fibrous insulation in the fiberglass/mineral-wool range, per the same disclaimer
+  // used on the interactive power-density chart. Not a manufacturer-published exact value.
+  const FELT_K = 0.28;
+
+  function parseFractionIn(str) {
+    if (!str) return null;
+    const clean = str.replace(/"/g, "").trim();
+    if (clean.includes("/")) {
+      const [n, d] = clean.split("/").map(Number);
+      return d ? n / d : null;
+    }
+    return parseFloat(clean) || null;
+  }
+
+  function requiredWattsPerFt(deltaT, tubeOD, wraps) {
+    if (!deltaT || deltaT <= 0 || !tubeOD) return null;
+    const thickness = 0.25 * wraps;
+    const Di = tubeOD + 2 * thickness;
+    const wPerFt = (2 * Math.PI * deltaT * FELT_K) / (3.42 * 12 * Math.log(Di / tubeOD));
+    return wPerFt;
+  }
+
+  const CHEMICAL_TUBE_HINTS = [
+    { pattern: /mercury|trace[- ]level|adsorption/i, material: "SilcoNert-Coated 316 SS", reason: "Trace-level or adsorption-sensitive media — an inert-coated surface protects accuracy." },
+    { pattern: /hydrofluoric|\bhf\b/i, material: "Monel", reason: "Hydrofluoric acid — Monel has outstanding resistance to HF." },
+    { pattern: /chlorine|wet chlorine|oxidiz/i, material: "Alloy C276", reason: "Chlorine/oxidizing chemistry — Alloy C276 (Hastelloy) has one of the broadest resistance profiles available." },
+    { pattern: /sulfuric/i, material: "Alloy 20", reason: "Sulfuric acid — Alloy 20 was developed specifically for this service." },
+    { pattern: /phosphoric|stress[- ]corrosion/i, material: "Alloy 825", reason: "Phosphoric acid / chloride stress-corrosion risk — Alloy 825 resists both." },
+    { pattern: /chloride|seawater|corrosive|acid/i, material: "316 SS Seamless", reason: "Corrosive/chloride service — 316 stainless offers strong general corrosion resistance." },
+  ];
+
+  function computeRecommendations(state) {
+    const reasons = {};
+    const tubeOD = parseFractionIn(state.tubeOD) || 0.375;
+    const maintainTemp = parseFloat(state.maintainTemp);
+    const minAmbient = parseFloat(state.minAmbient);
+    const deltaT = !isNaN(maintainTemp) && !isNaN(minAmbient) ? maintainTemp - minAmbient : (!isNaN(maintainTemp) ? maintainTemp - 70 : null);
+
+    // Tube material — chemical/trace-level compatibility first, else broad-resistance default.
+    const textToScan = `${state.compatibilityConcerns || ""} ${state.mediaType || ""} ${state.mediaDescription || ""}`;
+    let tubeMaterial = "PFA";
+    reasons.tubeMaterial = "PFA resists nearly all acids, bases, and solvents — a safe general-purpose default.";
+    for (const hint of CHEMICAL_TUBE_HINTS) {
+      if (hint.pattern.test(textToScan)) {
+        tubeMaterial = hint.material;
+        reasons.tubeMaterial = hint.reason;
+        break;
+      }
+    }
+
+    // Heater family — hazardous location and flexibility drive this first.
+    const isHazloc = state.hazArea && state.hazArea !== "none" && state.hazArea !== "unsure" && state.hazArea !== "";
+    const wantsFlex = state.flexibility === "High-flex";
+    let heaterFamily = "htsx";
+    if (isHazloc) {
+      heaterFamily = "htsx";
+      reasons.heaterFamily = "Hazardous-location work — self-regulating/power-limiting cable is available rated for classified locations.";
+    } else if (wantsFlex) {
+      heaterFamily = "tape";
+      reasons.heaterFamily = "High-flex requirement — tape heater gives the highest flexibility and can be built to any watt density.";
+    } else {
+      reasons.heaterFamily = "Standard self-regulating cable — simple, repeatable, and self-limiting against burnout.";
+    }
+
+    // Watt density / wraps — from the real cylindrical-conduction formula, same as the power-density chart.
+    let numWraps = 1;
+    let targetWatts = deltaT ? requiredWattsPerFt(deltaT, tubeOD, numWraps) : null;
+    if (targetWatts && targetWatts > 18) {
+      numWraps = 2;
+      targetWatts = requiredWattsPerFt(deltaT, tubeOD, numWraps);
+      reasons.numWraps = "A second insulation wrap keeps the required watt density in a reasonable range for your target temperature rise.";
+    } else {
+      reasons.numWraps = "Standard single wrap covers your target temperature rise at a reasonable watt density.";
+    }
+    if (targetWatts) {
+      reasons.heaterWatts = `Computed from a ${Math.round(deltaT)}°F rise on a ${state.tubeOD || '3/8"'} tube with ${numWraps} wrap(s) of felt insulation — the same math as the power-density chart above.`;
+    }
+
+    // Round up to the nearest real step for the recommended family (never round down — must meet the target).
+    let heaterWattsValue = null;
+    if (targetWatts && HEATER_FAMILIES[heaterFamily] && !HEATER_FAMILIES[heaterFamily].custom) {
+      const steps = HEATER_FAMILIES[heaterFamily].wattages;
+      heaterWattsValue = steps.find((w) => w >= targetWatts) || steps[steps.length - 1];
+    }
+
+    // Insulation type — oil/weather exposure or high-flex needs override the standard felt default.
+    let insulationType = "Meta-Aramid/Nomex Felt (up to 650°F)";
+    reasons.insulationType = "The standard choice on most builds — widest temperature headroom at the lowest relative cost.";
+    if ((state.conditions || []).includes("Oil") && state.exposureType === "Outdoor") {
+      insulationType = "Neoprene (up to 250°F)";
+      reasons.insulationType = "Outdoor oil exposure — Neoprene is valued for oil, ozone, and weather resistance.";
+    } else if (wantsFlex) {
+      insulationType = "Silicone Insulation";
+      reasons.insulationType = "High-flex requirement — silicone adds flexibility and moisture resistance over felt.";
+    }
+
+    // Controller / sensor / alarms — from the tolerance requirement already collected.
+    let controllerType = "PID Controller";
+    let sensorType = "RTD";
+    let alarms = [];
+    if (state.toleranceQuestion === "Loose") {
+      controllerType = "Customer-supplied controls";
+      sensorType = "Type J Thermocouple";
+      reasons.controllerType = "Loose tolerance — a simple thermostatic or customer-supplied controller is usually enough.";
+    } else if (state.toleranceQuestion === "Tight — critical") {
+      controllerType = "PID Controller";
+      sensorType = "RTD";
+      alarms = ["High-temperature alarm", "Low-temperature alarm", "Data logging"];
+      reasons.controllerType = "Tight/critical tolerance — PID control with alarming and data logging is recommended.";
+    } else {
+      reasons.controllerType = "Moderate tolerance — a digital PID controller is a solid fit.";
+    }
+
+    // Outer jacket — exposure conditions drive this.
+    let outerJacketType = "Polyolefin Heat-Shrink";
+    reasons.outerJacketType = "Indoor or lightly-exposed routing — lightweight heat-shrink is the economical choice.";
+    if ((state.conditions || []).some((c) => ["Abrasion", "Crush"].includes(c))) {
+      outerJacketType = "Thermoplastic Rubber, Wire-Reinforced";
+      reasons.outerJacketType = "Abrasion/crush exposure — a wire-reinforced jacket adds mechanical protection.";
+    } else if (state.exposureType === "Outdoor" || (state.conditions || []).some((c) => ["Rain", "Snow", "UV"].includes(c))) {
+      outerJacketType = "Corrugated Polyethylene/Polypropylene";
+      reasons.outerJacketType = "Outdoor exposure — corrugated jacket is flexible and weather-sealed.";
+    }
+
+    // Plug type — from computed amps at the recommended wattage.
+    let plugType = null;
+    const heatedLengthFt = parseFloat(state.heatedLength);
+    const voltageMap = { "120V AC": 120, "208V AC": 208, "240V AC": 240, "277V AC": 277 };
+    const voltage = voltageMap[state.voltage];
+    if (heaterWattsValue && heatedLengthFt && voltage) {
+      const amps = (heaterWattsValue * heatedLengthFt) / voltage;
+      const fit = PLUG_OPTIONS.filter((p) => p.value !== "none").find((p) => p.maxAmps >= amps);
+      if (fit) {
+        plugType = fit.value;
+        reasons.plugType = `Computed load of about ${amps.toFixed(1)} A fits a ${fit.label} plug.`;
+      }
+    }
+
+    return {
+      tubeMaterial, heaterFamily, heaterWattsValue, numWraps, insulationType,
+      controllerType, sensorType, alarms, outerJacketType, plugType, targetWatts, reasons,
+    };
+  }
+
   const STEPS = [
     {
       id: "application",
@@ -385,50 +538,16 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     },
     {
       id: "tubing",
-      title: "Tubing, Heater & Insulation",
-      note: () => "For trace-level or adsorption-sensitive sampling (mercury, RATA, etc.), we typically recommend inert-coated stainless tubing to protect accuracy.",
+      title: "Tube Size & Bundle",
+      note: () => "For trace-level or adsorption-sensitive sampling (mercury, RATA, etc.), we typically recommend inert-coated stainless tubing to protect accuracy — we'll factor that into your recommendation later.",
       fields: [
         { row: [
           { id: "numTubes", label: "Number of tubes", type: "select", options: withRec(["1", "2", "3", "4+"]) },
-          { id: "tubeMaterial", label: "Tube material", type: "select", options: withRec([
-            "PFA", "FEP", "PTFE", "Nylon", "Polyethylene",
-            "316 SS Seamless", "316 SS Welded", "304 SS Seamless", "304 SS Welded",
-            "SilcoNert-Coated 316 SS", "Copper", "Monel", "Titanium", "Alloy C276", "Alloy 825", "Alloy 20",
-          ])},
-        ]},
-        { row: [
           { id: "tubeOD", label: "Tube outside diameter", type: "select", options: withRec(['1/8"', '1/4"', '3/8"', '1/2"', '5/8"', '3/4"', '1"']) },
-          { id: "wallThickness", label: "Wall thickness", type: "select", options: withRec(['0.028"', '0.030"', '0.035"', '0.040"', '0.047"', '0.049"', '0.062"', '0.065"', '0.083"']) },
         ]},
+        { id: "wallThickness", label: "Wall thickness", type: "select", options: withRec(['0.028"', '0.030"', '0.035"', '0.040"', '0.047"', '0.049"', '0.062"', '0.065"', '0.083"']) },
         { id: "extras", label: "Include in the bundle", type: "checkboxes", options: [
           "Calibration line", "Purge line", "Return line", "Heat trace redundancy", "Drain-back capability", "Spare tube", "Electrical / signal conductors",
-        ]},
-        { row: [
-          { id: "heaterFamily", label: "Heater construction", type: "select", options: [
-            { value: "tape", label: HEATER_FAMILIES.tape.label },
-            { value: "bsx", label: HEATER_FAMILIES.bsx.label },
-            { value: "htsx", label: HEATER_FAMILIES.htsx.label },
-            { value: "vsxht", label: HEATER_FAMILIES.vsxht.label },
-            { value: "hpt", label: HEATER_FAMILIES.hpt.label },
-            recommendOption,
-          ]},
-          { id: "heaterWatts", label: "Heater output", type: "select",
-            options: (state) => {
-              const fam = HEATER_FAMILIES[state.heaterFamily];
-              if (!fam || fam.custom) return [recommendOption];
-              return withRec(fam.wattages.map((w) => `${w} W/ft`));
-            },
-            condition: (state) => state.heaterFamily && state.heaterFamily !== REC && !HEATER_FAMILIES[state.heaterFamily]?.custom,
-          },
-          { id: "heaterWattsCustom", label: "Target W/ft (typical range 5–20)", type: "number",
-            condition: (state) => HEATER_FAMILIES[state.heaterFamily]?.custom,
-          },
-        ]},
-        { row: [
-          { id: "insulationType", label: "Insulation type", type: "select", options: withRec([
-            "Meta-Aramid/Nomex Felt (up to 650°F)", "Silicone Insulation", "Neoprene (up to 250°F)",
-          ])},
-          { id: "numWraps", label: "Number of insulation wraps", type: "select", options: withRec(["1", "2"]) },
         ]},
         { id: "tubeIdNotes", label: "Tube ID / color-coding notes", type: "text", condition: (state) => state.numTubes && state.numTubes !== "1" },
       ],
@@ -483,23 +602,17 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     },
     {
       id: "controls",
-      title: "Sensing & Controls",
+      title: "Precision Requirements",
       fields: [
         {
           id: "toleranceQuestion", label: "How closely must temperature be maintained?", type: "pills",
           options: ["Loose", "Moderate", "Tight — critical", "Not sure"],
           suggestion: {
-            "Loose": "Thermostatic control is usually sufficient for loose tolerances.",
+            "Loose": "Thermostatic or customer-supplied control is usually sufficient for loose tolerances.",
             "Moderate": "A digital PID controller typically fits moderate tolerance needs.",
             "Tight — critical": "Tight tolerances usually call for PID control with alarming and monitoring.",
           },
         },
-        { row: [
-          { id: "sensorType", label: "Sensor type", type: "select", options: withRec(["RTD", "Thermistor", "Type K Thermocouple", "Type J Thermocouple", "No Sensor"]) },
-          { id: "sensorPlugType", label: "Sensor plug type", type: "select", options: withRec(["Mini Type K flat", "RTD 3-wire round pin", "No Plug"]) },
-        ]},
-        { id: "controllerType", label: "Controller type", type: "select", options: withRec(["GHT2002J", "ExoTouch", "PID Controller", "Red Lion Controller (not NEMA 4X rated)", "Customer-supplied controls", "No Controller"]) },
-        { id: "alarms", label: "Alarms & monitoring", type: "checkboxes", options: ["High-temperature alarm", "Low-temperature alarm", "Data logging", "Remote monitoring"] },
       ],
     },
     {
@@ -527,6 +640,59 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       ],
     },
     {
+      id: "recommendation",
+      title: "Your Recommended Configuration",
+      hint: "Based on everything you've told us so far — every field here is editable if you'd rather choose yourself.",
+      isRecommendationStep: true,
+      fields: [
+        { id: "tubeMaterial", label: "Tube material", type: "select", recommendKey: "tubeMaterial", options: withRec([
+          "PFA", "FEP", "PTFE", "Nylon", "Polyethylene",
+          "316 SS Seamless", "316 SS Welded", "304 SS Seamless", "304 SS Welded",
+          "SilcoNert-Coated 316 SS", "Copper", "Monel", "Titanium", "Alloy C276", "Alloy 825", "Alloy 20",
+        ])},
+        { row: [
+          { id: "heaterFamily", label: "Heater construction", type: "select", recommendKey: "heaterFamily", options: [
+            { value: "tape", label: HEATER_FAMILIES.tape.label },
+            { value: "bsx", label: HEATER_FAMILIES.bsx.label },
+            { value: "htsx", label: HEATER_FAMILIES.htsx.label },
+            { value: "vsxht", label: HEATER_FAMILIES.vsxht.label },
+            { value: "hpt", label: HEATER_FAMILIES.hpt.label },
+            recommendOption,
+          ]},
+          { id: "heaterWatts", label: "Heater output", type: "select", recommendKey: "heaterWatts",
+            options: (state) => {
+              const fam = HEATER_FAMILIES[state.heaterFamily];
+              if (!fam || fam.custom) return [recommendOption];
+              return withRec(fam.wattages.map((w) => `${w} W/ft`));
+            },
+            condition: (state) => state.heaterFamily && state.heaterFamily !== REC && !HEATER_FAMILIES[state.heaterFamily]?.custom,
+          },
+          { id: "heaterWattsCustom", label: "Target W/ft (typical range 5–20)", type: "number",
+            condition: (state) => HEATER_FAMILIES[state.heaterFamily]?.custom,
+          },
+        ]},
+        { row: [
+          { id: "insulationType", label: "Insulation type", type: "select", recommendKey: "insulationType", options: withRec([
+            "Meta-Aramid/Nomex Felt (up to 650°F)", "Silicone Insulation", "Neoprene (up to 250°F)",
+          ])},
+          { id: "numWraps", label: "Number of insulation wraps", type: "select", recommendKey: "numWraps", options: withRec(["1", "2"]) },
+        ]},
+        { row: [
+          { id: "sensorType", label: "Sensor type", type: "select", recommendKey: "sensorType", options: withRec(["RTD", "Thermistor", "Type K Thermocouple", "Type J Thermocouple", "No Sensor"]) },
+          { id: "sensorPlugType", label: "Sensor plug type", type: "select", options: withRec(["Mini Type K flat", "RTD 3-wire round pin", "No Plug"]) },
+        ]},
+        { id: "controllerType", label: "Controller type", type: "select", recommendKey: "controllerType", options: withRec(["GHT2002J", "ExoTouch", "PID Controller", "Red Lion Controller (not NEMA 4X rated)", "Customer-supplied controls", "No Controller"]) },
+        { id: "alarms", label: "Alarms & monitoring", type: "checkboxes", recommendKey: "alarms", options: ["High-temperature alarm", "Low-temperature alarm", "Data logging", "Remote monitoring"] },
+        { row: [
+          { id: "outerJacketType", label: "Outer jacket type", type: "select", recommendKey: "outerJacketType", options: withRec([
+            "Polyolefin Heat-Shrink", "Abrasion-Resistant Sleeving",
+            "Corrugated Polyethylene/Polypropylene", "Thermoplastic Rubber, Wire-Reinforced", "Polyamide 6 Tubing",
+          ])},
+          { id: "plugType", label: "Power cable plug", type: "select", recommendKey: "plugType", options: [...PLUG_OPTIONS.map((p) => ({ value: p.value, label: p.label })), recommendOption] },
+        ]},
+      ],
+    },
+    {
       id: "fittings",
       title: "Fittings, Ends & Terminations",
       fields: [
@@ -537,13 +703,6 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
         { id: "fittingType", label: "Tube fitting type", type: "select", options: withRec([
           "Bare Tube – No Fitting", "Tube Stub Assembly", "Female JIC Fitting", "Cam & Groove (C&E) Fitting", "Compression Nut & Ferrules",
         ])},
-        { row: [
-          { id: "outerJacketType", label: "Outer jacket type", type: "select", options: withRec([
-            "Polyolefin Heat-Shrink", "Abrasion-Resistant Sleeving",
-            "Corrugated Polyethylene/Polypropylene", "Thermoplastic Rubber, Wire-Reinforced", "Polyamide 6 Tubing",
-          ])},
-          { id: "plugType", label: "Power cable plug", type: "select", options: [...PLUG_OPTIONS.map((p) => ({ value: p.value, label: p.label })), recommendOption] },
-        ]},
         { id: "powerLeadType", label: "Power lead type", type: "select", options: withRec([
           "2-Wire (no ground), heatshrink-terminated — tape heater",
           "3-Wire SEOOW cord — tape heater",
@@ -597,6 +756,36 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
 
   const state = {};
   let currentIndex = 0;
+  let currentRecommendations = null;
+
+  function isUnset(v) {
+    return v === undefined || v === null || v === "";
+  }
+
+  function applyRecommendationDefaults() {
+    const rec = computeRecommendations(state);
+    currentRecommendations = rec;
+
+    if (isUnset(state.tubeMaterial)) state.tubeMaterial = rec.tubeMaterial;
+    if (isUnset(state.heaterFamily)) state.heaterFamily = rec.heaterFamily;
+
+    const fam = HEATER_FAMILIES[state.heaterFamily];
+    if (fam && fam.custom) {
+      if (isUnset(state.heaterWattsCustom) && rec.targetWatts) state.heaterWattsCustom = Math.round(rec.targetWatts);
+    } else if (rec.heaterWattsValue) {
+      if (isUnset(state.heaterWatts)) state.heaterWatts = `${rec.heaterWattsValue} W/ft`;
+    }
+
+    if (isUnset(state.insulationType)) state.insulationType = rec.insulationType;
+    if (isUnset(state.numWraps)) state.numWraps = String(rec.numWraps);
+    if (isUnset(state.sensorType)) state.sensorType = rec.sensorType;
+    if (isUnset(state.controllerType)) state.controllerType = rec.controllerType;
+    if (isUnset(state.alarms) || (Array.isArray(state.alarms) && state.alarms.length === 0)) {
+      if (rec.alarms.length) state.alarms = rec.alarms;
+    }
+    if (isUnset(state.outerJacketType)) state.outerJacketType = rec.outerJacketType;
+    if (isUnset(state.plugType) && rec.plugType) state.plugType = rec.plugType;
+  }
 
   function fieldVisible(field) {
     return !field.condition || field.condition(state);
@@ -736,6 +925,13 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       wrap.appendChild(input);
     }
 
+    if (field.recommendKey && currentRecommendations && currentRecommendations.reasons[field.recommendKey]) {
+      const note = document.createElement("p");
+      note.className = "config-recommend-note";
+      note.innerHTML = `<strong>Recommended:</strong> ${currentRecommendations.reasons[field.recommendKey]}`;
+      wrap.appendChild(note);
+    }
+
     return wrap;
   }
 
@@ -786,6 +982,8 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
 
     navRow.style.display = "flex";
     const step = STEPS[index];
+    if (step.isRecommendationStep) applyRecommendationDefaults();
+    else currentRecommendations = null;
     progressFill.style.width = `${Math.round(((index + 1) / (STEPS.length + 1)) * 100)}%`;
     progressLabel.textContent = `Step ${index + 1} of ${STEPS.length} — ${step.title}`;
     if (typeof gtag === "function") gtag("event", "configurator_step", { step_name: step.id, step_number: index + 1 });
