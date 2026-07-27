@@ -202,7 +202,7 @@
       <a href="#configurator" class="btn btn-primary">Scope Your System</a>
       <a href="#why" class="btn btn-outline">Explore the Engineering</a>
     </div>
-    <p class="hero-actions-note">Takes about 5 minutes &middot; get real engineering numbers back, free &middot; no obligation</p>
+    <p class="hero-actions-note">Takes about 2-3 minutes &middot; get real engineering numbers back, free &middot; no obligation</p>
   </div>
 </section>
 
@@ -873,7 +873,7 @@
     <div class="configurator-steps-preview">
       <div class="config-preview-step">
         <span class="config-preview-num">1</span>
-        <p><strong>Tell us the problem</strong><br>5–10 minutes, answer what you know</p>
+        <p><strong>Tell us the problem</strong><br>2–3 minutes, mostly simple dropdowns</p>
       </div>
       <div class="config-preview-arrow">&rarr;</div>
       <div class="config-preview-step">
@@ -890,7 +890,7 @@
     <div class="configurator-shell">
       <div class="configurator-progress">
         <div class="configurator-progress-bar"><div class="configurator-progress-fill" id="configProgressFill"></div></div>
-        <p class="configurator-progress-label" id="configProgressLabel">Step 1 of 9 — Application</p>
+        <p class="configurator-progress-label" id="configProgressLabel">Step 1 of 6 — Your Application</p>
       </div>
 
       <div id="configSummaryStrip" class="config-summary-strip" hidden></div>
@@ -929,8 +929,9 @@
       <h2>Talk to the Engineering &amp; Applications Team</h2>
       <p>Describe your application and we'll help you figure out what configuration fits — no pressure, no obligation.</p>
     </div>
-    <form class="lead-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+    <form class="lead-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
       <label for="name">Name</label>
       <input type="text" id="name" name="name" required>
@@ -947,7 +948,7 @@
       <label for="message">What are you sampling or transferring, and how far does the line need to run?</label>
       <textarea id="message" name="message" rows="4"></textarea>
 
-      <input type="hidden" name="_subject" value="New lead from Sample Line Guide">
+      <input type="hidden" name="subject" value="New lead from Sample Line Guide">
       <input type="hidden" name="request_type" value="Talk to engineering team">
 
       <button type="submit" class="btn btn-primary">Request a Consultation</button>

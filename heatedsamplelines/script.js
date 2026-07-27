@@ -391,6 +391,12 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
   // used on the interactive power-density chart. Not a manufacturer-published exact value.
   const FELT_K = 0.28;
 
+  // Same real-world design margin used on the power-density chart above (heater cables
+  // draw less power as they heat up, so a cable sized to the theoretical loss alone can
+  // fall short) — calibrated to Powerblanket's reference build (3/8" tube, 2 wraps of
+  // Nomex felt, sized to 24 W/ft for a 400°F target from a ~70-80°F ambient).
+  const DESIGN_MARGIN_FACTOR = 2.25;
+
   function parseFractionIn(str) {
     if (!str) return null;
     const clean = str.replace(/"/g, "").trim();
@@ -422,11 +428,12 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     const reasons = {};
     const tubeOD = parseFractionIn(state.tubeOD) || 0.375;
     const maintainTemp = parseFloat(state.maintainTemp);
-    const minAmbient = parseFloat(state.minAmbient);
-    const deltaT = !isNaN(maintainTemp) && !isNaN(minAmbient) ? maintainTemp - minAmbient : (!isNaN(maintainTemp) ? maintainTemp - 70 : null);
+    const isOutdoor = state.exposure === "Outdoor / Both";
+    const assumedAmbient = isOutdoor ? 32 : 70; // conservative winter design vs. typical indoor
+    const deltaT = !isNaN(maintainTemp) ? maintainTemp - assumedAmbient : null;
 
     // Tube material — chemical/trace-level compatibility first, else broad-resistance default.
-    const textToScan = `${state.compatibilityConcerns || ""} ${state.mediaType || ""} ${state.mediaDescription || ""}`;
+    const textToScan = `${state.mediaDescription || ""} ${state.problemDescription || ""}`;
     let tubeMaterial = "PFA";
     reasons.tubeMaterial = "PFA resists nearly all acids, bases, and solvents — a safe general-purpose default.";
     for (const hint of CHEMICAL_TUBE_HINTS) {
@@ -438,49 +445,55 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     }
 
     // Heater family — hazardous location and flexibility drive this first.
-    const isHazloc = state.hazArea && state.hazArea !== "none" && state.hazArea !== "unsure" && state.hazArea !== "";
-    const wantsFlex = state.flexibility === "High-flex";
+    const isHazloc = state.hazArea === "Yes";
+    const wantsFlex = state.flexibility === "Yes";
     let heaterFamily = "htsx";
     if (isHazloc) {
       heaterFamily = "htsx";
       reasons.heaterFamily = "Hazardous-location work — self-regulating/power-limiting cable is available rated for classified locations.";
     } else if (wantsFlex) {
       heaterFamily = "tape";
-      reasons.heaterFamily = "High-flex requirement — tape heater gives the highest flexibility and can be built to any watt density.";
+      reasons.heaterFamily = "Needs to flex or be moved often — tape heater gives the highest flexibility and can be built to any watt density.";
     } else {
       reasons.heaterFamily = "Standard self-regulating cable — simple, repeatable, and self-limiting against burnout.";
     }
 
-    // Watt density / wraps — from the real cylindrical-conduction formula, same as the power-density chart.
+    // Watt density / wraps — from the real cylindrical-conduction formula, same as the
+    // power-density chart, including the same real-world design margin shown there.
     let numWraps = 1;
-    let targetWatts = deltaT ? requiredWattsPerFt(deltaT, tubeOD, numWraps) : null;
+    let theoreticalWatts = deltaT ? requiredWattsPerFt(deltaT, tubeOD, numWraps) : null;
+    let targetWatts = theoreticalWatts ? theoreticalWatts * DESIGN_MARGIN_FACTOR : null;
     if (targetWatts && targetWatts > 18) {
       numWraps = 2;
-      targetWatts = requiredWattsPerFt(deltaT, tubeOD, numWraps);
+      theoreticalWatts = requiredWattsPerFt(deltaT, tubeOD, numWraps);
+      targetWatts = theoreticalWatts * DESIGN_MARGIN_FACTOR;
       reasons.numWraps = "A second insulation wrap keeps the required watt density in a reasonable range for your target temperature rise.";
     } else {
       reasons.numWraps = "Standard single wrap covers your target temperature rise at a reasonable watt density.";
     }
     if (targetWatts) {
-      reasons.heaterWatts = `Computed from a ${Math.round(deltaT)}°F rise on a ${state.tubeOD || '3/8"'} tube with ${numWraps} wrap(s) of felt insulation — the same math as the power-density chart above.`;
+      reasons.heaterWatts = `Computed from a ${Math.round(deltaT)}°F rise on a ${state.tubeOD || '3/8"'} tube with ${numWraps} wrap(s) of felt insulation, including the same real-world design margin shown on the power-density chart above.`;
     }
 
     // Round up to the nearest real step for the recommended family (never round down — must meet the target).
     let heaterWattsValue = null;
     if (targetWatts && HEATER_FAMILIES[heaterFamily] && !HEATER_FAMILIES[heaterFamily].custom) {
       const steps = HEATER_FAMILIES[heaterFamily].wattages;
-      heaterWattsValue = steps.find((w) => w >= targetWatts) || steps[steps.length - 1];
+      const maxStep = steps[steps.length - 1];
+      if (targetWatts > maxStep) {
+        heaterWattsValue = maxStep;
+        reasons.heaterWatts = `Your target of about ${Math.round(targetWatts)} W/ft exceeds this cable family's standard ${maxStep} W/ft top step — flagged for engineering review (a tape heater or multiple zones may fit better).`;
+      } else {
+        heaterWattsValue = steps.find((w) => w >= targetWatts);
+      }
     }
 
-    // Insulation type — oil/weather exposure or high-flex needs override the standard felt default.
+    // Insulation type — flex needs override the standard felt default.
     let insulationType = "Meta-Aramid/Nomex Felt (up to 650°F)";
     reasons.insulationType = "The standard choice on most builds — widest temperature headroom at the lowest relative cost.";
-    if ((state.conditions || []).includes("Oil") && state.exposureType === "Outdoor") {
-      insulationType = "Neoprene (up to 250°F)";
-      reasons.insulationType = "Outdoor oil exposure — Neoprene is valued for oil, ozone, and weather resistance.";
-    } else if (wantsFlex) {
+    if (wantsFlex) {
       insulationType = "Silicone Insulation";
-      reasons.insulationType = "High-flex requirement — silicone adds flexibility and moisture resistance over felt.";
+      reasons.insulationType = "Needs to flex or be moved often — silicone adds flexibility and moisture resistance over felt.";
     }
 
     // Controller / sensor / alarms — from the tolerance requirement already collected.
@@ -500,34 +513,40 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       reasons.controllerType = "Moderate tolerance — a digital PID controller is a solid fit.";
     }
 
-    // Outer jacket — exposure conditions drive this.
+    // Outer jacket — indoor vs. outdoor/both drives this.
     let outerJacketType = "Polyolefin Heat-Shrink";
-    reasons.outerJacketType = "Indoor or lightly-exposed routing — lightweight heat-shrink is the economical choice.";
-    if ((state.conditions || []).some((c) => ["Abrasion", "Crush"].includes(c))) {
-      outerJacketType = "Thermoplastic Rubber, Wire-Reinforced";
-      reasons.outerJacketType = "Abrasion/crush exposure — a wire-reinforced jacket adds mechanical protection.";
-    } else if (state.exposureType === "Outdoor" || (state.conditions || []).some((c) => ["Rain", "Snow", "UV"].includes(c))) {
+    reasons.outerJacketType = "Indoor routing — lightweight heat-shrink is the economical choice.";
+    if (isOutdoor) {
       outerJacketType = "Corrugated Polyethylene/Polypropylene";
       reasons.outerJacketType = "Outdoor exposure — corrugated jacket is flexible and weather-sealed.";
     }
 
-    // Plug type — from computed amps at the recommended wattage.
+    // Plug type — hardwired if hazardous-location, otherwise from computed amps at the
+    // recommended wattage (works for both stepped cable families and custom tape heaters).
     let plugType = null;
     const heatedLengthFt = parseFloat(state.heatedLength);
     const voltageMap = { "120V AC": 120, "208V AC": 208, "240V AC": 240, "277V AC": 277 };
-    const voltage = voltageMap[state.voltage];
-    if (heaterWattsValue && heatedLengthFt && voltage) {
-      const amps = (heaterWattsValue * heatedLengthFt) / voltage;
-      const fit = PLUG_OPTIONS.filter((p) => p.value !== "none").find((p) => p.maxAmps >= amps);
+    const voltage = voltageMap[state.voltage] || 120;
+    const effectiveWattsPerFt = HEATER_FAMILIES[heaterFamily] && HEATER_FAMILIES[heaterFamily].custom ? targetWatts : heaterWattsValue;
+    let totalWatts = null;
+    let totalAmps = null;
+    if (isHazloc) {
+      plugType = "none";
+      reasons.plugType = "Hazardous-location installations are typically hardwired directly rather than plugged in.";
+    } else if (effectiveWattsPerFt && heatedLengthFt) {
+      totalWatts = effectiveWattsPerFt * heatedLengthFt;
+      totalAmps = totalWatts / voltage;
+      const fit = PLUG_OPTIONS.filter((p) => p.value !== "none").find((p) => p.maxAmps >= totalAmps);
       if (fit) {
         plugType = fit.value;
-        reasons.plugType = `Computed load of about ${amps.toFixed(1)} A fits a ${fit.label} plug.`;
+        reasons.plugType = `Estimated load of about ${Math.round(totalWatts)} W (${totalAmps.toFixed(1)} A at ${voltage}V) fits a ${fit.label} plug.`;
       }
     }
 
     return {
       tubeMaterial, heaterFamily, heaterWattsValue, numWraps, insulationType,
-      controllerType, sensorType, alarms, outerJacketType, plugType, targetWatts, reasons,
+      controllerType, sensorType, alarms, outerJacketType, plugType, targetWatts,
+      totalWatts, totalAmps, reasons,
     };
   }
 
@@ -544,95 +563,41 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       ],
     },
     {
-      id: "process",
-      title: "Process & Media Conditions",
-      fields: [
-        { id: "mediaType", label: "Sample or media type", type: "text", placeholder: "e.g. natural gas, flue gas, adhesive" },
-        { row: [
-          { id: "inletTemp", label: "Normal inlet temperature (°F)", type: "number" },
-          { id: "maintainTemp", label: "Required maintain temperature (°F)", type: "number", placeholder: "typical systems: up to 400°F (200°C)" },
-        ]},
-        { row: [
-          { id: "maxTemp", label: "Maximum allowable temperature (°F)", type: "number" },
-          { id: "dewPoint", label: "Dew point, if known (analytical sampling)", type: "text" },
-        ]},
-        { id: "viscosityBehavior", label: "How does the media behave as it cools or sits, if relevant (thickens, gels, sets up, etc.)", type: "text" },
-        { row: [
-          { id: "operatingPressure", label: "Operating pressure", type: "text" },
-          { id: "maxPressure", label: "Maximum pressure", type: "text" },
-        ]},
-        { id: "flowRate", label: "Flow rate, if relevant", type: "text" },
-        { id: "compatibilityConcerns", label: "Corrosive, reactive, permeable, or compatibility concerns", type: "textarea" },
-      ],
-    },
-    {
-      id: "tubing",
-      title: "Tube Size & Bundle",
-      note: () => "For trace-level or adsorption-sensitive sampling (mercury, RATA, etc.), we typically recommend inert-coated stainless tubing to protect accuracy — we'll factor that into your recommendation later.",
+      id: "basics",
+      title: "The Basics",
+      hint: "Pick whatever you know — everything here is a simple choice from a list.",
       fields: [
         { row: [
           { id: "numTubes", label: "Number of tubes", type: "select", options: withRec(["1", "2", "3", "4+"]) },
           { id: "tubeOD", label: "Tube outside diameter", type: "select", options: withRec(['1/8"', '1/4"', '3/8"', '1/2"', '5/8"', '3/4"', '1"']) },
         ]},
-        { id: "wallThickness", label: "Wall thickness", type: "select", options: withRec(['0.028"', '0.030"', '0.035"', '0.040"', '0.047"', '0.049"', '0.062"', '0.065"', '0.083"']) },
-        { id: "extras", label: "Include in the bundle", type: "checkboxes", options: [
-          "Calibration line", "Purge line", "Return line", "Heat trace redundancy", "Drain-back capability", "Spare tube", "Electrical / signal conductors",
-        ]},
-        { id: "tubeIdNotes", label: "Tube ID / color-coding notes", type: "text", condition: (state) => state.numTubes && state.numTubes !== "1" },
-      ],
-    },
-    {
-      id: "physical",
-      title: "Physical Dimensions & Handling",
-      fields: [
         { row: [
-          { id: "heatedLength", label: "Heated length (ft)", type: "number", placeholder: "typical range 1.5–100 ft" },
-          { id: "totalLength", label: "Total overall length (ft)", type: "number" },
+          { id: "heatedLength", label: "Heated length", type: "select",
+            options: ["5 ft", "10 ft", "15 ft", "20 ft", "25 ft", "30 ft", "40 ft", "50 ft", "75 ft", "100 ft", "140 ft"] },
+          { id: "tubeMaterial", label: "Tube material", type: "select", recommendKey: "tubeMaterial", options: withRec([
+            "PFA", "FEP", "PTFE", "Nylon", "Polyethylene",
+            "316 SS Seamless", "316 SS Welded", "304 SS Seamless", "304 SS Welded",
+            "SilcoNert-Coated 316 SS", "Copper", "Monel", "Titanium", "Alloy C276", "Alloy 825", "Alloy 20",
+          ])},
         ]},
         { row: [
-          { id: "heatedEndLength", label: "Power-side unheated lead (in)", type: "number" },
-          { id: "unheatedEndLength", label: "Non-power-side unheated lead (in)", type: "number" },
-        ]},
-        { id: "installType", label: "Installation type", type: "pills", options: ["Fixed", "Portable", "Mobile", "Not sure"] },
-        { row: [
-          { id: "minBendRadius", label: "Minimum bend radius", type: "text", placeholder: "typical minimum: 4 in (100 mm)" },
-          { id: "verticalRise", label: "Vertical rise", type: "text" },
-        ]},
-        { id: "delivery", label: "Delivery", type: "pills", options: ["Coiled", "Straight", "Not sure"] },
-        { id: "flexibility", label: "Flexibility", type: "select", options: withRec(["Standard", "High-flex"]) },
-        { id: "weightSensitivity", label: "Is weight a constraint?", type: "pills", options: ["Yes", "No", "Not sure"] },
-        { id: "repeatedDeployment", label: "Repeated deployment or storage required", type: "checkbox", condition: (state) => state.installType !== "Fixed" },
-      ],
-    },
-    {
-      id: "electrical",
-      title: "Electrical & Thermal Requirements",
-      fields: [
-        { row: [
+          { id: "maintainTemp", label: "Required maintain temperature", type: "select", options: [
+            { value: "150", label: "Up to 150°F" },
+            { value: "250", label: "150–250°F" },
+            { value: "400", label: "250–400°F" },
+            { value: "300", label: "Not sure — we'll confirm during review" },
+          ]},
           { id: "voltage", label: "Supply voltage", type: "select", options: withRec(["120V AC", "208V AC", "240V AC", "277V AC"]) },
-          { id: "amperageAvailable", label: "Available amperage", type: "text" },
         ]},
-        { row: [
-          { id: "phase", label: "Phase", type: "pills", options: ["Single", "Three", "Not sure"] },
-          { id: "heaterZones", label: "Number of heater zones", type: "select", options: withRec(["1", "2", "3+"]) },
-        ]},
-        { row: [
-          { id: "minAmbient", label: "Minimum ambient temperature", type: "text" },
-          { id: "maxAmbient", label: "Maximum ambient temperature", type: "text" },
-        ]},
-        { id: "exposure", label: "Exposure", type: "pills", options: ["Indoor", "Outdoor", "Both", "Not sure"] },
-        { id: "windExposure", label: "Significant wind exposure", type: "checkbox" },
-        { row: [
-          { id: "heatUpTime", label: "Required heat-up time", type: "text" },
-          { id: "operation", label: "Operation", type: "pills", options: ["Continuous", "Intermittent", "Not sure"] },
-        ]},
-        { id: "powerEntryLocation", label: "Power entry location", type: "text" },
+        { id: "exposure", label: "Installation environment", type: "pills", options: ["Indoor", "Outdoor / Both", "Not sure"] },
       ],
     },
     {
-      id: "controls",
-      title: "Precision Requirements",
+      id: "requirements",
+      title: "Special Requirements",
       fields: [
+        { id: "hazArea", label: "Does this need to be rated for a hazardous (classified) location?", type: "pills", options: ["Yes", "No", "Not sure"] },
+        { id: "flexibility", label: "Does the line need to flex or be moved often?", type: "pills", options: ["Yes", "No", "Not sure"] },
         {
           id: "toleranceQuestion", label: "How closely must temperature be maintained?", type: "pills",
           options: ["Loose", "Moderate", "Tight — critical", "Not sure"],
@@ -645,40 +610,11 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       ],
     },
     {
-      id: "environment",
-      title: "Environment, Safety & Certification",
-      warning: "Hazardous-location and certification selections are flagged for Powerblanket engineering review — we don't auto-certify compliance.",
-      fields: [
-        { id: "exposureType", label: "Installation environment", type: "pills", options: ["Indoor", "Outdoor", "Mobile", "Not sure"] },
-        { id: "conditions", label: "Exposure conditions", type: "checkboxes", options: ["Rain", "Snow", "UV", "Oil", "Chemical", "Abrasion", "Crush", "Washdown"] },
-        { id: "hazArea", label: "Hazardous area classification", type: "select", options: [
-          { value: "none", label: "Not classified / general purpose" },
-          { value: "fm-ci-d2", label: "FM — Class I, Division 2, Groups B, C, D" },
-          { value: "fm-cii-d2", label: "FM — Class II, Division 2, Groups F, G" },
-          { value: "fm-ciii", label: "FM — Class III, Divisions 1 and 2" },
-          { value: "fm-zone", label: "FM — Class I, Zones 1 & 2, AEx eb IIC / AEx tb IIIC" },
-          { value: "csa-ci-d1", label: "CSA — Class I, Division 1, Groups A, B, C, D" },
-          { value: "csa-cii-d1", label: "CSA — Class II, Division 1, Groups E, F, G" },
-          { value: "csa-ci-d2", label: "CSA — Class I, Division 2, Groups A, B, C, D" },
-          { value: "csa-cii-d2", label: "CSA — Class II, Division 2, Groups E, F, G" },
-          { value: "csa-ex", label: "CSA — Ex eb IIC / Ex tb IIIC" },
-          { value: "unsure", label: "Not sure — flag for review" },
-        ]},
-        { id: "maxJacketTemp", label: "Maximum jacket surface temperature", type: "text" },
-        { id: "installNotes", label: "Installation area notes", type: "textarea" },
-      ],
-    },
-    {
       id: "recommendation",
       title: "Your Recommended Configuration",
       hint: "Based on everything you've told us so far — every field here is editable if you'd rather choose yourself.",
       isRecommendationStep: true,
       fields: [
-        { id: "tubeMaterial", label: "Tube material", type: "select", recommendKey: "tubeMaterial", options: withRec([
-          "PFA", "FEP", "PTFE", "Nylon", "Polyethylene",
-          "316 SS Seamless", "316 SS Welded", "304 SS Seamless", "304 SS Welded",
-          "SilcoNert-Coated 316 SS", "Copper", "Monel", "Titanium", "Alloy C276", "Alloy 825", "Alloy 20",
-        ])},
         { row: [
           { id: "heaterFamily", label: "Heater construction", type: "select", recommendKey: "heaterFamily", options: [
             { value: "tape", label: HEATER_FAMILIES.tape.label },
@@ -722,51 +658,32 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       ],
     },
     {
-      id: "fittings",
-      title: "Fittings, Ends & Terminations",
-      fields: [
-        { row: [
-          { id: "processConnection", label: "Process connection", type: "text" },
-          { id: "analyzerConnection", label: "Analyzer / destination connection", type: "text" },
-        ]},
-        { id: "fittingType", label: "Tube fitting type", type: "select", options: withRec([
-          "Bare Tube – No Fitting", "Tube Stub Assembly", "Female JIC Fitting", "Cam & Groove (C&E) Fitting", "Compression Nut & Ferrules",
-        ])},
-        { id: "powerLeadType", label: "Power lead type", type: "select", options: withRec([
-          "2-Wire (no ground), heatshrink-terminated — tape heater",
-          "3-Wire SEOOW cord — tape heater",
-          "PETK termination kit, no power lead — heating cable",
-          "PETK termination kit + 3-wire SEOOW cord — heating cable",
-          "No power lead, no PETK kit — heating cable",
-        ])},
-        { row: [
-          { id: "endOrientation", label: "End orientation", type: "text" },
-          { id: "connectorLocation", label: "Connector location", type: "text" },
-        ]},
-        { id: "fittingExtras", label: "Also include", type: "checkboxes", options: ["Strain relief", "Protective caps", "Mounting / support hardware"] },
-      ],
-    },
-    {
       id: "project",
-      title: "Project Details",
+      title: "Anything Else?",
+      hint: "Fittings, terminations, certifications, and anything else specific to your build — tell us here and we'll work it into the engineering review.",
       fields: [
         { row: [
           { id: "quantity", label: "Quantity", type: "number" },
           { id: "neededBy", label: "Needed-by date", type: "date" },
         ]},
-        { row: [
-          { id: "location", label: "Project location", type: "text" },
-          { id: "company", label: "Company", type: "text" },
-        ]},
+        { id: "applicationCategory", label: "If it's helpful, which category is closest? (optional)", type: "pills",
+          options: ["CEMS", "RATA / Field Testing", "Process Gas Analysis", "Mercury Monitoring", "Heated Transport & Transfer", "Other / Not sure"] },
+        { id: "fileUpload", label: "Existing drawings or specification (optional)", type: "file" },
+        { id: "notes", label: "Additional requirements — fittings, terminations, certifications, anything not covered above", type: "textarea" },
+      ],
+    },
+    {
+      id: "contact",
+      title: "Your Contact Info",
+      fields: [
         { row: [
           { id: "contactName", label: "Contact name", type: "text" },
           { id: "contactEmail", label: "Contact email", type: "email" },
         ]},
-        { id: "contactPhone", label: "Contact phone", type: "tel" },
-        { id: "applicationCategory", label: "If it's helpful, which category is closest? (optional)", type: "pills",
-          options: ["CEMS", "RATA / Field Testing", "Process Gas Analysis", "Mercury Monitoring", "Heated Transport & Transfer", "Other / Not sure"] },
-        { id: "fileUpload", label: "Existing drawings or specification (optional)", type: "file" },
-        { id: "notes", label: "Additional notes", type: "textarea" },
+        { row: [
+          { id: "company", label: "Company", type: "text" },
+          { id: "contactPhone", label: "Contact phone", type: "tel" },
+        ]},
       ],
     },
   ];
@@ -791,6 +708,17 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     return v === undefined || v === null || v === "";
   }
 
+  // Tube material only depends on step-0 (application) text, so it's safe to compute
+  // and prefill as soon as it's first shown, in the Basics step.
+  function applyTubeMaterialDefault() {
+    const rec = computeRecommendations(state);
+    currentRecommendations = rec;
+    if (isUnset(state.tubeMaterial)) state.tubeMaterial = rec.tubeMaterial;
+  }
+
+  // Everything else here depends on inputs collected across every prior step
+  // (hazardous-area, flexibility, tolerance, etc.), so it's only safe to compute and
+  // lock in once we've actually reached the recommendation step — not before.
   function applyRecommendationDefaults() {
     const rec = computeRecommendations(state);
     currentRecommendations = rec;
@@ -900,7 +828,7 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       });
       select.addEventListener("change", (e) => {
         state[field.id] = e.target.value;
-        if (["numTubes", "installType", "heaterFamily"].includes(field.id)) renderStep(currentIndex);
+        if (["numTubes", "heaterFamily"].includes(field.id)) renderStep(currentIndex);
       });
       wrap.appendChild(select);
     } else if (field.type === "textarea") {
@@ -966,10 +894,10 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
 
   const summaryStrip = document.getElementById("configSummaryStrip");
   const SUMMARY_FIELDS = [
-    { key: "mediaType", label: "Media" },
+    { key: "mediaDescription", label: "Media" },
     { key: "tubeMaterial", label: "Tube" },
     { key: "heaterFamily", label: "Heater", format: (v) => (HEATER_FAMILIES[v] ? HEATER_FAMILIES[v].label.split(" (")[0] : v) },
-    { key: "heatedLength", label: "Length", format: (v) => `${v} ft` },
+    { key: "heatedLength", label: "Length" },
     { key: "voltage", label: "Voltage" },
   ];
 
@@ -1011,7 +939,12 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
 
     navRow.style.display = "flex";
     const step = STEPS[index];
+    // Tube material can prefill as soon as step 0's text exists (step 1 onward).
+    // Everything else waits until every prior step's inputs are actually in — i.e.
+    // the recommendation step itself — so hazardous-area/flexibility/tolerance
+    // answers from Special Requirements are never missed.
     if (step.isRecommendationStep) applyRecommendationDefaults();
+    else if (index >= 1) applyTubeMaterialDefault();
     else currentRecommendations = null;
     progressFill.style.width = `${Math.round(((index + 1) / (STEPS.length + 1)) * 100)}%`;
     progressLabel.textContent = `Step ${index + 1} of ${STEPS.length} — ${step.title}`;
@@ -1138,8 +1071,8 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       outerDiameter = tubeOD + wraps * insulationThicknessIn * 2 + 0.15; // + rough jacket allowance
     }
 
-    if (state.hazArea && state.hazArea !== "none" && state.hazArea !== "") {
-      warnings.push("Hazardous-area classification selected — this specification is flagged for Powerblanket engineering review before quotation.");
+    if (state.hazArea === "Yes" || state.hazArea === "Not sure") {
+      warnings.push("Hazardous-location rating requested — this specification is flagged for Powerblanket engineering review before quotation.");
     }
 
     // Temperature class — driven by the heater family's real ceiling, not the tube.
@@ -1361,13 +1294,14 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     submitBtn.textContent = "Submitting...";
 
     const formData = new FormData();
-    formData.append("_subject", "New heated line specification");
+    formData.append("access_key", "YOUR_WEB3FORMS_ACCESS_KEY");
+    formData.append("subject", "New heated line specification");
     formData.append("summary", buildSummaryText());
     if (state.fileUpload) formData.append("attachment", state.fileUpload);
     if (state.contactEmail) formData.append("email", state.contactEmail);
 
     try {
-      const response = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
         headers: { Accept: "application/json" },
