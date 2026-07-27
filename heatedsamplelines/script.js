@@ -1294,7 +1294,7 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     submitBtn.textContent = "Submitting...";
 
     const formData = new FormData();
-    formData.append("access_key", "YOUR_WEB3FORMS_ACCESS_KEY");
+    formData.append("access_key", "4d5bf2f0-642f-4bf5-874e-b1b2e0876d1f");
     formData.append("subject", "New heated line specification");
     formData.append("summary", buildSummaryText());
     if (state.fileUpload) formData.append("attachment", state.fileUpload);
