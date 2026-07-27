@@ -88,6 +88,11 @@
     },
     {
       "@type": "Question",
+      "name": "What is PTC, and why does it affect how a heated line is sized?",
+      "acceptedAnswer": { "@type": "Answer", "text": "PTC stands for positive temperature coefficient — as a resistive heater wire heats up, its electrical resistance rises, which pulls its current, and therefore its power output, down at a fixed voltage. Depending on the wire, that can mean up to a 25% drop in amps between ambient and 400°F, and longer heaters are more likely to need a higher-PTC wire, which compounds the effect. That's why a heated line is never sized to just the theoretical steady-state heat loss — real designs add margin so the heater still delivers enough power once it's hot." }
+    },
+    {
+      "@type": "Question",
       "name": "What tube material is best for CEMS, RATA, or mercury monitoring?",
       "acceptedAnswer": { "@type": "Answer", "text": "For trace-level or adsorption-sensitive sampling, inert-coated stainless steel (such as SilcoNert-coated 316 SS) is the standard choice — it resists adsorbing or reacting with trace-level compounds, which protects analytical accuracy. PFA and PTFE are also common where their chemical resistance and smooth bore fit the application." }
     },
@@ -355,6 +360,17 @@
           chart</a> in the Engineering Guide to see the real math update live for your own numbers.</p>
       </details>
       <details class="faq-item">
+        <summary>What is PTC, and why does it affect how a heated line is sized?</summary>
+        <p>PTC stands for positive temperature coefficient — as a resistive heater wire heats up, its electrical
+          resistance rises, which pulls its current, and therefore its power output, down at a fixed voltage.
+          Depending on the wire, that can mean up to a 25% drop in amps between ambient and 400°F, and longer
+          heaters are more likely to need a higher-PTC wire, which compounds the effect. That's why a heated line
+          is never sized to just the theoretical steady-state heat loss — real designs add margin so the heater
+          still delivers enough power once it's hot, not only when it's cold. See it applied directly in the
+          <a href="#engineering">interactive power-density chart</a>, which plots both the theoretical minimum and
+          the real engineering-recommended power density.</p>
+      </details>
+      <details class="faq-item">
         <summary>What tube material is best for CEMS, RATA, or mercury monitoring?</summary>
         <p>For trace-level or adsorption-sensitive sampling, inert-coated stainless steel (such as SilcoNert-coated
           316 SS) is the standard choice — it resists adsorbing or reacting with trace-level compounds, which
@@ -425,34 +441,32 @@
           <g class="cutaway-layer" data-layer="jacket" tabindex="0" role="button" aria-label="Outer protective jacket" data-caption="Outer protective jacket — shields the bundle from abrasion, UV, and weather.">
             <circle cx="200" cy="200" r="170" fill="#20241f"/>
           </g>
-          <g class="cutaway-layer" data-layer="insulation" tabindex="0" role="button" aria-label="Insulation" data-caption="Insulation — holds generated heat in and buffers against ambient swings.">
+          <g class="cutaway-layer" data-layer="insulation" tabindex="0" role="button" aria-label="Insulation" data-caption="Insulation — holds generated heat in and buffers against ambient swings around the whole bundle.">
             <circle cx="200" cy="200" r="150" fill="#eef2ee"/>
           </g>
-          <g class="cutaway-layer" data-layer="heater" tabindex="0" role="button" aria-label="Heating element" data-caption="Heating element — spirals the tube or hose to hold temperature end to end." fill="#e8823c">
-            <circle cx="325" cy="200" r="8"/><circle cx="308.25" cy="262.5" r="8"/>
-            <circle cx="262.5" cy="308.25" r="8"/><circle cx="200" cy="325" r="8"/>
-            <circle cx="137.5" cy="308.25" r="8"/><circle cx="91.75" cy="262.5" r="8"/>
-            <circle cx="75" cy="200" r="8"/><circle cx="91.75" cy="137.5" r="8"/>
-            <circle cx="137.5" cy="91.75" r="8"/><circle cx="200" cy="75" r="8"/>
-            <circle cx="262.5" cy="91.75" r="8"/><circle cx="308.25" cy="137.5" r="8"/>
-          </g>
           <circle cx="200" cy="200" r="100" fill="#ffffff"/>
-          <g class="cutaway-layer" data-layer="tubes" tabindex="0" role="button" aria-label="Process, calibration, purge, return, or transfer tube" data-caption="Process/transfer tube, plus optional calibration, purge, or return lines.">
-            <circle cx="185" cy="185" r="17" fill="#16a34a" stroke="#0f5c28" stroke-width="2"/>
-            <circle cx="218" cy="185" r="14" fill="#15803d" stroke="#0f5c28" stroke-width="2"/>
-            <circle cx="185" cy="218" r="12" fill="#f4b942" stroke="#a97a1e" stroke-width="2"/>
-            <circle cx="215" cy="216" r="11" fill="#9ca3af" stroke="#6b7280" stroke-width="2"/>
+          <g class="cutaway-layer" data-layer="heater" tabindex="0" role="button" aria-label="Heating element" data-caption="Heating element — spirals directly around the heated process tube. Unheated calibration, purge, and return lines ride alongside it, untouched by the coil." fill="#e8823c">
+            <circle cx="242" cy="200" r="7"/><circle cx="229.1" cy="231.1" r="7"/>
+            <circle cx="198" cy="244" r="7"/><circle cx="166.9" cy="231.1" r="7"/>
+            <circle cx="154" cy="200" r="7"/><circle cx="166.9" cy="168.9" r="7"/>
+            <circle cx="229.1" cy="168.9" r="7"/>
           </g>
-          <g class="cutaway-layer" data-layer="sensor" tabindex="0" role="button" aria-label="Temperature sensor" data-caption="Temperature sensor — a thermocouple or RTD riding alongside the heater, feeding the controller.">
-            <circle cx="200" cy="240" r="6" fill="#fff" stroke="#4b5563" stroke-width="3"/>
+          <g class="cutaway-layer" data-layer="tubes" tabindex="0" role="button" aria-label="Process tube (heated) and calibration, purge, or return tubes (unheated)" data-caption="The green process tube is the one being heated. The calibration, purge, and return tubes beside it travel in the same bundle but aren't wrapped by the heater.">
+            <circle cx="198" cy="200" r="30" fill="#16a34a" stroke="#0f5c28" stroke-width="2"/>
+            <circle cx="264" cy="167" r="12" fill="#15803d" stroke="#0f5c28" stroke-width="2"/>
+            <circle cx="278" cy="200" r="12" fill="#f4b942" stroke="#a97a1e" stroke-width="2"/>
+            <circle cx="264" cy="233" r="11" fill="#9ca3af" stroke="#6b7280" stroke-width="2"/>
+          </g>
+          <g class="cutaway-layer" data-layer="sensor" tabindex="0" role="button" aria-label="Temperature sensor" data-caption="Temperature sensor — a thermocouple or RTD riding alongside the heater on the heated tube, feeding the controller.">
+            <circle cx="198" cy="156" r="5" fill="#fff" stroke="#4b5563" stroke-width="3"/>
           </g>
         </svg>
         <p class="diagram-caption" data-default="Hover a layer, or the list below">Hover a layer, or the list below</p>
         <ul class="diagram-legend">
           <li data-layer="jacket"><span class="swatch" style="background:#20241f"></span>Outer protective jacket</li>
           <li data-layer="insulation"><span class="swatch" style="background:#eef2ee;border:1px solid #cbd5cf"></span>Insulation</li>
-          <li data-layer="heater"><span class="swatch" style="background:#e8823c"></span>Heating element</li>
-          <li data-layer="tubes"><span class="swatch" style="background:#16a34a"></span>Process / calibration / purge / return / transfer tube(s)</li>
+          <li data-layer="heater"><span class="swatch" style="background:#e8823c"></span>Heating element (on the process tube)</li>
+          <li data-layer="tubes"><span class="swatch" style="background:#16a34a"></span>Process tube, plus unheated calibration / purge / return tubes</li>
           <li data-layer="sensor"><span class="swatch" style="background:#fff;border:2px solid #4b5563"></span>Temperature sensor</li>
         </ul>
       </div>
@@ -574,19 +588,19 @@
             <tr><th>Material</th><th>Max Continuous Temp</th><th>Chemical Resistance</th><th>Relative Cost/ft</th><th>Best Fit / Watch-outs</th></tr>
           </thead>
           <tbody>
-            <tr><td>PFA</td><td>500°F (260°C)</td><td>Resists nearly all acids, bases, and solvents — among the most chemically inert plastics available</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Smooth bore resists adsorption; a common RATA/CEMS choice</td></tr>
-            <tr><td>FEP</td><td>~400°F (205°C)</td><td>Excellent broad chemical resistance, very close to PFA</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Similar to PFA at a slightly lower temperature ceiling</td></tr>
-            <tr><td>PTFE</td><td>500°F (260°C)</td><td>Outstanding chemical inertness — the benchmark other tube materials are compared against</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Same ceiling as PFA; a common substitute where PFA isn't specifically called for</td></tr>
-            <tr><td>Nylon</td><td>~200°F (93°C)</td><td>Poor resistance to strong acids and many solvents; absorbs moisture over time</td><td><span class="cost-tier" data-tier="1">$</span></td><td>Lowest-cost tube option; only for low-temperature, non-aggressive transfer</td></tr>
-            <tr><td>Polyethylene</td><td>~150°F (66°C)</td><td>Good resistance to many bases; weak against hydrocarbons and oxidizers</td><td><span class="cost-tier" data-tier="1">$</span></td><td>Lowest temperature ceiling in the lineup; general-purpose, cost-sensitive builds only</td></tr>
-            <tr><td>316 / 304 Stainless Steel <span class="table-note">(seamless or welded)</span></td><td>Set by the heater/insulation, not the tube</td><td>Excellent resistance to most process chemistries; 316's molybdenum content beats 304 on chloride/pitting resistance</td><td><span class="cost-tier" data-tier="1">$</span>–<span class="cost-tier" data-tier="2">$$</span></td><td>Seamless costs meaningfully more than welded at the same size; the default whenever plastic tubing isn't chemically compatible</td></tr>
-            <tr><td>SilcoNert&reg;-Coated 316 SS</td><td>Same as bare 316 SS</td><td>Same base metal, plus a deactivated internal surface that resists adsorbing or reacting with trace-level compounds</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>A substantial premium over bare stainless for the coating process; standard for mercury and other trace-level RATA work</td></tr>
-            <tr><td>Copper</td><td>Moderate</td><td>Reacts with many process chemistries and ammoniacal compounds — not a broad-resistance choice</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Good thermal conductivity; largely legacy or simple-transfer use today</td></tr>
-            <tr><td>Monel</td><td>High</td><td>Outstanding resistance to hydrofluoric acid and chloride / seawater environments</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Specialty alloy for specific corrosive services</td></tr>
-            <tr><td>Titanium</td><td>High</td><td>Outstanding resistance to oxidizing chlorides; very light weight</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Specialty alloy for weight-sensitive or highly oxidizing services</td></tr>
-            <tr><td>Alloy C276 <span class="table-note">(Hastelloy)</span></td><td>High</td><td>One of the broadest chemical-resistance profiles available, including wet chlorine and hot contaminated acids</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Premium alloy reserved for the most aggressive process chemistries</td></tr>
-            <tr><td>Alloy 825</td><td>High</td><td>Strong resistance to sulfuric/phosphoric acid and chloride stress-corrosion cracking</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Specialty alloy</td></tr>
-            <tr><td>Alloy 20</td><td>High</td><td>Developed specifically for sulfuric acid service</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Specialty alloy</td></tr>
+            <tr><td>PFA</td><td data-label="Max Continuous Temp">500°F (260°C)</td><td data-label="Chemical Resistance">Resists nearly all acids, bases, and solvents — among the most chemically inert plastics available</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="2">$$</span></td><td data-label="Best Fit / Watch-outs">Smooth bore resists adsorption; a common RATA/CEMS choice</td></tr>
+            <tr><td>FEP</td><td data-label="Max Continuous Temp">~400°F (205°C)</td><td data-label="Chemical Resistance">Excellent broad chemical resistance, very close to PFA</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="2">$$</span></td><td data-label="Best Fit / Watch-outs">Similar to PFA at a slightly lower temperature ceiling</td></tr>
+            <tr><td>PTFE</td><td data-label="Max Continuous Temp">500°F (260°C)</td><td data-label="Chemical Resistance">Outstanding chemical inertness — the benchmark other tube materials are compared against</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="2">$$</span></td><td data-label="Best Fit / Watch-outs">Same ceiling as PFA; a common substitute where PFA isn't specifically called for</td></tr>
+            <tr><td>Nylon</td><td data-label="Max Continuous Temp">~200°F (93°C)</td><td data-label="Chemical Resistance">Poor resistance to strong acids and many solvents; absorbs moisture over time</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="1">$</span></td><td data-label="Best Fit / Watch-outs">Lowest-cost tube option; only for low-temperature, non-aggressive transfer</td></tr>
+            <tr><td>Polyethylene</td><td data-label="Max Continuous Temp">~150°F (66°C)</td><td data-label="Chemical Resistance">Good resistance to many bases; weak against hydrocarbons and oxidizers</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="1">$</span></td><td data-label="Best Fit / Watch-outs">Lowest temperature ceiling in the lineup; general-purpose, cost-sensitive builds only</td></tr>
+            <tr><td>316 / 304 Stainless Steel <span class="table-note">(seamless or welded)</span></td><td data-label="Max Continuous Temp">Set by the heater/insulation, not the tube</td><td data-label="Chemical Resistance">Excellent resistance to most process chemistries; 316's molybdenum content beats 304 on chloride/pitting resistance</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="1">$</span>–<span class="cost-tier" data-tier="2">$$</span></td><td data-label="Best Fit / Watch-outs">Seamless costs meaningfully more than welded at the same size; the default whenever plastic tubing isn't chemically compatible</td></tr>
+            <tr><td>SilcoNert&reg;-Coated 316 SS</td><td data-label="Max Continuous Temp">Same as bare 316 SS</td><td data-label="Chemical Resistance">Same base metal, plus a deactivated internal surface that resists adsorbing or reacting with trace-level compounds</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="4">$$$$</span></td><td data-label="Best Fit / Watch-outs">A substantial premium over bare stainless for the coating process; standard for mercury and other trace-level RATA work</td></tr>
+            <tr><td>Copper</td><td data-label="Max Continuous Temp">Moderate</td><td data-label="Chemical Resistance">Reacts with many process chemistries and ammoniacal compounds — not a broad-resistance choice</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="2">$$</span></td><td data-label="Best Fit / Watch-outs">Good thermal conductivity; largely legacy or simple-transfer use today</td></tr>
+            <tr><td>Monel</td><td data-label="Max Continuous Temp">High</td><td data-label="Chemical Resistance">Outstanding resistance to hydrofluoric acid and chloride / seawater environments</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="4">$$$$</span></td><td data-label="Best Fit / Watch-outs">Specialty alloy for specific corrosive services</td></tr>
+            <tr><td>Titanium</td><td data-label="Max Continuous Temp">High</td><td data-label="Chemical Resistance">Outstanding resistance to oxidizing chlorides; very light weight</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="4">$$$$</span></td><td data-label="Best Fit / Watch-outs">Specialty alloy for weight-sensitive or highly oxidizing services</td></tr>
+            <tr><td>Alloy C276 <span class="table-note">(Hastelloy)</span></td><td data-label="Max Continuous Temp">High</td><td data-label="Chemical Resistance">One of the broadest chemical-resistance profiles available, including wet chlorine and hot contaminated acids</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="4">$$$$</span></td><td data-label="Best Fit / Watch-outs">Premium alloy reserved for the most aggressive process chemistries</td></tr>
+            <tr><td>Alloy 825</td><td data-label="Max Continuous Temp">High</td><td data-label="Chemical Resistance">Strong resistance to sulfuric/phosphoric acid and chloride stress-corrosion cracking</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="4">$$$$</span></td><td data-label="Best Fit / Watch-outs">Specialty alloy</td></tr>
+            <tr><td>Alloy 20</td><td data-label="Max Continuous Temp">High</td><td data-label="Chemical Resistance">Developed specifically for sulfuric acid service</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="4">$$$$</span></td><td data-label="Best Fit / Watch-outs">Specialty alloy</td></tr>
           </tbody>
         </table>
       </div>
@@ -608,9 +622,9 @@
         <table class="material-table">
           <thead><tr><th>Type</th><th>Max Temp</th><th>Relative Cost/ft</th><th>Notes</th></tr></thead>
           <tbody>
-            <tr><td>Meta-Aramid / Nomex Felt</td><td>650°F (343°C)</td><td><span class="cost-tier" data-tier="1">$</span></td><td>The widest headroom above the heater's own ceiling; flexible; the standard choice on most builds</td></tr>
-            <tr><td>Silicone Insulation</td><td>Comparable high-temperature range to Nomex</td><td><span class="cost-tier" data-tier="3">$$$</span></td><td>Added flexibility and better moisture resistance than felt, at a higher relative cost</td></tr>
-            <tr><td>Neoprene</td><td>250°F (121°C)</td><td><span class="cost-tier" data-tier="3">$$$</span></td><td>Lower temperature ceiling than felt, but valued for oil, ozone, and weather resistance outdoors</td></tr>
+            <tr><td>Meta-Aramid / Nomex Felt</td><td data-label="Max Temp">650°F (343°C)</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="1">$</span></td><td data-label="Notes">The widest headroom above the heater's own ceiling; flexible; the standard choice on most builds</td></tr>
+            <tr><td>Silicone Insulation</td><td data-label="Max Temp">Comparable high-temperature range to Nomex</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="3">$$$</span></td><td data-label="Notes">Added flexibility and better moisture resistance than felt, at a higher relative cost</td></tr>
+            <tr><td>Neoprene</td><td data-label="Max Temp">250°F (121°C)</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="3">$$$</span></td><td data-label="Notes">Lower temperature ceiling than felt, but valued for oil, ozone, and weather resistance outdoors</td></tr>
           </tbody>
         </table>
       </div>
@@ -641,8 +655,8 @@
         <div class="config-field">
           <label for="chartThickness">Insulation thickness</label>
           <select id="chartThickness">
-            <option value="0.25" selected>1 wrap (0.25 in)</option>
-            <option value="0.5">2 wraps (0.5 in)</option>
+            <option value="0.25" selected>1 wrap — 1/4 in total</option>
+            <option value="0.5">2 wraps — 2 &times; 1/4 in = 1/2 in total</option>
           </select>
         </div>
         <div class="config-field">
@@ -664,14 +678,23 @@
         </svg>
         <div id="powerChartTooltip" class="power-chart-tooltip" hidden></div>
       </div>
+      <ul class="power-chart-legend">
+        <li class="power-chart-legend-item"><span class="power-chart-legend-swatch recommended"></span>Engineering Recommended — includes real-world design margin</li>
+        <li class="power-chart-legend-item"><span class="power-chart-legend-swatch theoretical"></span>Theoretical Minimum — pure steady-state heat loss</li>
+      </ul>
       <p class="disclaimer">
-        Calculated from the standard cylindrical-conduction heat-transfer equation for insulated pipe (the same
-        method taught in professional heat-tracing design courses), using published thermal-conductivity values
-        for each insulation type shown. Assumes a thin outer jacket (negligible added resistance) and no extra
-        safety factor. Powerblanket's own Meta-Aramid/Nomex felt insulation performs in the same general range as
-        the fiberglass/mineral-wool class shown here — an exact published k-value for it isn't publicly available.
-        Real-world performance also depends on wind, jacket emissivity, and installation; final sizing is
-        confirmed during engineering review.
+        The theoretical-minimum line is calculated from the standard cylindrical-conduction heat-transfer equation
+        for insulated pipe (the same method taught in professional heat-tracing design courses), using published
+        thermal-conductivity values for each insulation type shown, and assumes a thin outer jacket (negligible
+        added resistance). It's a physics floor, not a spec — real heater cables draw meaningfully less power as
+        they heat up (their resistance rises with temperature), so a cable sized only to the theoretical loss can
+        fall short at the hot end. The Engineering Recommended line adds that real-world design margin, calibrated
+        to Powerblanket's own reference build (a 3/8" tube with 2 wraps of Nomex felt, sized to 24 W/ft to reach
+        400°F from a ~70-80°F ambient) and applied here as a flat multiplier — actual margin varies somewhat by
+        heater cable and run length. Powerblanket's own Meta-Aramid/Nomex felt insulation performs in the same
+        general range as the fiberglass/mineral-wool class shown here — an exact published k-value for it isn't
+        publicly available. Real-world performance also depends on wind, jacket emissivity, and installation;
+        final sizing is confirmed during engineering review.
       </p>
     </div>
 
@@ -681,11 +704,11 @@
         <table class="material-table">
           <thead><tr><th>Type</th><th>Water Resistant</th><th>Relative Cost/ft</th><th>Notes</th></tr></thead>
           <tbody>
-            <tr><td>Polyolefin Heat-Shrink</td><td>Yes</td><td><span class="cost-tier" data-tier="1">$</span></td><td>Lightweight, low-profile, lowest cost; indoor or lightly-exposed runs</td></tr>
-            <tr><td>Abrasion-Resistant Sleeving</td><td>No</td><td><span class="cost-tier" data-tier="1">$</span></td><td>Tough mechanical protection but not sealed against moisture — indoor/dry routing only</td></tr>
-            <tr><td>Corrugated Polyethylene / Polypropylene</td><td>Yes</td><td><span class="cost-tier" data-tier="2">$$</span></td><td>Flexible and weather-sealed; the common general-purpose outdoor choice</td></tr>
-            <tr><td>Thermoplastic Rubber, Wire-Reinforced</td><td>Yes</td><td><span class="cost-tier" data-tier="3">$$$</span></td><td>Adds crush/kink resistance for high-traffic or heavy mechanical environments</td></tr>
-            <tr><td>Polyamide 6 Tubing</td><td>Yes</td><td><span class="cost-tier" data-tier="4">$$$$</span></td><td>Premium abrasion and chemical resistance; suited to continuous-duty routing like robotics and automotive lines</td></tr>
+            <tr><td>Polyolefin Heat-Shrink</td><td data-label="Water Resistant">Yes</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="1">$</span></td><td data-label="Notes">Lightweight, low-profile, lowest cost; indoor or lightly-exposed runs</td></tr>
+            <tr><td>Abrasion-Resistant Sleeving</td><td data-label="Water Resistant">No</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="1">$</span></td><td data-label="Notes">Tough mechanical protection but not sealed against moisture — indoor/dry routing only</td></tr>
+            <tr><td>Corrugated Polyethylene / Polypropylene</td><td data-label="Water Resistant">Yes</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="2">$$</span></td><td data-label="Notes">Flexible and weather-sealed; the common general-purpose outdoor choice</td></tr>
+            <tr><td>Thermoplastic Rubber, Wire-Reinforced</td><td data-label="Water Resistant">Yes</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="3">$$$</span></td><td data-label="Notes">Adds crush/kink resistance for high-traffic or heavy mechanical environments</td></tr>
+            <tr><td>Polyamide 6 Tubing</td><td data-label="Water Resistant">Yes</td><td data-label="Relative Cost/ft"><span class="cost-tier" data-tier="4">$$$$</span></td><td data-label="Notes">Premium abrasion and chemical resistance; suited to continuous-duty routing like robotics and automotive lines</td></tr>
           </tbody>
         </table>
       </div>
@@ -741,7 +764,6 @@
         <div class="app-card-body">
           <h3>CEMS</h3>
           <p>Fixed continuous emissions monitoring — long permanent runs, held above dew point end to end.</p>
-          <button class="btn btn-outline-dark configure-btn" data-app="cems">Configure This Type</button>
         </div>
       </div>
       <div class="app-card">
@@ -749,7 +771,6 @@
         <div class="app-card-body">
           <h3>RATA / Field Testing</h3>
           <p>Portable relative accuracy test audits — shorter runs, inert-coated tubing for trace-level accuracy.</p>
-          <button class="btn btn-outline-dark configure-btn" data-app="rata">Configure This Type</button>
         </div>
       </div>
       <div class="app-card">
@@ -757,7 +778,6 @@
         <div class="app-card-body">
           <h3>Process Gas Analysis</h3>
           <p>Ongoing process analyzer sampling — matched to your process conditions and control needs.</p>
-          <button class="btn btn-outline-dark configure-btn" data-app="process">Configure This Type</button>
         </div>
       </div>
       <div class="app-card">
@@ -765,10 +785,13 @@
         <div class="app-card-body">
           <h3>Heated Transport &amp; Transfer</h3>
           <p>Adhesives, resins, and heavy oils that need to stay within a workable temperature range in transit.</p>
-          <button class="btn btn-outline-dark configure-btn" data-app="transfer">Configure This Type</button>
         </div>
       </div>
     </div>
+    <p class="app-grid-cta">
+      Whatever your application, the same engineering interview gets you to a spec.
+      <a href="#configurator" class="btn btn-primary">Start the Engineering Interview</a>
+    </p>
   </div>
 </section>
 

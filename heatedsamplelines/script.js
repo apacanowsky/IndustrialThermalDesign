@@ -154,12 +154,25 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
 
   const MAX_DELTA_T = 400; // deg F, matches the site's stated temperature ceiling
 
+  // Real design margin over the theoretical steady-state loss: heater cables draw less
+  // power as they heat up (positive-temperature-coefficient resistance), so a cable rated
+  // to cover the loss at ambient can fall well short at the hot end. Calibrated to
+  // Powerblanket's own reference point — a 3/8" tube, 2 wraps of Nomex felt, sized to
+  // 24 W/ft to reach 400F from a ~70-80F ambient — where the theoretical loss is only
+  // ~10.7 W/ft, a ~2.25x margin. Applied here as a flat multiplier across all cases; the
+  // real margin varies somewhat by heater cable and run length.
+  const DESIGN_MARGIN_FACTOR = 2.25;
+
   function wattsPerSqFt(deltaT, k, tubeOD, thickness) {
     const Dp = tubeOD;
     const Di = Dp + 2 * thickness;
     const wPerFt = (2 * Math.PI * deltaT * k) / (3.42 * 12 * Math.log(Di / Dp));
     const circumferenceFt = (Math.PI * Dp) / 12;
     return wPerFt / circumferenceFt;
+  }
+
+  function recommendedWattsPerSqFt(deltaT, k, tubeOD, thickness) {
+    return wattsPerSqFt(deltaT, k, tubeOD, thickness) * DESIGN_MARGIN_FACTOR;
   }
 
   const W = 680, H = 380;
@@ -193,7 +206,7 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     const thickness = parseFloat(thicknessSelect.value);
     const tubeOD = parseFloat(tubeSelect.value);
 
-    const maxW = wattsPerSqFt(MAX_DELTA_T, k, tubeOD, thickness);
+    const maxW = recommendedWattsPerSqFt(MAX_DELTA_T, k, tubeOD, thickness);
     const yMax = niceMax(maxW);
 
     svg.innerHTML = "";
@@ -229,10 +242,14 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
     yTitle.textContent = "Required Power Density (W/ft²)";
     svg.appendChild(yTitle);
 
-    // Data line (straight line through origin)
+    // Data lines (straight lines through origin) — theoretical minimum and, above it,
+    // the engineering-recommended power that includes real design margin.
     const x0 = xToPx(0), y0 = yToPx(0, yMax);
-    const x1 = xToPx(MAX_DELTA_T), y1 = yToPx(maxW, yMax);
-    svg.appendChild(svgEl("path", { class: "power-chart-line", d: `M ${x0} ${y0} L ${x1} ${y1}` }));
+    const xEnd = xToPx(MAX_DELTA_T);
+    const yTheoretical = yToPx(wattsPerSqFt(MAX_DELTA_T, k, tubeOD, thickness), yMax);
+    const yRecommended = yToPx(maxW, yMax);
+    svg.appendChild(svgEl("path", { class: "power-chart-line power-chart-line-theoretical", d: `M ${x0} ${y0} L ${xEnd} ${yTheoretical}` }));
+    svg.appendChild(svgEl("path", { class: "power-chart-line power-chart-line-recommended", d: `M ${x0} ${y0} L ${xEnd} ${yRecommended}` }));
 
     // Hover interaction
     const hitArea = svgEl("rect", { x: margin.left, y: margin.top, width: plotW, height: plotH, fill: "transparent" });
@@ -240,8 +257,10 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
 
     const crosshair = svgEl("line", { class: "power-chart-crosshair", visibility: "hidden" });
     svg.appendChild(crosshair);
-    const dot = svgEl("circle", { class: "power-chart-dot", r: 5, visibility: "hidden" });
-    svg.appendChild(dot);
+    const dotTheoretical = svgEl("circle", { class: "power-chart-dot power-chart-dot-theoretical", r: 5, visibility: "hidden" });
+    svg.appendChild(dotTheoretical);
+    const dotRecommended = svgEl("circle", { class: "power-chart-dot power-chart-dot-recommended", r: 5, visibility: "hidden" });
+    svg.appendChild(dotRecommended);
 
     function handleMove(evt) {
       const rect = svg.getBoundingClientRect();
@@ -249,30 +268,40 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       const px = (evt.clientX - rect.left) * scaleX;
       let deltaT = ((px - margin.left) / plotW) * MAX_DELTA_T;
       deltaT = Math.max(0, Math.min(MAX_DELTA_T, deltaT));
-      const wsf = wattsPerSqFt(deltaT, k, tubeOD, thickness);
-      const wft = wsf * (Math.PI * tubeOD) / 12;
+      const wsfTheoretical = wattsPerSqFt(deltaT, k, tubeOD, thickness);
+      const wsfRecommended = wsfTheoretical * DESIGN_MARGIN_FACTOR;
+      const circumferenceFt = (Math.PI * tubeOD) / 12;
+      const wftTheoretical = wsfTheoretical * circumferenceFt;
+      const wftRecommended = wsfRecommended * circumferenceFt;
 
       const cx = xToPx(deltaT);
-      const cy = yToPx(wsf, yMax);
+      const cyTheoretical = yToPx(wsfTheoretical, yMax);
+      const cyRecommended = yToPx(wsfRecommended, yMax);
       crosshair.setAttribute("x1", cx);
       crosshair.setAttribute("x2", cx);
       crosshair.setAttribute("y1", margin.top);
       crosshair.setAttribute("y2", H - margin.bottom);
       crosshair.setAttribute("visibility", "visible");
-      dot.setAttribute("cx", cx);
-      dot.setAttribute("cy", cy);
-      dot.setAttribute("visibility", "visible");
+      dotTheoretical.setAttribute("cx", cx);
+      dotTheoretical.setAttribute("cy", cyTheoretical);
+      dotTheoretical.setAttribute("visibility", "visible");
+      dotRecommended.setAttribute("cx", cx);
+      dotRecommended.setAttribute("cy", cyRecommended);
+      dotRecommended.setAttribute("visibility", "visible");
 
       const wrapRect = wrap.getBoundingClientRect();
       tooltip.style.left = `${evt.clientX - wrapRect.left}px`;
-      tooltip.style.top = `${(cy / H) * rect.height + (rect.top - wrapRect.top)}px`;
-      tooltip.innerHTML = `<strong>${Math.round(deltaT)}°F rise</strong><br>${wsf.toFixed(1)} W/ft² &middot; ${wft.toFixed(1)} W/ft`;
+      tooltip.style.top = `${(cyRecommended / H) * rect.height + (rect.top - wrapRect.top)}px`;
+      tooltip.innerHTML = `<strong>${Math.round(deltaT)}°F rise</strong>` +
+        `<br><span class="power-chart-tooltip-recommended">Recommended: ${wftRecommended.toFixed(1)} W/ft &middot; ${wsfRecommended.toFixed(1)} W/ft²</span>` +
+        `<br><span class="power-chart-tooltip-theoretical">Theoretical min: ${wftTheoretical.toFixed(1)} W/ft &middot; ${wsfTheoretical.toFixed(1)} W/ft²</span>`;
       tooltip.hidden = false;
     }
 
     function handleLeave() {
       crosshair.setAttribute("visibility", "hidden");
-      dot.setAttribute("visibility", "hidden");
+      dotTheoretical.setAttribute("visibility", "hidden");
+      dotRecommended.setAttribute("visibility", "hidden");
       tooltip.hidden = true;
     }
 
@@ -1369,22 +1398,6 @@ document.querySelectorAll(".cutaway-layer, .diagram-legend li").forEach((el) => 
       return;
     }
     renderStep(currentIndex + 1);
-  });
-
-  const APPLICATION_CATEGORY_LABELS = {
-    cems: "CEMS",
-    rata: "RATA / Field Testing",
-    process: "Process Gas Analysis",
-    mercury: "Mercury Monitoring",
-    transfer: "Heated Transport & Transfer",
-  };
-
-  document.querySelectorAll(".configure-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      state.applicationCategory = APPLICATION_CATEGORY_LABELS[btn.dataset.app] || null;
-      renderStep(0);
-      document.getElementById("configurator").scrollIntoView({ behavior: "smooth" });
-    });
   });
 
   renderStep(0);
