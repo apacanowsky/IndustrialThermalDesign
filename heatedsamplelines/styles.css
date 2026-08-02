@@ -157,11 +157,11 @@ p { max-width: 68ch; }
 
 /* ---------- Engineering banner ---------- */
 
-.engineering-banner { background: #fff; border-bottom: 3px solid var(--green-700); padding: 20px 0; }
+.engineering-banner { background: #fff; border-bottom: 3px solid var(--green-700); padding: 10px 0; }
 .engineering-banner-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 .engineering-banner-brand { display: flex; flex-direction: column; align-items: flex-start; }
-.engineering-banner-logo { height: 150px; width: auto; display: block; }
-.engineering-banner-tagline { margin: 2px 0 0; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--green-700); }
+.engineering-banner-logo { height: 70px; width: auto; display: block; }
+.engineering-banner-tagline { margin: -26px 0 0; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--green-700); }
 .engineering-banner-contact { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; font-size: 0.88rem; color: var(--ink-soft); }
 .engineering-banner-contact-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
 .engineering-banner-contact a { color: var(--ink); font-weight: 700; text-decoration: none; font-size: 0.95rem; }
@@ -171,7 +171,7 @@ p { max-width: 68ch; }
   .engineering-banner-inner { flex-direction: column; align-items: flex-start; }
   .engineering-banner-contact { align-items: flex-start; }
   .engineering-banner-contact-row { justify-content: flex-start; }
-  .engineering-banner-logo { height: 110px; }
+  .engineering-banner-logo { height: 54px; }
 }
 
 /* ---------- Ken Burns on real photography ---------- */
