@@ -2,11 +2,13 @@
 
 Powerblanket Engineering — Industrial Thermal Design Resources
 
-This will eventually be the parent site for industrialthermaldesign.com.
+The parent site for industrialthermaldesign.com — a hub of problem-oriented engineering
+guides, one per industrial thermal challenge.
 
-Right now it contains one live resource:
+Live today:
 
 - **[/heatedsamplelines/](./heatedsamplelines/)** — Sample Line Guide, Powerblanket's heated
   sample & transport line engineering resource and configurator.
 
-The parent site itself (homepage, navigation, additional resources) hasn't been built yet.
+Planned (shown as "Coming Soon" tiles on the homepage): tank heating, hopper heating,
+ground thawing, and transmitter/instrument heating.

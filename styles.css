@@ -1,0 +1,173 @@
+:root {
+  --green-900: #14532d;
+  --green-800: #166534;
+  --green-700: #15803d;
+  --green-600: #16a34a;
+  --green-100: #dcfce7;
+  --green-50: #f0fdf4;
+  --ink: #1a1f1b;
+  --ink-soft: #4b5563;
+  --paper: #ffffff;
+  --paper-alt: #f6f9f6;
+  --border: #e5e9e5;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(20, 40, 25, 0.06), 0 8px 24px -8px rgba(20, 40, 25, 0.12);
+  --shadow-lg: 0 20px 45px -18px rgba(20, 40, 25, 0.35);
+
+  /* Thermal ("ironbow") accent palette — used sparingly as the hub's signature motif */
+  --thermal-cold: #2447c9;
+  --thermal-purple: #7c2fd6;
+  --thermal-magenta: #c0299a;
+  --thermal-red: #e0413f;
+  --thermal-orange: #f2822e;
+  --thermal-yellow: #f9c04a;
+  --thermal-white: #fff6e0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  line-height: 1.68;
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+}
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 {
+  font-family: inherit;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--green-900);
+  margin: 0 0 0.5em;
+}
+
+p { margin: 0 0 1em; }
+a { color: inherit; }
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--green-700);
+  margin: 0 0 12px;
+}
+.kicker-on-dark { color: var(--thermal-yellow); }
+
+.section { padding: 88px 0; }
+.section-intro { color: var(--ink-soft); max-width: 640px; margin-bottom: 2.2rem; font-size: 1.05rem; }
+
+/* ---------- Banner (matches the Sample Line Guide subsite) ---------- */
+
+.hub-banner { background: #fff; border-bottom: 3px solid var(--green-700); padding: 20px 0; }
+.hub-banner-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.hub-banner-brand { display: flex; flex-direction: column; align-items: flex-start; }
+.hub-banner-logo { height: 150px; width: auto; display: block; }
+.hub-banner-tagline { margin: 2px 0 0; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--green-700); }
+.hub-banner-contact { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; font-size: 0.88rem; color: var(--ink-soft); }
+.hub-banner-contact-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
+.hub-banner-contact a { color: var(--ink); font-weight: 700; text-decoration: none; font-size: 0.95rem; }
+.hub-banner-contact a:hover { color: var(--green-700); }
+
+/* ---------- Hero — dark, soft thermal glow, big Apple-style type ---------- */
+
+.hub-hero {
+  position: relative;
+  background: #0a0d12;
+  overflow: hidden;
+  padding: 130px 0 110px;
+  text-align: center;
+}
+.hub-hero-glow {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(36,71,201,0.35), transparent 45%),
+    radial-gradient(circle at 70% 15%, rgba(124,47,214,0.30), transparent 45%),
+    radial-gradient(circle at 50% 55%, rgba(224,65,63,0.28), transparent 50%),
+    radial-gradient(circle at 75% 70%, rgba(242,130,46,0.28), transparent 45%),
+    radial-gradient(circle at 25% 75%, rgba(249,192,74,0.22), transparent 45%);
+  filter: blur(60px);
+}
+.hub-hero-inner { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+.hub-hero h1 { color: #fff; font-size: clamp(2.4rem, 5vw, 3.6rem); margin-bottom: 0.4em; }
+.hub-hero-lede { color: rgba(255,255,255,0.78); font-size: 1.15rem; max-width: 620px; margin: 0 auto; }
+
+/* ---------- Tile grid ---------- */
+
+.hub-tiles-section { background: var(--paper); }
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 260px;
+  padding: 28px;
+  border-radius: 22px;
+  background-color: #0d1117;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  box-shadow: var(--shadow);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease, filter 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Hover-spotlight: hovering any tile dims its siblings; the hovered one stays full-strength. */
+.tile-grid:hover .tile { opacity: 0.45; filter: saturate(0.7); }
+.tile-grid .tile:hover { opacity: 1; filter: none; transform: translateY(-4px) scale(1.015); box-shadow: var(--shadow-lg); z-index: 2; }
+
+.tile-icon { width: 40px; height: 40px; margin-bottom: 18px; opacity: 0.92; }
+.tile-icon svg { width: 100%; height: 100%; }
+.tile h3 { color: #fff; font-size: 1.25rem; margin-bottom: 0.35em; }
+.tile p { color: rgba(255,255,255,0.75); font-size: 0.92rem; margin-bottom: 0.6em; }
+.tile-cta { font-weight: 700; font-size: 0.85rem; color: #fff; }
+.tile-badge {
+  position: absolute; top: 20px; right: 20px;
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85);
+  padding: 5px 10px; border-radius: 999px;
+}
+
+.tile-sampleline { background: radial-gradient(circle at 85% 15%, var(--thermal-orange), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-red), transparent 60%), #170d09; }
+.tile-tank { background: radial-gradient(circle at 85% 15%, var(--thermal-yellow), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-orange), transparent 60%), #171207; }
+.tile-hopper { background: radial-gradient(circle at 85% 15%, var(--thermal-magenta), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-red), transparent 60%), #170a12; }
+.tile-groundthaw { background: radial-gradient(circle at 85% 15%, var(--thermal-purple), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-cold), transparent 60%), #0a0d17; }
+.tile-transmitter { background: radial-gradient(circle at 85% 15%, var(--thermal-cold), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-purple), transparent 60%), #0a0f17; }
+
+.tile-soon { cursor: default; filter: grayscale(0.45) brightness(0.82); }
+.tile-grid:hover .tile-soon { filter: grayscale(0.45) brightness(0.82) saturate(0.7); }
+.tile-grid .tile-soon:hover { filter: grayscale(0.45) brightness(0.9); transform: translateY(-4px); }
+
+@media (max-width: 900px) {
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .tile-grid { grid-template-columns: 1fr; }
+  .hub-banner-inner { flex-direction: column; align-items: flex-start; }
+  .hub-banner-contact { align-items: flex-start; }
+  .hub-banner-contact-row { justify-content: flex-start; }
+  .hub-banner-logo { height: 110px; }
+  .hub-hero { padding: 90px 0 70px; }
+  .section { padding: 56px 0; }
+}
+
+/* ---------- Footer ---------- */
+
+.hub-footer { background: var(--paper-alt); border-top: 1px solid var(--border); padding: 32px 0; color: var(--ink-soft); font-size: 0.88rem; }
+.hub-footer-meta { margin-top: 6px; font-size: 0.8rem; color: #94a396; }
