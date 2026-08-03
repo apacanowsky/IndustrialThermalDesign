@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#e23a1a">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,10 +39,20 @@
   gtag('config', 'G-KSJJZEFD7X');
 </script>
 
-<header class="intake-topbar">
-  <div class="container intake-topbar-inner">
-    <a class="intake-topbar-brand" href="/">Industrial Thermal Design</a>
-    <a class="intake-topbar-back" href="/">&larr; Back to guides</a>
+<header class="hub-banner">
+  <div class="container hub-banner-inner">
+    <div class="hub-banner-brand">
+      <a class="hub-banner-title-link" href="/" aria-label="Industrial Thermal Design home">
+        <p class="hub-banner-title">Industrial Thermal <span class="brand-accent">Design</span></p>
+      </a>
+      <div class="hub-banner-byline">
+        <span>by</span>
+        <a href="https://www.powerblanket.com" target="_blank" rel="noopener" aria-label="Powerblanket.com">
+          <img src="../assets/pb-engineering-logo.png" alt="Powerblanket Engineering" class="hub-banner-byline-logo">
+        </a>
+      </div>
+    </div>
+    <a href="/talk-to-an-engineer/" class="btn btn-primary btn-banner">Talk to an Engineer</a>
   </div>
 </header>
 
@@ -56,7 +66,7 @@
 
 <section class="intake-tiles-section">
   <div class="container">
-    <p class="intake-tiles-label">What brings you here today? <em>(optional — or just scroll down and write)</em></p>
+    <p class="intake-tiles-label">What brings you here today?</p>
     <div class="intake-tiles">
       <button type="button" class="intake-tile" data-category="new-application">
         <div class="intake-tile-icon">
@@ -69,26 +79,14 @@
         <p>Scoping a new heating system for a process, tank, line, or enclosure.</p>
       </button>
 
-      <button type="button" class="intake-tile" data-category="product-question">
-        <div class="intake-tile-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 3H14L19 8V21H6V3Z"/>
-            <path d="M14 3V8H19"/>
-            <path d="M9 12.2H16M9 15.6H16M9 19H13"/>
-          </svg>
-        </div>
-        <h3>Product &amp; Spec Question</h3>
-        <p>Wattage, materials, hazardous-area ratings, or configuration details.</p>
-      </button>
-
       <button type="button" class="intake-tile" data-category="troubleshooting">
         <div class="intake-tile-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6.3 17.7L14.6 9.4A4 4 0 1 0 12.6 7.4L4.3 15.7a1.6 1.6 0 0 0 2 2Z"/>
           </svg>
         </div>
-        <h3>Troubleshooting</h3>
-        <p>Something installed isn't heating right, or you need field support.</p>
+        <h3>Existing System Support</h3>
+        <p>Something installed isn't performing as expected, or you need field help.</p>
       </button>
 
       <button type="button" class="intake-tile" data-category="custom-oem">
@@ -108,46 +106,172 @@
 <section class="intake-form-section" id="intake-form-section">
   <div class="container intake-form-wrap">
 
-    <div class="intake-form-header">
-      <h2 id="intake-form-heading">Tell us about your application</h2>
-      <span class="intake-category-pill" id="intake-category-pill" style="display:none;"></span>
-    </div>
+    <p class="intake-placeholder" id="intake-placeholder">Choose an option above to get started — each leads to a short, tailored form.</p>
 
-    <form class="intake-form" id="intake-form" action="https://api.web3forms.com/submit" method="POST">
+    <!-- New Application -->
+    <form class="intake-form" id="form-new-application" data-category="new-application" action="https://api.web3forms.com/submit" method="POST">
+      <h2 class="intake-form-heading">Tell us about the new application</h2>
+      <p class="intake-form-subhead">A few quick details help us give you a useful answer on the first reply.</p>
+
       <input type="hidden" name="access_key" value="4d5bf2f0-642f-4bf5-874e-b1b2e0876d1f">
-      <input type="hidden" name="subject" value="New lead from Talk to an Engineer page">
-      <input type="hidden" name="category" id="category" value="">
+      <input type="hidden" name="subject" value="New Application lead from Talk to an Engineer page">
+      <input type="hidden" name="request_type" value="New Application">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
       <div class="intake-field">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
+        <label for="na-name">Name</label>
+        <input type="text" id="na-name" name="name" required>
       </div>
-
       <div class="intake-field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <label for="na-email">Email</label>
+        <input type="email" id="na-email" name="email" required>
       </div>
-
       <div class="intake-row">
         <div class="intake-field">
-          <label for="company">Company <span class="optional">(optional)</span></label>
-          <input type="text" id="company" name="company">
+          <label for="na-company">Company <span class="optional">(optional)</span></label>
+          <input type="text" id="na-company" name="company">
         </div>
         <div class="intake-field">
-          <label for="phone">Phone <span class="optional">(optional)</span></label>
-          <input type="tel" id="phone" name="phone">
+          <label for="na-phone">Phone <span class="optional">(optional)</span></label>
+          <input type="tel" id="na-phone" name="phone">
         </div>
       </div>
-
       <div class="intake-field">
-        <label for="message" id="intake-message-label">What are you working on?</label>
-        <textarea id="message" name="message" required placeholder="Describe what you're trying to heat, solve, or troubleshoot…"></textarea>
+        <label for="na-what">What are you trying to heat?</label>
+        <input type="text" id="na-what" name="what_to_heat" required placeholder="e.g. 500-gallon tote, 3-inch sample line, control cabinet">
+      </div>
+      <div class="intake-field">
+        <label for="na-temp">What temperature or range do you need to maintain?</label>
+        <input type="text" id="na-temp" name="target_temperature" placeholder="e.g. Keep above 40°F">
+      </div>
+      <div class="intake-field">
+        <label for="na-environment">Where will this operate?</label>
+        <input type="text" id="na-environment" name="environment" placeholder="e.g. Outdoor, Class I Div 2, Minnesota winter">
+      </div>
+      <div class="intake-field">
+        <label for="na-stage">Where are you in the process?</label>
+        <select id="na-stage" name="project_stage">
+          <option>Just exploring options</option>
+          <option>Have a rough spec</option>
+          <option>Ready to order</option>
+        </select>
+      </div>
+      <div class="intake-field">
+        <label for="na-notes">Anything else we should know? <span class="optional">(optional)</span></label>
+        <textarea id="na-notes" name="message"></textarea>
       </div>
 
       <button type="submit" class="btn btn-primary intake-submit">Send to Engineering</button>
       <p class="intake-microcopy">An engineer replies personally — no auto-responder, no sales queue. We never share your information.</p>
-      <p class="intake-error" id="intake-error"></p>
+      <p class="intake-error"></p>
+    </form>
+
+    <!-- Existing System Support -->
+    <form class="intake-form" id="form-troubleshooting" data-category="troubleshooting" action="https://api.web3forms.com/submit" method="POST">
+      <h2 class="intake-form-heading">Tell us what's going wrong</h2>
+      <p class="intake-form-subhead">The more specific you can be, the faster we can help.</p>
+
+      <input type="hidden" name="access_key" value="4d5bf2f0-642f-4bf5-874e-b1b2e0876d1f">
+      <input type="hidden" name="subject" value="Existing System Support lead from Talk to an Engineer page">
+      <input type="hidden" name="request_type" value="Existing System Support">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="intake-field">
+        <label for="ts-name">Name</label>
+        <input type="text" id="ts-name" name="name" required>
+      </div>
+      <div class="intake-field">
+        <label for="ts-email">Email</label>
+        <input type="email" id="ts-email" name="email" required>
+      </div>
+      <div class="intake-row">
+        <div class="intake-field">
+          <label for="ts-company">Company <span class="optional">(optional)</span></label>
+          <input type="text" id="ts-company" name="company">
+        </div>
+        <div class="intake-field">
+          <label for="ts-phone">Phone <span class="optional">(optional)</span></label>
+          <input type="tel" id="ts-phone" name="phone">
+        </div>
+      </div>
+      <div class="intake-field">
+        <label for="ts-product">What product or system is involved? <span class="optional">(optional)</span></label>
+        <input type="text" id="ts-product" name="product" placeholder="Model or part number, if you have it">
+      </div>
+      <div class="intake-field">
+        <label for="ts-issue">What's it doing — or not doing?</label>
+        <textarea id="ts-issue" name="message" required placeholder="Describe the symptom, when it started, and anything you've already tried"></textarea>
+      </div>
+      <div class="intake-field">
+        <label for="ts-urgency">How urgent is this?</label>
+        <select id="ts-urgency" name="urgency">
+          <option>Not urgent</option>
+          <option>Need this resolved this week</option>
+          <option>Urgent — production is down</option>
+        </select>
+      </div>
+      <div class="intake-field">
+        <label for="ts-installed">When was it installed? <span class="optional">(optional)</span></label>
+        <input type="text" id="ts-installed" name="install_date" placeholder="e.g. 2019, or 'not sure'">
+      </div>
+
+      <button type="submit" class="btn btn-primary intake-submit">Send to Engineering</button>
+      <p class="intake-microcopy">An engineer replies personally — no auto-responder, no sales queue. We never share your information.</p>
+      <p class="intake-error"></p>
+    </form>
+
+    <!-- Custom & OEM Project -->
+    <form class="intake-form" id="form-custom-oem" data-category="custom-oem" action="https://api.web3forms.com/submit" method="POST">
+      <h2 class="intake-form-heading">Tell us about the project</h2>
+      <p class="intake-form-subhead">Custom and OEM work usually starts as a conversation — this just gets it started.</p>
+
+      <input type="hidden" name="access_key" value="4d5bf2f0-642f-4bf5-874e-b1b2e0876d1f">
+      <input type="hidden" name="subject" value="Custom & OEM Project lead from Talk to an Engineer page">
+      <input type="hidden" name="request_type" value="Custom & OEM Project">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="intake-field">
+        <label for="co-name">Name</label>
+        <input type="text" id="co-name" name="name" required>
+      </div>
+      <div class="intake-field">
+        <label for="co-email">Email</label>
+        <input type="email" id="co-email" name="email" required>
+      </div>
+      <div class="intake-row">
+        <div class="intake-field">
+          <label for="co-company">Company <span class="optional">(optional)</span></label>
+          <input type="text" id="co-company" name="company">
+        </div>
+        <div class="intake-field">
+          <label for="co-phone">Phone <span class="optional">(optional)</span></label>
+          <input type="tel" id="co-phone" name="phone">
+        </div>
+      </div>
+      <div class="intake-field">
+        <label for="co-what">What are you building or integrating?</label>
+        <textarea id="co-what" name="message" required placeholder="Describe the project, geometry, or system you need heat integrated into"></textarea>
+      </div>
+      <div class="intake-field">
+        <label for="co-volume">Expected volume or scale</label>
+        <input type="text" id="co-volume" name="volume" placeholder="e.g. 40 units/year, one large installation">
+      </div>
+      <div class="intake-field">
+        <label for="co-timeline">Timeline for a decision</label>
+        <select id="co-timeline" name="timeline">
+          <option>Just researching</option>
+          <option>This quarter</option>
+          <option>Within 30 days</option>
+        </select>
+      </div>
+      <div class="intake-field">
+        <label for="co-drawings">Do you have drawings or specs to share? <span class="optional">(optional)</span></label>
+        <input type="text" id="co-drawings" name="drawings" placeholder="Let us know — we'll follow up to request them">
+      </div>
+
+      <button type="submit" class="btn btn-primary intake-submit">Send to Engineering</button>
+      <p class="intake-microcopy">An engineer replies personally — no auto-responder, no sales queue. We never share your information.</p>
+      <p class="intake-error"></p>
     </form>
 
     <div class="intake-success" id="intake-success">
