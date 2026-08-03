@@ -97,6 +97,8 @@ a { color: inherit; }
   text-align: center;
 }
 
+.hero-big { min-height: 84vh; display: flex; align-items: center; padding: 160px 0 100px; }
+
 .hero-slideshow { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 
 .hero-slide {
@@ -110,21 +112,21 @@ a { color: inherit; }
   animation-fill-mode: backwards;
 }
 
+/* 6-slide rotation, 12s each, slower/more contemplative Ken Burns pacing for the
+   homepage's real-photo hero (the Sample Line Guide subsite still uses its own
+   9-slide/8s stock-photo timing, defined in its own stylesheet). */
 .hero-slide:nth-child(1) { animation-delay: 0s; }
-.hero-slide:nth-child(2) { animation-delay: 8s; }
-.hero-slide:nth-child(3) { animation-delay: 16s; }
-.hero-slide:nth-child(4) { animation-delay: 24s; }
-.hero-slide:nth-child(5) { animation-delay: 32s; }
-.hero-slide:nth-child(6) { animation-delay: 40s; }
-.hero-slide:nth-child(7) { animation-delay: 48s; }
-.hero-slide:nth-child(8) { animation-delay: 56s; }
-.hero-slide:nth-child(9) { animation-delay: 64s; }
+.hero-slide:nth-child(2) { animation-delay: 12s; }
+.hero-slide:nth-child(3) { animation-delay: 24s; }
+.hero-slide:nth-child(4) { animation-delay: 36s; }
+.hero-slide:nth-child(5) { animation-delay: 48s; }
+.hero-slide:nth-child(6) { animation-delay: 60s; }
 
 @keyframes heroSlideCycle {
-  0%      { opacity: 0; transform: scale(1.08) translate(0, 0); }
-  1.111%  { opacity: 1; }
-  10%     { opacity: 1; transform: scale(1.16) translate(-1.5%, -1%); }
-  11.111% { opacity: 0; }
+  0%      { opacity: 0; transform: scale(1.1) translate(0, 0); }
+  1.4%    { opacity: 1; }
+  15%     { opacity: 1; transform: scale(1.22) translate(-2.2%, -1.4%); }
+  16.7%   { opacity: 0; }
   100%    { opacity: 0; }
 }
 
@@ -137,13 +139,12 @@ a { color: inherit; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(65% 60% at 50% 20%, rgba(124,47,214,0.24), transparent 62%),
-    linear-gradient(180deg, rgba(13,19,33,0.55) 0%, rgba(13,19,33,0.55) 40%, rgba(13,19,33,0.88) 100%);
+  background: linear-gradient(180deg, rgba(13,19,33,0.32) 0%, rgba(13,19,33,0.22) 45%, rgba(13,19,33,0.58) 100%);
 }
 
 .hub-hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
 .hero h1 { color: #fff; font-size: clamp(2.4rem, 5vw, 3.6rem); margin-bottom: 0.4em; font-weight: 900; letter-spacing: -0.025em; }
+.hero-big h1 { font-size: clamp(2.8rem, 6.5vw, 5rem); margin-bottom: 0; text-shadow: 0 4px 30px rgba(0,0,0,0.35); }
 .hub-hero-lede { color: #dde1e6; font-size: 1.15rem; max-width: 620px; margin: 0 auto 2rem; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
@@ -311,6 +312,8 @@ a { color: inherit; }
   .hub-banner-byline-logo { width: 130px; }
   .hero { padding: 70px 0 56px; }
   .hero h1 { font-size: 2rem; }
+  .hero-big { min-height: 62vh; padding: 90px 0 60px; }
+  .hero-big h1 { font-size: 2.1rem; }
   .section { padding: 56px 0; }
 }
 
