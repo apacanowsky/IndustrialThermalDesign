@@ -321,32 +321,3 @@ a { color: inherit; }
 .hub-footer { background: var(--paper-alt); border-top: 1px solid var(--border); padding: 32px 0; color: var(--ink-soft); font-size: 0.88rem; }
 .hub-footer-meta { margin-top: 6px; font-size: 0.8rem; color: #94a396; }
 
-/* ---------- CTA / lead-intake page ---------- */
-
-.section-cta { background: var(--green-900); color: #fff; }
-.section-cta h2 { color: #fff; }
-.section-cta .cta-copy p { color: #d1d5db; }
-.cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
-
-.cta-reassure { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
-.cta-reassure li { padding-left: 28px; position: relative; color: #d1d5db; }
-.cta-reassure li::before { content: "✓"; position: absolute; left: 0; color: var(--brand-accent); font-weight: 900; }
-
-.lead-form { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 4px; box-shadow: var(--shadow); }
-.lead-form label { font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-top: 12px; }
-.lead-form input, .lead-form textarea, .lead-form select { padding: 11px 13px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; font-family: inherit; margin-top: 4px; }
-.lead-form input:focus, .lead-form textarea:focus, .lead-form select:focus { outline: none; border-color: var(--green-600); box-shadow: 0 0 0 3px rgba(226,58,26,0.15); }
-.lead-form button { margin-top: 20px; }
-
-.hero-intake { min-height: 40vh; display: flex; align-items: center; padding: 130px 0 60px; background: linear-gradient(160deg, var(--brand-charcoal) 0%, #1c2536 100%); }
-.hero-intake .container { max-width: 760px; }
-.hero-intake .kicker { color: var(--thermal-yellow); }
-.hero-intake h1 { color: #fff; margin: 0 0 14px; }
-.hero-intake p { color: #c7ccd4; font-size: 1.1rem; margin: 0; }
-
-@media (max-width: 900px) {
-  .cta-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 640px) {
-  .hero-intake { min-height: unset; padding: 90px 0 50px; }
-}

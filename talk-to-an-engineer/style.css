@@ -1,0 +1,111 @@
+/* ---------- Talk to an Engineer — dedicated minimalist page styles ----------
+   Deliberately distinct from the rest of the (photo-heavy, charcoal-banner)
+   site: this is the "front door" to applications engineering, styled closer
+   to a modern product/support landing page than an industrial brochure.
+   Relies on ../styles.css only for :root variables, reset, and typography. */
+
+body { background: #fff; }
+
+/* Top bar — intentionally minimal, no byline logo or CTA button */
+.intake-topbar { padding: 26px 0; }
+.intake-topbar-inner { display: flex; align-items: center; justify-content: space-between; }
+.intake-topbar-brand { text-decoration: none; font-size: 1.15rem; font-weight: 800; color: var(--brand-charcoal); letter-spacing: -0.01em; }
+.intake-topbar-back { font-size: 0.9rem; font-weight: 600; color: var(--ink-soft); text-decoration: none; }
+.intake-topbar-back:hover { color: var(--brand-accent); }
+
+/* Hero */
+.intake-hero { padding: 64px 0 40px; text-align: center; }
+.intake-hero-inner { max-width: 700px; margin: 0 auto; }
+.intake-eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.76rem; font-weight: 700; color: var(--brand-accent); margin: 0 0 18px; }
+.intake-hero h1 { font-size: clamp(2.1rem, 4vw, 3.1rem); margin: 0 0 20px; }
+.intake-hero p { font-size: 1.15rem; color: var(--ink-soft); max-width: 560px; margin: 0 auto; }
+
+/* Tiles */
+.intake-tiles-section { padding: 40px 0 20px; }
+.intake-tiles-label { text-align: center; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); margin: 0 0 28px; }
+.intake-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1000px; margin: 0 auto; }
+
+.intake-tile {
+  display: block;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 22px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  font-family: inherit;
+}
+.intake-tile:hover { border-color: #d5d9de; box-shadow: 0 10px 28px -14px rgba(13,19,33,0.18); transform: translateY(-2px); }
+.intake-tile.is-selected { border-color: var(--brand-accent); box-shadow: 0 0 0 3px rgba(226,58,26,0.12); }
+
+.intake-tile-icon { width: 34px; height: 34px; color: var(--brand-charcoal); margin-bottom: 16px; }
+.intake-tile.is-selected .intake-tile-icon { color: var(--brand-accent); }
+.intake-tile-icon svg { width: 100%; height: 100%; }
+.intake-tile h3 { font-size: 1.02rem; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
+.intake-tile p { font-size: 0.88rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+/* Form section */
+.intake-form-section { padding: 56px 0 100px; }
+.intake-form-wrap { max-width: 560px; margin: 0 auto; }
+.intake-form-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+.intake-form-header h2 { font-size: 1.5rem; margin: 0; }
+.intake-category-pill {
+  font-size: 0.8rem; font-weight: 600; color: var(--brand-accent);
+  background: rgba(226,58,26,0.08); border-radius: 999px; padding: 5px 12px;
+  white-space: nowrap;
+}
+
+.intake-form { display: flex; flex-direction: column; }
+.intake-field { display: flex; flex-direction: column; margin-bottom: 26px; }
+.intake-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.intake-field label { font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.intake-field .optional { font-weight: 400; color: var(--ink-soft); }
+
+.intake-field input, .intake-field textarea {
+  border: none;
+  border-bottom: 1.5px solid var(--border);
+  padding: 10px 2px;
+  font-size: 1.05rem;
+  font-family: inherit;
+  color: var(--ink);
+  background: transparent;
+  transition: border-color 0.15s ease;
+  resize: vertical;
+}
+.intake-field input:focus, .intake-field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--brand-accent);
+}
+.intake-field textarea { min-height: 110px; line-height: 1.5; }
+
+.intake-submit {
+  margin-top: 12px;
+  align-self: flex-start;
+}
+
+.intake-microcopy { margin-top: 18px; font-size: 0.85rem; color: var(--ink-soft); }
+
+/* Success state */
+.intake-success { display: none; text-align: center; padding: 40px 0; }
+.intake-success.is-visible { display: block; }
+.intake-success-icon { width: 52px; height: 52px; margin: 0 auto 20px; color: var(--brand-accent); }
+.intake-success h2 { font-size: 1.4rem; margin: 0 0 10px; }
+.intake-success p { color: var(--ink-soft); max-width: 440px; margin: 0 auto; }
+
+.intake-error { display: none; margin-top: 16px; font-size: 0.88rem; color: var(--brand-accent-dark); }
+.intake-error.is-visible { display: block; }
+
+/* Footer */
+.intake-footer { padding: 28px 0; border-top: 1px solid var(--border); text-align: center; }
+.intake-footer p { margin: 0; font-size: 0.82rem; color: #94a3b8; }
+
+@media (max-width: 900px) {
+  .intake-tiles { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .intake-hero { padding: 44px 0 30px; }
+  .intake-tiles { grid-template-columns: 1fr; }
+  .intake-row { grid-template-columns: 1fr; gap: 0; }
+  .intake-form-section { padding: 44px 0 72px; }
+}
