@@ -1,21 +1,27 @@
 :root {
-  --green-900: #14532d;
-  --green-800: #166534;
-  --green-700: #15803d;
-  --green-600: #16a34a;
-  --green-100: #dcfce7;
-  --green-50: #f0fdf4;
-  --ink: #1a1f1b;
-  --ink-soft: #4b5563;
   --brand-charcoal: #0d1321;
   --brand-accent: #e23a1a;
+  --brand-accent-dark: #b52e15;
+  --brand-steel: #6b7280;
+  --brand-coolgray: #f1f3f5;
+
+  /* Legacy variable names kept (referenced throughout this file) but now aliased
+     to the Industrial Thermal Design brand palette instead of Powerblanket green. */
+  --green-900: var(--brand-charcoal);
+  --green-800: var(--brand-accent-dark);
+  --green-700: var(--brand-accent-dark);
+  --green-600: var(--brand-accent);
+  --green-100: var(--brand-coolgray);
+  --green-50: var(--brand-coolgray);
+  --ink: #1a1f1b;
+  --ink-soft: #4b5563;
   --paper: #ffffff;
-  --paper-alt: #f6f9f6;
+  --paper-alt: var(--brand-coolgray);
   --border: #e5e9e5;
   --radius: 14px;
   --radius-sm: 10px;
-  --shadow: 0 1px 2px rgba(20, 40, 25, 0.06), 0 8px 24px -8px rgba(20, 40, 25, 0.12);
-  --shadow-lg: 0 20px 45px -18px rgba(20, 40, 25, 0.35);
+  --shadow: 0 1px 2px rgba(13, 19, 33, 0.06), 0 8px 24px -8px rgba(13, 19, 33, 0.12);
+  --shadow-lg: 0 20px 45px -18px rgba(13, 19, 33, 0.35);
 
   /* Thermal ("ironbow") accent palette — used sparingly as the hub's signature motif */
   --thermal-cold: #2447c9;
@@ -133,19 +139,19 @@ a { color: inherit; }
   z-index: -1;
   background:
     radial-gradient(65% 60% at 50% 20%, rgba(124,47,214,0.24), transparent 62%),
-    linear-gradient(180deg, rgba(10,13,18,0.55) 0%, rgba(10,13,18,0.55) 40%, rgba(10,13,18,0.88) 100%);
+    linear-gradient(180deg, rgba(13,19,33,0.55) 0%, rgba(13,19,33,0.55) 40%, rgba(13,19,33,0.88) 100%);
 }
 
 .hub-hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
 .hero h1 { color: #fff; font-size: clamp(2.4rem, 5vw, 3.6rem); margin-bottom: 0.4em; font-weight: 900; letter-spacing: -0.025em; }
-.hub-hero-lede { color: #d8e9dc; font-size: 1.15rem; max-width: 620px; margin: 0 auto 2rem; }
+.hub-hero-lede { color: #dde1e6; font-size: 1.15rem; max-width: 620px; margin: 0 auto 2rem; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
 .credibility-line {
   display: inline-block;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #d8e9dc;
+  color: #dde1e6;
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.22);
   padding: 7px 16px;
@@ -157,7 +163,7 @@ a { color: inherit; }
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 500;
-  color: #a9c9b2;
+  color: #9aa1ab;
   margin-bottom: 22px;
 }
 
@@ -175,7 +181,7 @@ a { color: inherit; }
   letter-spacing: 0.01em;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
-.btn-primary { background: var(--green-600); color: #fff; box-shadow: 0 10px 24px -8px rgba(22,163,74,0.5); }
+.btn-primary { background: var(--green-600); color: #fff; box-shadow: 0 10px 24px -8px rgba(226,58,26,0.5); }
 .btn-primary:hover { background: var(--green-700); transform: translateY(-2px); }
 .btn-outline { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.7); }
 .btn-outline:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
@@ -226,62 +232,62 @@ a { color: inherit; }
 
 .tile-sampleline {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('heatedsamplelines/photos/real-hero-lowangle.jpg');
 }
 .tile-tank {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/tank-heating.jpg');
 }
 .tile-hopper {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/hopper-heating.jpg');
 }
 .tile-groundthaw {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/ground-thawing.jpg');
 }
 .tile-transmitter {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/transmitter-heating.jpg');
 }
 .tile-propane {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/propane-tanks.jpg');
 }
 .tile-fractank {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/frac-tanks.jpg');
 }
 .tile-composite {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/composite-curing.jpg');
 }
 .tile-pipe {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/pipe-heating.jpg');
 }
 .tile-skid {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/skid-heating.jpg');
 }
 .tile-boxes {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/boxes.jpg');
 }
 .tile-windblade {
   background-image:
-    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.25) 0%, rgba(13,19,33,0.45) 55%, rgba(13,19,33,0.92) 100%),
     url('assets/tiles/wind-blade-curing.jpg');
 }
 

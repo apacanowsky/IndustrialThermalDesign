@@ -1,22 +1,28 @@
 :root {
-  --green-900: #14532d;
-  --green-800: #166534;
-  --green-700: #15803d;
-  --green-600: #16a34a;
-  --green-100: #dcfce7;
-  --green-50: #f0fdf4;
+  --brand-charcoal: #0d1321;
+  --brand-accent: #e23a1a;
+  --brand-accent-dark: #b52e15;
+  --brand-steel: #6b7280;
+  --brand-coolgray: #f1f3f5;
+
+  /* Legacy variable names kept (used in ~60 places) but now aliased to the
+     Industrial Thermal Design brand palette instead of Powerblanket green. */
+  --green-900: var(--brand-charcoal);
+  --green-800: var(--brand-accent-dark);
+  --green-700: var(--brand-accent-dark);
+  --green-600: var(--brand-accent);
+  --green-100: var(--brand-coolgray);
+  --green-50: var(--brand-coolgray);
   --amber: #e8823c;
   --ink: #1a1f1b;
   --ink-soft: #4b5563;
-  --brand-charcoal: #0d1321;
-  --brand-accent: #e23a1a;
   --paper: #ffffff;
-  --paper-alt: #f6f9f6;
+  --paper-alt: var(--brand-coolgray);
   --border: #e5e9e5;
   --radius: 14px;
   --radius-sm: 10px;
-  --shadow: 0 1px 2px rgba(20, 40, 25, 0.06), 0 8px 24px -8px rgba(20, 40, 25, 0.12);
-  --shadow-lg: 0 20px 45px -18px rgba(20, 40, 25, 0.35);
+  --shadow: 0 1px 2px rgba(13, 19, 33, 0.06), 0 8px 24px -8px rgba(13, 19, 33, 0.12);
+  --shadow-lg: 0 20px 45px -18px rgba(13, 19, 33, 0.35);
 }
 
 * { box-sizing: border-box; }
@@ -117,9 +123,9 @@ p { max-width: 68ch; }
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(65% 60% at 22% 20%, rgba(232,130,60,0.22), transparent 62%),
-    linear-gradient(100deg, rgba(10,26,16,0.82) 0%, rgba(10,26,16,0.62) 35%, rgba(10,26,16,0.28) 60%, rgba(10,26,16,0.15) 100%),
-    linear-gradient(180deg, rgba(10,26,16,0.1) 0%, rgba(10,26,16,0.15) 55%, rgba(10,26,16,0.75) 100%);
+    radial-gradient(65% 60% at 22% 20%, rgba(226,58,26,0.22), transparent 62%),
+    linear-gradient(100deg, rgba(13,19,33,0.82) 0%, rgba(13,19,33,0.62) 35%, rgba(13,19,33,0.28) 60%, rgba(13,19,33,0.15) 100%),
+    linear-gradient(180deg, rgba(13,19,33,0.1) 0%, rgba(13,19,33,0.15) 55%, rgba(13,19,33,0.75) 100%);
 }
 
 .hero-inner { max-width: 720px; }
@@ -128,7 +134,7 @@ p { max-width: 68ch; }
   display: inline-block;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #d8e9dc;
+  color: #dde1e6;
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.22);
   padding: 7px 16px;
@@ -141,7 +147,7 @@ p { max-width: 68ch; }
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 500;
-  color: #a9c9b2;
+  color: #9aa1ab;
   margin-bottom: 22px;
 }
 
@@ -153,10 +159,10 @@ p { max-width: 68ch; }
   letter-spacing: -0.025em;
 }
 
-.hero .lead { font-size: 1.15rem; color: #d8e9dc; margin-bottom: 2rem; max-width: 620px; font-weight: 400; }
+.hero .lead { font-size: 1.15rem; color: #dde1e6; margin-bottom: 2rem; max-width: 620px; font-weight: 400; }
 
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-.hero-actions-note { margin: 14px 0 0; font-size: 0.85rem; color: #a9c9b2; }
+.hero-actions-note { margin: 14px 0 0; font-size: 0.85rem; color: #9aa1ab; }
 
 /* ---------- Engineering banner ---------- */
 
@@ -203,7 +209,7 @@ p { max-width: 68ch; }
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.btn-primary { background: var(--green-600); color: #fff; box-shadow: 0 10px 24px -8px rgba(22,163,74,0.5); }
+.btn-primary { background: var(--green-600); color: #fff; box-shadow: 0 10px 24px -8px rgba(226,58,26,0.5); }
 .btn-primary:hover { background: var(--green-700); transform: translateY(-2px); }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 .btn-block { width: 100%; text-align: center; }
@@ -594,7 +600,7 @@ p { max-width: 68ch; }
   font-size: 0.98rem; font-family: inherit; background: #fff;
 }
 .config-field input:focus, .config-field select:focus, .config-field textarea:focus {
-  outline: none; border-color: var(--green-600); box-shadow: 0 0 0 3px rgba(22,163,74,0.15);
+  outline: none; border-color: var(--green-600); box-shadow: 0 0 0 3px rgba(226,58,26,0.15);
 }
 
 .config-hint { font-size: 0.82rem; color: var(--ink-soft); margin: 6px 0 0; }
@@ -688,7 +694,7 @@ p { max-width: 68ch; }
 .lead-form { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 4px; box-shadow: var(--shadow); }
 .lead-form label { font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-top: 12px; }
 .lead-form input, .lead-form textarea { padding: 11px 13px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; font-family: inherit; margin-top: 4px; }
-.lead-form input:focus, .lead-form textarea:focus { outline: none; border-color: var(--green-600); box-shadow: 0 0 0 3px rgba(22,163,74,0.15); }
+.lead-form input:focus, .lead-form textarea:focus { outline: none; border-color: var(--green-600); box-shadow: 0 0 0 3px rgba(226,58,26,0.15); }
 .lead-form button { margin-top: 20px; }
 
 .section-cta-inline { margin-top: 28px; color: var(--ink-soft); }
