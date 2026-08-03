@@ -108,26 +108,30 @@ a { color: inherit; }
   background-position: center;
   opacity: 0;
   filter: saturate(1.25) contrast(1.05);
-  animation: heroSlideCycle 72s infinite;
+  animation: heroSlideCycle 120s infinite;
   animation-fill-mode: backwards;
 }
 
-/* 6-slide rotation, 12s each, slower/more contemplative Ken Burns pacing for the
+/* 10-slide rotation, 12s each, slower/more contemplative Ken Burns pacing for the
    homepage's real-photo hero (the Sample Line Guide subsite still uses its own
-   9-slide/8s stock-photo timing, defined in its own stylesheet). */
+   4-slide/10s real-photo timing, defined in its own stylesheet). */
 .hero-slide:nth-child(1) { animation-delay: 0s; }
 .hero-slide:nth-child(2) { animation-delay: 12s; }
 .hero-slide:nth-child(3) { animation-delay: 24s; }
 .hero-slide:nth-child(4) { animation-delay: 36s; }
 .hero-slide:nth-child(5) { animation-delay: 48s; }
 .hero-slide:nth-child(6) { animation-delay: 60s; }
+.hero-slide:nth-child(7) { animation-delay: 72s; }
+.hero-slide:nth-child(8) { animation-delay: 84s; }
+.hero-slide:nth-child(9) { animation-delay: 96s; }
+.hero-slide:nth-child(10) { animation-delay: 108s; }
 
 @keyframes heroSlideCycle {
-  0%      { opacity: 0; transform: scale(1.1) translate(0, 0); }
-  1.4%    { opacity: 1; }
-  15%     { opacity: 1; transform: scale(1.22) translate(-2.2%, -1.4%); }
-  16.7%   { opacity: 0; }
-  100%    { opacity: 0; }
+  0%     { opacity: 0; transform: scale(1.1) translate(0, 0); }
+  0.8%   { opacity: 1; }
+  9%     { opacity: 1; transform: scale(1.22) translate(-2.2%, -1.4%); }
+  10%    { opacity: 0; }
+  100%   { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
