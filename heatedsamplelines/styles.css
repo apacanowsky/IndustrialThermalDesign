@@ -168,17 +168,18 @@ p { max-width: 68ch; }
 
 .engineering-banner { background: #fff; border-bottom: 3px solid var(--green-700); padding: 14px 0; position: sticky; top: 0; z-index: 100; }
 .engineering-banner-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-.engineering-banner-brand { display: flex; flex-direction: column; align-items: flex-start; text-decoration: none; }
+.engineering-banner-brand { display: flex; flex-direction: column; align-items: flex-start; }
+.engineering-banner-title-link { text-decoration: none; }
 .engineering-banner-title { margin: 0; font-size: 1.6rem; font-weight: 900; color: var(--brand-charcoal); letter-spacing: -0.01em; line-height: 1.15; }
 .brand-accent { color: var(--brand-accent); }
 .engineering-banner-byline { display: flex; align-items: center; gap: 7px; margin: 6px 0 0; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); }
+.engineering-banner-byline a { display: block; line-height: 0; }
 .engineering-banner-byline-logo { width: 180px; max-width: 100%; height: auto; display: block; }
-.engineering-banner-contact { display: flex; align-items: center; gap: 16px; font-size: 0.95rem; }
-.engineering-banner-contact a { color: var(--ink); font-weight: 700; text-decoration: none; }
-.engineering-banner-contact a:hover { color: var(--green-700); }
+.btn-banner { padding: 12px 22px; font-size: 0.85rem; white-space: nowrap; }
 
 @media (max-width: 700px) {
   .engineering-banner-inner { flex-direction: column; align-items: flex-start; }
+  .btn-banner { align-self: stretch; text-align: center; }
 }
 
 /* ---------- Ken Burns on real photography ---------- */
