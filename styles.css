@@ -96,7 +96,7 @@ a { color: inherit; }
   background-position: center;
   opacity: 0;
   filter: saturate(1.25) contrast(1.05);
-  animation: heroSlideCycle 64s infinite;
+  animation: heroSlideCycle 72s infinite;
   animation-fill-mode: backwards;
 }
 
@@ -108,13 +108,14 @@ a { color: inherit; }
 .hero-slide:nth-child(6) { animation-delay: 40s; }
 .hero-slide:nth-child(7) { animation-delay: 48s; }
 .hero-slide:nth-child(8) { animation-delay: 56s; }
+.hero-slide:nth-child(9) { animation-delay: 64s; }
 
 @keyframes heroSlideCycle {
-  0%    { opacity: 0; transform: scale(1.08) translate(0, 0); }
-  1.25% { opacity: 1; }
-  11.25% { opacity: 1; transform: scale(1.16) translate(-1.5%, -1%); }
-  12.5% { opacity: 0; }
-  100%  { opacity: 0; }
+  0%      { opacity: 0; transform: scale(1.08) translate(0, 0); }
+  1.111%  { opacity: 1; }
+  10%     { opacity: 1; transform: scale(1.16) translate(-1.5%, -1%); }
+  11.111% { opacity: 0; }
+  100%    { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -181,8 +182,8 @@ a { color: inherit; }
 
 .tile-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
 }
 
 .tile {
@@ -190,9 +191,9 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 420px;
-  padding: 40px;
-  border-radius: 26px;
+  min-height: 360px;
+  padding: 32px;
+  border-radius: 24px;
   background-color: #0d1117;
   background-size: cover;
   background-position: center;
@@ -207,10 +208,10 @@ a { color: inherit; }
 .tile-grid:hover .tile { opacity: 0.45; filter: saturate(0.7); }
 .tile-grid .tile:hover { opacity: 1; filter: none; transform: translateY(-4px) scale(1.015); box-shadow: var(--shadow-lg); z-index: 2; }
 
-.tile-icon { width: 52px; height: 52px; margin-bottom: 22px; opacity: 0.95; }
+.tile-icon { width: 44px; height: 44px; margin-bottom: 20px; opacity: 0.95; }
 .tile-icon svg { width: 100%; height: 100%; }
-.tile h3 { color: #fff; font-size: 1.8rem; margin-bottom: 0.35em; }
-.tile p { color: rgba(255,255,255,0.8); font-size: 1.02rem; max-width: 30em; margin-bottom: 0.6em; }
+.tile h3 { color: #fff; font-size: 1.45rem; margin-bottom: 0.35em; }
+.tile p { color: rgba(255,255,255,0.8); font-size: 0.95rem; max-width: 30em; margin-bottom: 0.6em; }
 .tile-cta { font-weight: 700; font-size: 0.95rem; color: #fff; }
 .tile-badge {
   position: absolute; top: 26px; right: 26px;
@@ -224,16 +225,68 @@ a { color: inherit; }
     linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
     url('heatedsamplelines/photos/real-hero-lowangle.jpg');
 }
-.tile-tank { background-image: radial-gradient(circle at 85% 15%, var(--thermal-yellow), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-orange), transparent 60%), linear-gradient(#171207, #171207); }
-.tile-hopper { background-image: radial-gradient(circle at 85% 15%, var(--thermal-magenta), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-red), transparent 60%), linear-gradient(#170a12, #170a12); }
-.tile-groundthaw { background-image: radial-gradient(circle at 85% 15%, var(--thermal-purple), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-cold), transparent 60%), linear-gradient(#0a0d17, #0a0d17); }
-.tile-transmitter { background-image: radial-gradient(circle at 85% 15%, var(--thermal-cold), transparent 55%), radial-gradient(circle at 15% 90%, var(--thermal-purple), transparent 60%), linear-gradient(#0a0f17, #0a0f17); }
+.tile-tank {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/tank-heating.jpg');
+}
+.tile-hopper {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/hopper-heating.jpg');
+}
+.tile-groundthaw {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/ground-thawing.jpg');
+}
+.tile-transmitter {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/transmitter-heating.jpg');
+}
+.tile-propane {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/propane-tanks.jpg');
+}
+.tile-fractank {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/frac-tanks.jpg');
+}
+.tile-composite {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/composite-curing.jpg');
+}
+.tile-pipe {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/pipe-heating.jpg');
+}
+.tile-skid {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/skid-heating.jpg');
+}
+.tile-boxes {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/boxes.jpg');
+}
+.tile-windblade {
+  background-image:
+    linear-gradient(180deg, rgba(10,13,9,0.25) 0%, rgba(10,13,9,0.45) 55%, rgba(10,13,9,0.92) 100%),
+    url('assets/tiles/wind-blade-curing.jpg');
+}
 
 .tile-soon { cursor: default; filter: grayscale(0.45) brightness(0.82); }
 .tile-grid:hover .tile-soon { filter: grayscale(0.45) brightness(0.82) saturate(0.7); }
 .tile-grid .tile-soon:hover { filter: grayscale(0.45) brightness(0.9); transform: translateY(-4px); }
 
 @media (max-width: 900px) {
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
   .tile { min-height: 340px; padding: 32px; }
   .tile h3 { font-size: 1.5rem; }
 }
@@ -243,7 +296,8 @@ a { color: inherit; }
   .hub-banner-contact { align-items: flex-start; }
   .hub-banner-contact-row { justify-content: flex-start; }
   .hub-banner-logo { height: 54px; }
-  .hub-hero { padding: 90px 0 70px; }
+  .hero { padding: 70px 0 56px; }
+  .hero h1 { font-size: 2rem; }
   .section { padding: 56px 0; }
 }
 
