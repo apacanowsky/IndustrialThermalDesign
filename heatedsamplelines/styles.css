@@ -161,7 +161,7 @@ p { max-width: 68ch; }
 .engineering-banner { background: #fff; border-bottom: 3px solid var(--green-700); padding: 14px 0; position: sticky; top: 0; z-index: 100; }
 .engineering-banner-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 .engineering-banner-brand { display: flex; flex-direction: column; align-items: flex-start; text-decoration: none; }
-.engineering-banner-logo { height: 36px; width: auto; display: block; }
+.engineering-banner-logo { width: 480px; max-width: 100%; height: auto; display: block; }
 .engineering-banner-tagline { margin: 5px 0 0; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); }
 .engineering-banner-contact { display: flex; align-items: center; gap: 16px; font-size: 0.95rem; }
 .engineering-banner-contact a { color: var(--ink); font-weight: 700; text-decoration: none; }
@@ -721,6 +721,7 @@ p { max-width: 68ch; }
   .capability-grid { grid-template-columns: repeat(2, 1fr); }
   .field-row { grid-template-columns: 1fr; }
   .radio-cards { grid-template-columns: 1fr; }
+  .engineering-banner-logo { width: 320px; }
 }
 
 @media (max-width: 640px) {
@@ -730,4 +731,5 @@ p { max-width: 68ch; }
   .anatomy-strip { flex-direction: column; }
   .hero { padding: 70px 0 56px; }
   .hero h1 { font-size: 2rem; }
+  .engineering-banner-logo { width: 240px; }
 }

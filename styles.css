@@ -70,7 +70,7 @@ a { color: inherit; }
 .hub-banner { background: #fff; border-bottom: 3px solid var(--green-700); padding: 14px 0; position: sticky; top: 0; z-index: 100; }
 .hub-banner-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 .hub-banner-brand { display: flex; flex-direction: column; align-items: flex-start; }
-.hub-banner-logo { height: 36px; width: auto; display: block; }
+.hub-banner-logo { width: 480px; max-width: 100%; height: auto; display: block; }
 .hub-banner-tagline { margin: 5px 0 0; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); }
 .hub-banner-contact { display: flex; align-items: center; gap: 16px; font-size: 0.95rem; }
 .hub-banner-contact a { color: var(--ink); font-weight: 700; text-decoration: none; }
@@ -289,13 +289,14 @@ a { color: inherit; }
   .tile-grid { grid-template-columns: repeat(2, 1fr); }
   .tile { min-height: 340px; padding: 32px; }
   .tile h3 { font-size: 1.5rem; }
+  .hub-banner-logo { width: 320px; }
 }
 @media (max-width: 640px) {
   .tile-grid { grid-template-columns: 1fr; }
   .hub-banner-inner { flex-direction: column; align-items: flex-start; }
   .hub-banner-contact { align-items: flex-start; }
   .hub-banner-contact-row { justify-content: flex-start; }
-  .hub-banner-logo { height: 54px; }
+  .hub-banner-logo { width: 240px; }
   .hero { padding: 70px 0 56px; }
   .hero h1 { font-size: 2rem; }
   .section { padding: 56px 0; }
