@@ -1,5 +1,28 @@
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// ---------- Scroll reveal ----------
+(function () {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0, rootMargin: "0px 0px -8% 0px" }
+  );
+  document.querySelectorAll(".reveal").forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add("is-visible");
+    } else {
+      revealObserver.observe(el);
+    }
+  });
+})();
+
 // ---------- Category tiles: each one reveals its own tailored form ----------
 (function () {
   const tiles = Array.from(document.querySelectorAll(".intake-tile"));
@@ -29,6 +52,22 @@ document.getElementById("year").textContent = new Date().getFullYear();
       tile.classList.add("is-selected");
       showForm(tile.dataset.category);
       document.getElementById("intake-form-section").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+})();
+
+// ---------- Progressive disclosure: "Add project details" toggles ----------
+(function () {
+  document.querySelectorAll(".intake-more-toggle").forEach((btn) => {
+    const target = document.getElementById(btn.dataset.target);
+    if (!target) return;
+    const label = btn.querySelector(".intake-more-label");
+    const optionalTag = btn.querySelector(".optional");
+    btn.addEventListener("click", () => {
+      const isOpen = target.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", String(isOpen));
+      if (label) label.textContent = isOpen ? "Hide extra details" : "Add project details";
+      if (optionalTag) optionalTag.style.display = isOpen ? "none" : "inline";
     });
   });
 })();

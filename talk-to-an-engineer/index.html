@@ -24,7 +24,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -56,48 +56,128 @@
   </div>
 </header>
 
-<section class="intake-hero">
+<section class="intake-hero blueprint-bg">
   <div class="container intake-hero-inner">
     <p class="intake-eyebrow">Applications Engineering</p>
-    <h1>Talk to an engineer.</h1>
-    <p>Describe your application below. A real engineer from Powerblanket's Applications team reads every message and replies personally — usually within one business day.</p>
+    <h1>Talk to an Engineer</h1>
+    <p>Describe your application below. A Powerblanket applications engineer reviews it personally and
+      replies within one business day — no sales queue, no automated triage.</p>
   </div>
 </section>
 
-<section class="intake-tiles-section">
+<section class="intake-trust-section reveal">
   <div class="container">
-    <p class="intake-tiles-label">What brings you here today?</p>
+    <p class="intake-trust-label">Where We Focus</p>
+    <h2 class="intake-trust-heading">Engineering Expertise, Not a Catalog</h2>
+    <div class="intake-trust-grid">
+      <div class="intake-trust-item">
+        <div class="intake-trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3c-1 3-3.5 4.2-3.5 7.8a3.5 3.5 0 0 0 7 0c0-1.6-.7-2.5-1.5-3.3 0 1-.4 1.8-1.2 1.8-1 0-.8-2.5-.8-6.3Z"/>
+          </svg>
+        </div>
+        <h3>Industrial Process Heating</h3>
+        <p>Maintaining process temperature across tanks, lines, and equipment.</p>
+      </div>
+      <div class="intake-trust-item">
+        <div class="intake-trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="10" width="18" height="4" rx="2"/>
+            <path d="M7 10V8M17 10V8"/>
+          </svg>
+        </div>
+        <h3>Heated Sample &amp; Transport Lines</h3>
+        <p>Keeping analytical samples and transferred material above dew point or workable temperature.</p>
+      </div>
+      <div class="intake-trust-item">
+        <div class="intake-trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 5h10M7 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2"/>
+          </svg>
+        </div>
+        <h3>Tank &amp; Vessel Heating</h3>
+        <p>From totes to process tanks, indoors or out.</p>
+      </div>
+      <div class="intake-trust-item">
+        <div class="intake-trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M4.5 6l15 12M19.5 6l-15 12"/>
+          </svg>
+        </div>
+        <h3>Freeze Protection</h3>
+        <p>Pipes, valves, instruments, and enclosures through the coldest months.</p>
+      </div>
+      <div class="intake-trust-item">
+        <div class="intake-trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2v4M15 2v4M7 6h10v4a5 5 0 0 1-10 0V6Z"/>
+            <path d="M12 15v3M9 21h6"/>
+          </svg>
+        </div>
+        <h3>OEM Integration</h3>
+        <p>Heat engineered directly into your equipment or skid.</p>
+      </div>
+      <div class="intake-trust-item">
+        <div class="intake-trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 3h6M10 3v5.5L5.5 17a2 2 0 0 0 1.8 3h9.4a2 2 0 0 0 1.8-3L14 8.5V3"/>
+          </svg>
+        </div>
+        <h3>Custom Thermal Systems</h3>
+        <p>Non-standard geometry and one-off engineering problems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intake-tiles-section reveal" id="consultation">
+  <div class="container">
+    <p class="intake-tiles-label">Start Here</p>
+    <h2 class="intake-tiles-heading">What Brings You Here Today?</h2>
+    <p class="intake-tiles-sub">Choose the path that fits — it tailors the questions below so you can say less and get to the point faster.</p>
     <div class="intake-tiles">
       <button type="button" class="intake-tile" data-category="new-application">
+        <span class="intake-tile-index">01</span>
         <div class="intake-tile-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9.25"/>
             <path d="M15.3 8.7L13 13L8.7 15.3L11 11L15.3 8.7Z"/>
           </svg>
         </div>
-        <h3>New Application</h3>
-        <p>Scoping a new heating system for a process, tank, line, or enclosure.</p>
+        <h3>Design a New System</h3>
+        <p>Scoping a new heating system for a process, tank, line, or enclosure and want an engineer's input on the right approach.</p>
+        <span class="intake-tile-cta">Begin your consultation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </button>
 
       <button type="button" class="intake-tile" data-category="troubleshooting">
+        <span class="intake-tile-index">02</span>
         <div class="intake-tile-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6.3 17.7L14.6 9.4A4 4 0 1 0 12.6 7.4L4.3 15.7a1.6 1.6 0 0 0 2 2Z"/>
           </svg>
         </div>
-        <h3>Existing System Support</h3>
-        <p>Something installed isn't performing as expected, or you need field help.</p>
+        <h3>Troubleshoot a System</h3>
+        <p>Something installed isn't performing as expected and you need a field-tested diagnosis, fast.</p>
+        <span class="intake-tile-cta">Begin your consultation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </button>
 
       <button type="button" class="intake-tile" data-category="custom-oem">
+        <span class="intake-tile-index">03</span>
         <div class="intake-tile-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3.1"/>
             <path d="M12 3v2.3M12 18.7V21M21 12h-2.3M5.3 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2 5.6 5.6"/>
           </svg>
         </div>
-        <h3>Custom &amp; OEM Project</h3>
-        <p>Non-standard geometry, large-scale rollout, or an OEM integration.</p>
+        <h3>Build a Custom Solution</h3>
+        <p>Your application doesn't fit a catalog part — you need a non-standard build or OEM integration.</p>
+        <span class="intake-tile-cta">Begin your consultation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </button>
     </div>
   </div>
@@ -106,16 +186,16 @@
 <section class="intake-form-section" id="intake-form-section">
   <div class="container intake-form-wrap">
 
-    <p class="intake-placeholder" id="intake-placeholder">Choose an option above to get started — each leads to a short, tailored form.</p>
+    <p class="intake-placeholder" id="intake-placeholder">Choose an option above to get started — each leads to a short, tailored consultation.</p>
 
     <!-- New Application -->
     <form class="intake-form" id="form-new-application" data-category="new-application" action="https://api.web3forms.com/submit" method="POST">
-      <h2 class="intake-form-heading">Tell us about the new application</h2>
-      <p class="intake-form-subhead">A few quick details help us give you a useful answer on the first reply.</p>
+      <h2 class="intake-form-heading">Tell us about the new system</h2>
+      <p class="intake-form-subhead">Four quick questions — that's all we need to start.</p>
 
-      <input type="hidden" name="access_key" value="4d5bf2f0-642f-4bf5-874e-b1b2e0876d1f">
-      <input type="hidden" name="subject" value="New Application lead from Talk to an Engineer page">
-      <input type="hidden" name="request_type" value="New Application">
+      <input type="hidden" name="access_key" value="7be1e0c7-1730-414f-b6d5-4a115c0515fe">
+      <input type="hidden" name="subject" value="New System lead from Talk to an Engineer page">
+      <input type="hidden" name="request_type" value="Design a New System">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
       <div class="intake-field">
@@ -126,54 +206,49 @@
         <label for="na-email">Email</label>
         <input type="email" id="na-email" name="email" required>
       </div>
-      <div class="intake-row">
-        <div class="intake-field">
-          <label for="na-company">Company <span class="optional">(optional)</span></label>
-          <input type="text" id="na-company" name="company">
-        </div>
-        <div class="intake-field">
-          <label for="na-phone">Phone <span class="optional">(optional)</span></label>
-          <input type="tel" id="na-phone" name="phone">
-        </div>
-      </div>
       <div class="intake-field">
         <label for="na-what">What are you trying to heat?</label>
         <input type="text" id="na-what" name="what_to_heat" required placeholder="e.g. 500-gallon tote, 3-inch sample line, control cabinet">
       </div>
       <div class="intake-field">
-        <label for="na-temp">What temperature or range do you need to maintain?</label>
-        <input type="text" id="na-temp" name="target_temperature" placeholder="e.g. Keep above 40°F">
+        <label for="na-temp">Target temperature or environment</label>
+        <input type="text" id="na-temp" name="target_temperature" required placeholder="e.g. Keep above 40°F outdoors in a Minnesota winter">
       </div>
-      <div class="intake-field">
-        <label for="na-environment">Where will this operate?</label>
-        <input type="text" id="na-environment" name="environment" placeholder="e.g. Outdoor, Class I Div 2, Minnesota winter">
-      </div>
-      <div class="intake-field">
-        <label for="na-stage">Where are you in the process?</label>
-        <select id="na-stage" name="project_stage">
-          <option>Just exploring options</option>
-          <option>Have a rough spec</option>
-          <option>Ready to order</option>
-        </select>
-      </div>
-      <div class="intake-field">
-        <label for="na-notes">Anything else we should know? <span class="optional">(optional)</span></label>
-        <textarea id="na-notes" name="message"></textarea>
-      </div>
+
+      <button type="button" class="intake-more-toggle" aria-expanded="false" data-target="na-more">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="intake-more-label">Add project details</span> <span class="optional">(optional)</span>
+      </button>
+      <div class="intake-more-fields" id="na-more"><div>
+        <div class="intake-row">
+          <div class="intake-field">
+            <label for="na-company">Company</label>
+            <input type="text" id="na-company" name="company">
+          </div>
+          <div class="intake-field">
+            <label for="na-stage">Where are you in the process?</label>
+            <select id="na-stage" name="project_stage">
+              <option>Just exploring options</option>
+              <option>Have a rough spec</option>
+              <option>Ready to order</option>
+            </select>
+          </div>
+        </div>
+      </div></div>
 
       <button type="submit" class="btn btn-primary intake-submit">Send to Engineering</button>
       <p class="intake-microcopy">An engineer replies personally — no auto-responder, no sales queue. We never share your information.</p>
       <p class="intake-error"></p>
     </form>
 
-    <!-- Existing System Support -->
+    <!-- Troubleshooting -->
     <form class="intake-form" id="form-troubleshooting" data-category="troubleshooting" action="https://api.web3forms.com/submit" method="POST">
       <h2 class="intake-form-heading">Tell us what's going wrong</h2>
-      <p class="intake-form-subhead">The more specific you can be, the faster we can help.</p>
+      <p class="intake-form-subhead">Four quick questions — that's all we need to start.</p>
 
-      <input type="hidden" name="access_key" value="4d5bf2f0-642f-4bf5-874e-b1b2e0876d1f">
-      <input type="hidden" name="subject" value="Existing System Support lead from Talk to an Engineer page">
-      <input type="hidden" name="request_type" value="Existing System Support">
+      <input type="hidden" name="access_key" value="7be1e0c7-1730-414f-b6d5-4a115c0515fe">
+      <input type="hidden" name="subject" value="Troubleshooting lead from Talk to an Engineer page">
+      <input type="hidden" name="request_type" value="Troubleshoot a System">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
       <div class="intake-field">
@@ -184,50 +259,50 @@
         <label for="ts-email">Email</label>
         <input type="email" id="ts-email" name="email" required>
       </div>
-      <div class="intake-row">
-        <div class="intake-field">
-          <label for="ts-company">Company <span class="optional">(optional)</span></label>
-          <input type="text" id="ts-company" name="company">
-        </div>
-        <div class="intake-field">
-          <label for="ts-phone">Phone <span class="optional">(optional)</span></label>
-          <input type="tel" id="ts-phone" name="phone">
-        </div>
-      </div>
       <div class="intake-field">
-        <label for="ts-product">What product or system is involved? <span class="optional">(optional)</span></label>
-        <input type="text" id="ts-product" name="product" placeholder="Model or part number, if you have it">
-      </div>
-      <div class="intake-field">
-        <label for="ts-issue">What's it doing — or not doing?</label>
+        <label for="ts-issue">What's the system doing — or not doing?</label>
         <textarea id="ts-issue" name="message" required placeholder="Describe the symptom, when it started, and anything you've already tried"></textarea>
       </div>
       <div class="intake-field">
         <label for="ts-urgency">How urgent is this?</label>
-        <select id="ts-urgency" name="urgency">
+        <select id="ts-urgency" name="urgency" required>
+          <option value="" disabled selected>Select one</option>
           <option>Not urgent</option>
           <option>Need this resolved this week</option>
           <option>Urgent — production is down</option>
         </select>
       </div>
-      <div class="intake-field">
-        <label for="ts-installed">When was it installed? <span class="optional">(optional)</span></label>
-        <input type="text" id="ts-installed" name="install_date" placeholder="e.g. 2019, or 'not sure'">
-      </div>
+
+      <button type="button" class="intake-more-toggle" aria-expanded="false" data-target="ts-more">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="intake-more-label">Add project details</span> <span class="optional">(optional)</span>
+      </button>
+      <div class="intake-more-fields" id="ts-more"><div>
+        <div class="intake-row">
+          <div class="intake-field">
+            <label for="ts-company">Company</label>
+            <input type="text" id="ts-company" name="company">
+          </div>
+          <div class="intake-field">
+            <label for="ts-product">Product or model</label>
+            <input type="text" id="ts-product" name="product" placeholder="If you have it">
+          </div>
+        </div>
+      </div></div>
 
       <button type="submit" class="btn btn-primary intake-submit">Send to Engineering</button>
       <p class="intake-microcopy">An engineer replies personally — no auto-responder, no sales queue. We never share your information.</p>
       <p class="intake-error"></p>
     </form>
 
-    <!-- Custom & OEM Project -->
+    <!-- Custom & OEM -->
     <form class="intake-form" id="form-custom-oem" data-category="custom-oem" action="https://api.web3forms.com/submit" method="POST">
       <h2 class="intake-form-heading">Tell us about the project</h2>
-      <p class="intake-form-subhead">Custom and OEM work usually starts as a conversation — this just gets it started.</p>
+      <p class="intake-form-subhead">Four quick questions — that's all we need to start.</p>
 
-      <input type="hidden" name="access_key" value="4d5bf2f0-642f-4bf5-874e-b1b2e0876d1f">
-      <input type="hidden" name="subject" value="Custom & OEM Project lead from Talk to an Engineer page">
-      <input type="hidden" name="request_type" value="Custom & OEM Project">
+      <input type="hidden" name="access_key" value="7be1e0c7-1730-414f-b6d5-4a115c0515fe">
+      <input type="hidden" name="subject" value="Custom & OEM lead from Talk to an Engineer page">
+      <input type="hidden" name="request_type" value="Build a Custom Solution">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
       <div class="intake-field">
@@ -238,36 +313,35 @@
         <label for="co-email">Email</label>
         <input type="email" id="co-email" name="email" required>
       </div>
-      <div class="intake-row">
-        <div class="intake-field">
-          <label for="co-company">Company <span class="optional">(optional)</span></label>
-          <input type="text" id="co-company" name="company">
-        </div>
-        <div class="intake-field">
-          <label for="co-phone">Phone <span class="optional">(optional)</span></label>
-          <input type="tel" id="co-phone" name="phone">
-        </div>
-      </div>
       <div class="intake-field">
         <label for="co-what">What are you building or integrating?</label>
         <textarea id="co-what" name="message" required placeholder="Describe the project, geometry, or system you need heat integrated into"></textarea>
       </div>
       <div class="intake-field">
         <label for="co-volume">Expected volume or scale</label>
-        <input type="text" id="co-volume" name="volume" placeholder="e.g. 40 units/year, one large installation">
+        <input type="text" id="co-volume" name="volume" required placeholder="e.g. 40 units/year, one large installation">
       </div>
-      <div class="intake-field">
-        <label for="co-timeline">Timeline for a decision</label>
-        <select id="co-timeline" name="timeline">
-          <option>Just researching</option>
-          <option>This quarter</option>
-          <option>Within 30 days</option>
-        </select>
-      </div>
-      <div class="intake-field">
-        <label for="co-drawings">Do you have drawings or specs to share? <span class="optional">(optional)</span></label>
-        <input type="text" id="co-drawings" name="drawings" placeholder="Let us know — we'll follow up to request them">
-      </div>
+
+      <button type="button" class="intake-more-toggle" aria-expanded="false" data-target="co-more">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="intake-more-label">Add project details</span> <span class="optional">(optional)</span>
+      </button>
+      <div class="intake-more-fields" id="co-more"><div>
+        <div class="intake-row">
+          <div class="intake-field">
+            <label for="co-company">Company</label>
+            <input type="text" id="co-company" name="company">
+          </div>
+          <div class="intake-field">
+            <label for="co-timeline">Timeline for a decision</label>
+            <select id="co-timeline" name="timeline">
+              <option>Just researching</option>
+              <option>This quarter</option>
+              <option>Within 30 days</option>
+            </select>
+          </div>
+        </div>
+      </div></div>
 
       <button type="submit" class="btn btn-primary intake-submit">Send to Engineering</button>
       <p class="intake-microcopy">An engineer replies personally — no auto-responder, no sales queue. We never share your information.</p>
@@ -285,6 +359,28 @@
       <p>Thanks — we've got it. An engineer will reply to <strong id="intake-success-email"></strong> within one business day.</p>
     </div>
 
+  </div>
+</section>
+
+<section class="intake-testimonial-section reveal">
+  <div class="container">
+    <div class="intake-testimonial">
+      <p class="intake-testimonial-mark">&ldquo;</p>
+      <blockquote>Powerblanket responded to my custom application quickly and effectively&hellip; I was impressed
+        with their responsiveness and ability to understand my urgent need.</blockquote>
+      <p class="intake-testimonial-attribution">Guy Blasingame<span>ChemRock Technologies</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="intake-final-cta reveal">
+  <div class="container intake-final-cta-inner">
+    <p class="intake-eyebrow">Our Commitment</p>
+    <h2>A Real Engineer Reviews Every Submission</h2>
+    <p>No queues, no auto-responders, no sales scripts. Every message that comes through this page is read
+      by a Powerblanket applications engineer whose job is to help you solve a heating problem — not to
+      sell you a part you don't need. If electric heat isn't the right fit, we'll tell you that too.</p>
+    <a href="#consultation" class="btn btn-primary">Start Your Consultation</a>
   </div>
 </section>
 

@@ -1,54 +1,126 @@
-/* ---------- Talk to an Engineer — dedicated minimalist page styles ----------
+/* ---------- Talk to an Engineer — premium consultation-page styles ----------
    Uses the site's standard hub-banner (from ../styles.css) for nav consistency,
-   but everything below it is deliberately distinct from the photo-heavy rest of
-   the site: this is the "front door" to applications engineering, styled closer
-   to a modern product/support landing page than an industrial brochure. */
+   but everything below it is a deliberately elevated, consultancy-grade visual
+   register: generous whitespace, blueprint-grid texture, numbered/lettered
+   micro-labels, restrained motion — closer to a technical consultancy's intake
+   page than an industrial brochure. */
 
 body { background: #fff; }
 
-/* Hero */
-.intake-hero { padding: 64px 0 40px; text-align: center; }
-.intake-hero-inner { max-width: 700px; margin: 0 auto; }
-.intake-eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.76rem; font-weight: 700; color: var(--brand-accent); margin: 0 0 18px; }
-.intake-hero h1 { font-size: clamp(2.1rem, 4vw, 3.1rem); margin: 0 0 20px; }
-.intake-hero p { font-size: 1.15rem; color: var(--ink-soft); max-width: 560px; margin: 0 auto; }
+.blueprint-bg {
+  position: relative;
+}
+.blueprint-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(107,114,128,0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107,114,128,0.09) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 90%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 90%);
+}
+.blueprint-bg > * { position: relative; z-index: 1; }
 
-/* Tiles */
-.intake-tiles-section { padding: 40px 0 20px; }
-.intake-tiles-label { text-align: center; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); margin: 0 0 28px; }
-.intake-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 900px; margin: 0 auto; }
+/* Corner-bracket motif — a small blueprint "registration mark" reused on the hero
+   and on each tile so the two visual moments feel like one design language. */
+.corner-brackets { position: relative; }
+.corner-brackets::before, .corner-brackets::after,
+.corner-brackets .bracket-tr, .corner-brackets .bracket-bl {
+  content: ""; position: absolute; width: 16px; height: 16px; border-color: var(--brand-steel); opacity: 0.35;
+  transition: opacity 0.25s ease, border-color 0.25s ease;
+}
+.corner-brackets::before { top: -1px; left: -1px; border-top: 1.5px solid; border-left: 1.5px solid; }
+.corner-brackets::after { bottom: -1px; right: -1px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+
+/* ---------- Scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s cubic-bezier(0.2,0.7,0.2,1), transform 0.7s cubic-bezier(0.2,0.7,0.2,1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Hero ---------- */
+.intake-hero { padding: 108px 0 88px; text-align: center; }
+.intake-hero-inner { max-width: 720px; margin: 0 auto; animation: heroFadeUp 0.9s cubic-bezier(0.2,0.7,0.2,1) both; }
+@keyframes heroFadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+.intake-eyebrow {
+  text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; font-weight: 700;
+  color: var(--brand-accent); margin: 0 0 22px; display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.intake-eyebrow::before, .intake-eyebrow::after { content: ""; width: 28px; height: 1px; background: currentColor; opacity: 0.5; }
+
+.intake-hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); margin: 0 0 26px; font-weight: 800; letter-spacing: -0.025em; }
+.intake-hero p { font-size: 1.2rem; font-weight: 300; line-height: 1.6; color: var(--ink-soft); max-width: 580px; margin: 0 auto; }
+
+/* ---------- Trust / expertise ---------- */
+.intake-trust-section { padding: 8px 0 96px; }
+.intake-trust-label { text-align: center; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 8px; }
+.intake-trust-heading { text-align: center; font-size: 1.6rem; margin: 0 0 48px; }
+
+.intake-trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; max-width: 980px; margin: 0 auto; }
+.intake-trust-item { background: #fff; padding: 32px 28px; transition: background 0.25s ease; }
+.intake-trust-item:hover { background: var(--brand-coolgray); }
+.intake-trust-icon { width: 26px; height: 26px; color: var(--brand-accent); margin-bottom: 16px; }
+.intake-trust-icon svg { width: 100%; height: 100%; }
+.intake-trust-item h3 { font-size: 0.98rem; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
+.intake-trust-item p { font-size: 0.85rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+/* ---------- Tiles ---------- */
+.intake-tiles-section { padding: 8px 0 32px; scroll-margin-top: 24px; }
+.intake-tiles-label { text-align: center; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 8px; }
+.intake-tiles-heading { text-align: center; font-size: 1.6rem; margin: 0 0 12px; }
+.intake-tiles-sub { text-align: center; font-size: 0.98rem; color: var(--ink-soft); max-width: 480px; margin: 0 auto 48px; }
+
+.intake-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1020px; margin: 0 auto; }
 
 .intake-tile {
   display: block;
   text-align: left;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 24px;
+  border-radius: 18px;
+  padding: 34px 28px 28px;
   cursor: pointer;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
   font-family: inherit;
+  position: relative;
+  overflow: hidden;
 }
-.intake-tile:hover { border-color: #d5d9de; box-shadow: 0 10px 28px -14px rgba(13,19,33,0.18); transform: translateY(-2px); }
+.intake-tile::before, .intake-tile::after { content: ""; position: absolute; width: 16px; height: 16px; border-color: var(--brand-steel); opacity: 0; transition: opacity 0.25s ease, border-color 0.25s ease; }
+.intake-tile::before { top: 10px; left: 10px; border-top: 1.5px solid; border-left: 1.5px solid; }
+.intake-tile::after { bottom: 10px; right: 10px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+.intake-tile:hover, .intake-tile:focus-visible { border-color: transparent; box-shadow: 0 20px 40px -20px rgba(13,19,33,0.25); transform: translateY(-4px); outline: none; }
+.intake-tile:hover::before, .intake-tile:hover::after,
+.intake-tile:focus-visible::before, .intake-tile:focus-visible::after { opacity: 1; border-color: var(--brand-accent); }
 .intake-tile.is-selected { border-color: var(--brand-accent); box-shadow: 0 0 0 3px rgba(226,58,26,0.12); }
+.intake-tile.is-selected::before, .intake-tile.is-selected::after { opacity: 1; border-color: var(--brand-accent); }
 
-.intake-tile-icon { width: 34px; height: 34px; color: var(--brand-charcoal); margin-bottom: 16px; }
+.intake-tile-index { font-size: 0.78rem; font-weight: 700; color: var(--brand-steel); letter-spacing: 0.05em; margin-bottom: 18px; display: block; }
+.intake-tile-icon { width: 32px; height: 32px; color: var(--brand-charcoal); margin-bottom: 18px; transition: color 0.25s ease, transform 0.25s ease; }
+.intake-tile:hover .intake-tile-icon { color: var(--brand-accent); transform: translateY(-2px); }
 .intake-tile.is-selected .intake-tile-icon { color: var(--brand-accent); }
 .intake-tile-icon svg { width: 100%; height: 100%; }
-.intake-tile h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
-.intake-tile p { font-size: 0.88rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+.intake-tile h3 { font-size: 1.12rem; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+.intake-tile p { font-size: 0.9rem; color: var(--ink-soft); margin: 0 0 18px; line-height: 1.55; }
 
-/* Form section */
-.intake-form-section { padding: 24px 0 100px; }
+.intake-tile-cta { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: var(--brand-accent); opacity: 0; transform: translateX(-6px); transition: opacity 0.25s ease, transform 0.25s ease; }
+.intake-tile:hover .intake-tile-cta, .intake-tile.is-selected .intake-tile-cta { opacity: 1; transform: translateX(0); }
+.intake-tile-cta svg { width: 14px; height: 14px; }
+
+/* ---------- Form section ---------- */
+.intake-form-section { padding: 56px 0 100px; }
 .intake-form-wrap { max-width: 560px; margin: 0 auto; }
 
-.intake-placeholder { text-align: center; padding: 48px 0; color: var(--ink-soft); font-size: 0.98rem; }
+.intake-placeholder { text-align: center; padding: 40px 0; color: var(--ink-soft); font-size: 0.98rem; }
 
 .intake-form-heading { font-size: 1.5rem; margin: 0 0 6px; }
-.intake-form-subhead { color: var(--ink-soft); font-size: 0.95rem; margin: 0 0 28px; }
+.intake-form-subhead { color: var(--ink-soft); font-size: 0.95rem; margin: 0 0 32px; }
 
-.intake-form { display: none; flex-direction: column; }
+.intake-form { display: none; flex-direction: column; animation: formFadeIn 0.5s cubic-bezier(0.2,0.7,0.2,1) both; }
 .intake-form.is-active { display: flex; }
+@keyframes formFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 .intake-field { display: flex; flex-direction: column; margin-bottom: 26px; }
 .intake-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -78,18 +150,31 @@ body { background: #fff; }
   outline: none;
   border-bottom-color: var(--brand-accent);
 }
-.intake-field textarea { min-height: 110px; line-height: 1.5; }
+.intake-field textarea { min-height: 100px; line-height: 1.5; }
 
-.intake-submit {
-  margin-top: 12px;
-  align-self: flex-start;
+.intake-more-toggle {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: none; padding: 4px 0; margin: 2px 0 8px;
+  font-family: inherit; font-size: 0.85rem; font-weight: 600; color: var(--ink-soft);
+  cursor: pointer; align-self: flex-start; transition: color 0.2s ease;
 }
+.intake-more-toggle:hover { color: var(--brand-accent); }
+.intake-more-toggle svg { width: 12px; height: 12px; transition: transform 0.25s ease; }
+.intake-more-toggle[aria-expanded="true"] svg { transform: rotate(45deg); }
+
+.intake-more-fields {
+  display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.35s ease, opacity 0.3s ease;
+}
+.intake-more-fields > div { overflow: hidden; }
+.intake-more-fields.is-open { grid-template-rows: 1fr; opacity: 1; margin-bottom: 4px; }
+
+.intake-submit { margin-top: 12px; align-self: flex-start; }
 
 .intake-microcopy { margin-top: 18px; font-size: 0.85rem; color: var(--ink-soft); }
 
 /* Success state */
 .intake-success { display: none; text-align: center; padding: 40px 0; }
-.intake-success.is-visible { display: block; }
+.intake-success.is-visible { display: block; animation: formFadeIn 0.5s cubic-bezier(0.2,0.7,0.2,1) both; }
 .intake-success-icon { width: 52px; height: 52px; margin: 0 auto 20px; color: var(--brand-accent); }
 .intake-success h2 { font-size: 1.4rem; margin: 0 0 10px; }
 .intake-success p { color: var(--ink-soft); max-width: 440px; margin: 0 auto; }
@@ -97,15 +182,33 @@ body { background: #fff; }
 .intake-error { display: none; margin-top: 16px; font-size: 0.88rem; color: var(--brand-accent-dark); }
 .intake-error.is-visible { display: block; }
 
-/* Footer */
+/* ---------- Testimonial ---------- */
+.intake-testimonial-section { padding: 8px 0 96px; }
+.intake-testimonial { max-width: 720px; margin: 0 auto; text-align: center; }
+.intake-testimonial-mark { font-size: 4.5rem; line-height: 1; color: var(--brand-accent); opacity: 0.25; font-family: Georgia, serif; margin-bottom: 4px; }
+.intake-testimonial blockquote { margin: 0 0 24px; font-size: 1.35rem; font-weight: 300; line-height: 1.55; color: var(--brand-charcoal); letter-spacing: -0.01em; }
+.intake-testimonial-attribution { font-size: 0.9rem; font-weight: 700; color: var(--ink); }
+.intake-testimonial-attribution span { display: block; font-weight: 500; color: var(--ink-soft); font-size: 0.85rem; margin-top: 2px; }
+
+/* ---------- Final CTA ---------- */
+.intake-final-cta { padding: 88px 0 108px; background: var(--brand-charcoal); text-align: center; }
+.intake-final-cta-inner { max-width: 620px; margin: 0 auto; }
+.intake-final-cta .intake-eyebrow { color: var(--brand-accent); }
+.intake-final-cta h2 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.1rem); margin: 0 0 20px; }
+.intake-final-cta p { color: #c7ccd4; font-size: 1.05rem; line-height: 1.65; margin: 0 0 32px; }
+
+/* ---------- Footer ---------- */
 .intake-footer { padding: 28px 0; border-top: 1px solid var(--border); text-align: center; }
 .intake-footer p { margin: 0; font-size: 0.82rem; color: #94a3b8; }
 
 @media (max-width: 900px) {
-  .intake-tiles { grid-template-columns: 1fr; max-width: 460px; }
+  .intake-trust-grid { grid-template-columns: repeat(2, 1fr); }
+  .intake-tiles { grid-template-columns: 1fr; max-width: 480px; }
 }
 @media (max-width: 640px) {
-  .intake-hero { padding: 44px 0 30px; }
+  .intake-hero { padding: 72px 0 56px; }
+  .intake-trust-grid { grid-template-columns: 1fr; }
   .intake-row { grid-template-columns: 1fr; gap: 0; }
-  .intake-form-section { padding: 24px 0 72px; }
+  .intake-form-section { padding: 40px 0 72px; }
+  .intake-final-cta { padding: 64px 0 80px; }
 }
