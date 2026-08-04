@@ -104,6 +104,9 @@ document.getElementById("year").textContent = new Date().getFullYear();
           form.hidden = true;
           successBox.classList.add("is-visible");
           successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (typeof gtag === "function") {
+            gtag("event", "generate_lead", { form_id: form.dataset.category || "talk_to_an_engineer" });
+          }
         } else {
           throw new Error(result.message || "Submission failed");
         }

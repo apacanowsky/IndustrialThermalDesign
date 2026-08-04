@@ -136,7 +136,7 @@
     <h2 class="intake-tiles-heading">What Brings You Here Today?</h2>
     <p class="intake-tiles-sub">Choose the path that fits — it tailors the questions below so you can say less and get to the point faster.</p>
     <div class="intake-tiles">
-      <button type="button" class="intake-tile" data-category="new-application">
+      <button type="button" class="intake-tile" data-category="standard-system">
         <span class="intake-tile-index">01</span>
         <div class="intake-tile-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -144,8 +144,8 @@
             <path d="M15.3 8.7L13 13L8.7 15.3L11 11L15.3 8.7Z"/>
           </svg>
         </div>
-        <h3>Design a New System</h3>
-        <p>Scoping a new heating system for a process, tank, line, or enclosure and want an engineer's input on the right approach.</p>
+        <h3>Design a Standard System</h3>
+        <p>Sizing or specifying a standard tank blanket, sample line, or heat-trace product for a process, tank, or enclosure.</p>
         <span class="intake-tile-cta">Begin your consultation
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
@@ -174,7 +174,7 @@
           </svg>
         </div>
         <h3>Build a Custom Solution</h3>
-        <p>Your application doesn't fit a catalog part — you need a non-standard build or OEM integration.</p>
+        <p>Your application doesn't fit a catalog part — you need a custom-engineered, non-standard build or OEM integration.</p>
         <span class="intake-tile-cta">Begin your consultation
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
@@ -188,14 +188,14 @@
 
     <p class="intake-placeholder" id="intake-placeholder">Choose an option above to get started — each leads to a short, tailored consultation.</p>
 
-    <!-- New Application -->
-    <form class="intake-form" id="form-new-application" data-category="new-application" action="https://api.web3forms.com/submit" method="POST">
-      <h2 class="intake-form-heading">Tell us about the new system</h2>
+    <!-- Standard System -->
+    <form class="intake-form" id="form-standard-system" data-category="standard-system" action="https://api.web3forms.com/submit" method="POST">
+      <h2 class="intake-form-heading">Tell us about the standard system</h2>
       <p class="intake-form-subhead">Four quick questions — that's all we need to start.</p>
 
       <input type="hidden" name="access_key" value="7be1e0c7-1730-414f-b6d5-4a115c0515fe">
-      <input type="hidden" name="subject" value="New System lead from Talk to an Engineer page">
-      <input type="hidden" name="request_type" value="Design a New System">
+      <input type="hidden" name="subject" value="Standard System lead from Talk to an Engineer page">
+      <input type="hidden" name="request_type" value="Design a Standard System">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
       <div class="intake-field">
@@ -314,12 +314,12 @@
         <input type="email" id="co-email" name="email" required>
       </div>
       <div class="intake-field">
-        <label for="co-what">What are you building or integrating?</label>
-        <textarea id="co-what" name="message" required placeholder="Describe the project, geometry, or system you need heat integrated into"></textarea>
+        <label for="co-what">What are you building, and what's the goal?</label>
+        <textarea id="co-what" name="message" required placeholder="Describe the project, geometry, or system you need heat integrated into, and what success looks like"></textarea>
       </div>
       <div class="intake-field">
-        <label for="co-volume">Expected volume or scale</label>
-        <input type="text" id="co-volume" name="volume" required placeholder="e.g. 40 units/year, one large installation">
+        <label for="co-environment">Operating environment</label>
+        <input type="text" id="co-environment" name="environment" required placeholder="e.g. Outdoor, Class I Div 2, -20°F to 150°F ambient">
       </div>
 
       <button type="button" class="intake-more-toggle" aria-expanded="false" data-target="co-more">
@@ -327,10 +327,14 @@
         <span class="intake-more-label">Add project details</span> <span class="optional">(optional)</span>
       </button>
       <div class="intake-more-fields" id="co-more"><div>
+        <div class="intake-field">
+          <label for="co-limitations">Any constraints or limitations we should know?</label>
+          <input type="text" id="co-limitations" name="limitations" placeholder="e.g. space, voltage, weight, certification requirements">
+        </div>
         <div class="intake-row">
           <div class="intake-field">
-            <label for="co-company">Company</label>
-            <input type="text" id="co-company" name="company">
+            <label for="co-volume">Expected volume or scale</label>
+            <input type="text" id="co-volume" name="volume" placeholder="e.g. 40 units/year, one large installation">
           </div>
           <div class="intake-field">
             <label for="co-timeline">Timeline for a decision</label>
@@ -340,6 +344,10 @@
               <option>Within 30 days</option>
             </select>
           </div>
+        </div>
+        <div class="intake-field">
+          <label for="co-company">Company</label>
+          <input type="text" id="co-company" name="company">
         </div>
       </div></div>
 
