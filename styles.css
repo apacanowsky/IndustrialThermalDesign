@@ -71,7 +71,21 @@ a { color: inherit; }
 .kicker-on-dark { color: var(--thermal-yellow); }
 
 .section { padding: 88px 0; }
+.section-alt { background: var(--paper-alt); }
 .section-intro { color: var(--ink-soft); max-width: 640px; margin-bottom: 2.2rem; font-size: 1.05rem; }
+
+/* ---------- Scroll reveal — shared across subdomain pages ---------- */
+
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s cubic-bezier(0.2,0.7,0.2,1), transform 0.7s cubic-bezier(0.2,0.7,0.2,1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Ask an Engineer — closing CTA band, reused verbatim across every subdomain page ---------- */
+
+.section-cta-band { background: var(--green-900); color: #fff; text-align: center; }
+.section-cta-band h2 { color: #fff; }
+.section-cta-band p { color: #d1d5db; }
+.cta-band-inner { max-width: 560px; margin: 0 auto; }
+.cta-band-inner .btn { margin-top: 8px; }
 
 /* ---------- Banner (matches the Sample Line Guide subsite) ---------- */
 
