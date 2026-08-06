@@ -54,21 +54,8 @@ body { background: #fff; }
 .intake-hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); margin: 0 0 26px; font-weight: 800; letter-spacing: -0.025em; }
 .intake-hero p { font-size: 1.2rem; font-weight: 300; line-height: 1.6; color: var(--ink-soft); max-width: 580px; margin: 0 auto; }
 
-/* ---------- Trust / expertise ---------- */
-.intake-trust-section { padding: 8px 0 96px; }
-.intake-trust-label { text-align: center; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 8px; }
-.intake-trust-heading { text-align: center; font-size: 1.6rem; margin: 0 0 48px; }
-
-.intake-trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; max-width: 980px; margin: 0 auto; }
-.intake-trust-item { background: #fff; padding: 32px 28px; transition: background 0.25s ease; }
-.intake-trust-item:hover { background: var(--brand-coolgray); }
-.intake-trust-icon { width: 26px; height: 26px; color: var(--brand-accent); margin-bottom: 16px; }
-.intake-trust-icon svg { width: 100%; height: 100%; }
-.intake-trust-item h3 { font-size: 0.98rem; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
-.intake-trust-item p { font-size: 0.85rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
-
 /* ---------- Tiles ---------- */
-.intake-tiles-section { padding: 8px 0 32px; scroll-margin-top: 24px; }
+.intake-tiles-section { padding: 24px 0 32px; scroll-margin-top: 24px; }
 .intake-tiles-label { text-align: center; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 8px; }
 .intake-tiles-heading { text-align: center; font-size: 1.6rem; margin: 0 0 12px; }
 .intake-tiles-sub { text-align: center; font-size: 0.98rem; color: var(--ink-soft); max-width: 480px; margin: 0 auto 48px; }
@@ -202,12 +189,10 @@ body { background: #fff; }
 .intake-footer p { margin: 0; font-size: 0.82rem; color: #94a3b8; }
 
 @media (max-width: 900px) {
-  .intake-trust-grid { grid-template-columns: repeat(2, 1fr); }
   .intake-tiles { grid-template-columns: 1fr; max-width: 480px; }
 }
 @media (max-width: 640px) {
   .intake-hero { padding: 72px 0 56px; }
-  .intake-trust-grid { grid-template-columns: 1fr; }
   .intake-row { grid-template-columns: 1fr; gap: 0; }
   .intake-form-section { padding: 40px 0 72px; }
   .intake-final-cta { padding: 64px 0 80px; }
