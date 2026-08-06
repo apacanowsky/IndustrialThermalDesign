@@ -1,0 +1,14 @@
+/* 2-slide rotation, 10s each -- same pacing as the other subdomain heroes */
+.hero-slide {
+  animation: heroSlideCycle 20s infinite;
+}
+.hero-slide:nth-child(1) { animation-delay: 0s; }
+.hero-slide:nth-child(2) { animation-delay: 10s; }
+
+@keyframes heroSlideCycle {
+  0%    { opacity: 0; transform: scale(1.08) translate(0, 0); }
+  5%    { opacity: 1; }
+  45%   { opacity: 1; transform: scale(1.16) translate(-1.5%, -1%); }
+  50%   { opacity: 0; }
+  100%  { opacity: 0; }
+}

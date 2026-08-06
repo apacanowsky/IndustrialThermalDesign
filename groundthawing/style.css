@@ -1,0 +1,10 @@
+/* Single real photo available -- gentle continuous pan instead of a cross-fade cycle */
+.hero-slide {
+  opacity: 1;
+  animation: heroPanOnly 24s ease-in-out infinite alternate;
+}
+
+@keyframes heroPanOnly {
+  0%   { transform: scale(1.08) translate(0, 0); }
+  100% { transform: scale(1.2) translate(-2%, -1.5%); }
+}
