@@ -233,7 +233,7 @@
     <!-- Custom & OEM -->
     <form class="intake-form" id="form-custom-oem" data-category="custom-oem" action="https://api.web3forms.com/submit" method="POST">
       <h2 class="intake-form-heading">Tell us about the project</h2>
-      <p class="intake-form-subhead">Four quick questions — that's all we need to start.</p>
+      <p class="intake-form-subhead">Most custom projects get a quote within 24 hours and ship in about two weeks.</p>
 
       <input type="hidden" name="access_key" value="4d5bf2f0-642f-4bf5-874e-b1b2e0876d1f">
       <input type="hidden" name="subject" value="Custom & OEM lead from Talk to an Engineer page">
@@ -249,12 +249,21 @@
         <input type="email" id="co-email" name="email" required>
       </div>
       <div class="intake-field">
-        <label for="co-what">What are you building, and what's the goal?</label>
-        <textarea id="co-what" name="message" required placeholder="Describe the project, geometry, or system you need heat integrated into, and what success looks like"></textarea>
+        <label for="co-system">What kind of system needs temperature control?</label>
+        <select id="co-system" name="system_type" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Drum or bucket</option>
+          <option>Tote</option>
+          <option>Tank</option>
+          <option>Gas cylinder</option>
+          <option>Pipe, valve, or manifold</option>
+          <option>Flat surface (vertical or horizontal)</option>
+          <option>Other / not sure</option>
+        </select>
       </div>
       <div class="intake-field">
-        <label for="co-environment">Operating environment</label>
-        <input type="text" id="co-environment" name="environment" required placeholder="e.g. Outdoor, Class I Div 2, -20°F to 150°F ambient">
+        <label for="co-what">What are you building, and what's the goal?</label>
+        <textarea id="co-what" name="message" required placeholder="Describe the project, geometry, or system you need heat integrated into, and what success looks like"></textarea>
       </div>
 
       <button type="button" class="intake-more-toggle" aria-expanded="false" data-target="co-more">
@@ -263,8 +272,24 @@
       </button>
       <div class="intake-more-fields" id="co-more"><div>
         <div class="intake-field">
-          <label for="co-limitations">Any constraints or limitations we should know?</label>
-          <input type="text" id="co-limitations" name="limitations" placeholder="e.g. space, voltage, weight, certification requirements">
+          <label for="co-environment">Operating environment</label>
+          <input type="text" id="co-environment" name="environment" placeholder="e.g. Outdoor, Class I Div 2, -20°F to 150°F ambient, expected wind">
+        </div>
+        <div class="intake-row">
+          <div class="intake-field">
+            <label for="co-limitations">Any constraints or limitations we should know?</label>
+            <input type="text" id="co-limitations" name="limitations" placeholder="e.g. space, weight, certification requirements">
+          </div>
+          <div class="intake-field">
+            <label for="co-power">Preferred power source</label>
+            <select id="co-power" name="power_source">
+              <option value="">Not sure</option>
+              <option>120V AC</option>
+              <option>208V AC</option>
+              <option>240V AC</option>
+              <option>DC</option>
+            </select>
+          </div>
         </div>
         <div class="intake-row">
           <div class="intake-field">
@@ -311,7 +336,7 @@
       <p class="intake-testimonial-mark">&ldquo;</p>
       <blockquote>Powerblanket responded to my custom application quickly and effectively&hellip; I was impressed
         with their responsiveness and ability to understand my urgent need.</blockquote>
-      <p class="intake-testimonial-attribution">Guy Blasingame<span>ChemRock Technologies</span></p>
+      <p class="intake-testimonial-attribution">Guy Blasingame<span>National Manager – Field Operations, ChemRock/Rapid Drilling</span></p>
     </div>
   </div>
 </section>
